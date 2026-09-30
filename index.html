@@ -9,11 +9,13 @@
 <div class="card"><div class="label">Gewicht</div><div class="big" id="weightOut">—</div><div class="green" id="trendOut">Noch kein Trend</div></div>
 <div class="card"><div class="label">Taille</div><div class="big" id="waistOut">—</div><div class="green">Verlauf wird berücksichtigt</div></div>
 <div class="card"><div class="label">Check-in</div><div class="big">Neu</div><button class="action" id="focusBtn">+ Messung eintragen</button></div>
+<div class="card"><div class="label">7-Tage-Trend</div><div class="big" id="trend7Out">—</div><div class="green" id="trend7Status">Mehr Daten nötig</div></div>
+<div class="card"><div class="label">Taille-Verlauf</div><div class="big" id="waistStatus">—</div><div class="label">Gewicht + Umfang gemeinsam</div></div>
 <div class="card wide"><h3>Körpermaße</h3><div class="row">
 <label>Gewicht (kg)<input id="weight" type="number" step="0.1"></label><label>Taille (cm)<input id="waist" type="number" step="0.1"></label><label>Bauch (cm)<input id="belly" type="number" step="0.1"></label><label>Brust (cm)<input id="chest" type="number" step="0.1"></label><label>Hüfte (cm)<input id="hip" type="number" step="0.1"></label><label>Oberarm (cm)<input id="arm" type="number" step="0.1"></label><label>Oberschenkel (cm)<input id="thigh" type="number" step="0.1"></label><label>Wade (cm)<input id="calf" type="number" step="0.1"></label>
 </div><button class="action" id="saveCheck">Check-in speichern</button><div id="saveMsg" class="notice" style="display:none">Gespeichert.</div></div>
 <div class="card wide"><h3>📸 Foto-Check</h3><div class="label">Front, Seite und Rücken auswählen.</div><input id="photos" type="file" accept="image/*" multiple><div id="photoMsg" class="notice" style="display:none"></div></div>
-<div class="card wide"><h3>🔎 Check-in-Auswertung</h3><div id="assessment" class="notice">Mindestens mehrere Check-ins werden gemeinsam betrachtet. Eine einzelne Gewichtsmessung löst keine Kalorienänderung aus.</div></div>
+<div class="card wide"><h3>🔎 Check-in-Auswertung</h3><div id="assessment" class="notice">Mindestens mehrere Check-ins werden gemeinsam betrachtet. Eine einzelne Gewichtsmessung löst keine Kalorienänderung aus.</div><div id="plateauDetail" class="label" style="margin-top:8px"></div></div>
 <div class="card wide"><h3>📈 Verlauf</h3><div id="history"></div></div>
 </div></section>
 <section id="kraft" class="page"><div class="grid"><div class="card wide"><h3>💪 Kraftentwicklung</h3><div class="label">Nur Fortschritt — kein Trainingsplan und keine Änderung deines Trainings.</div><div class="exercise">
@@ -21,7 +23,7 @@
 </div><button class="action secondary" id="addExercise">+ Eigene Übung</button><div id="strength"></div></div></div></section>
 <section id="kalorien" class="page"><div class="grid"><div class="card wide"><h3>🔥 Kalorien & Makros</h3><div class="macro">
 <div><span class="label">Erhalt</span><strong>2.600–2.700</strong> kcal</div><div><span class="label">Training</span><strong>2.300</strong> kcal<br>200 g Protein · 50 g Fett · 263 g Carbs</div><div><span class="label">Pause</span><strong>2.060</strong> kcal<br>200 g Protein · 60 g Fett · 180 g Carbs</div>
-</div></div><div class="card wide"><h3>Kalorien-Entscheidung</h3><div class="notice">Gewichtstrend, Umfänge und Check-in-Fotos gemeinsam betrachten. Bei längerem Stillstand zuerst den Verlauf prüfen.</div></div></div></section>
+</div></div><div class="card wide"><h3>Kalorien-Entscheidung</h3><div id="calorieDecision" class="notice">Gewichtstrend, Umfänge und Check-in-Fotos gemeinsam betrachten. Bei längerem Stillstand zuerst den Verlauf prüfen.</div></div></div></section>
 </div>
 <script>
 const baseExercises=["Schrägbankdrücken","RDL","Beinpresse","Latzug","Rudern","Seitheben","Bizeps-Curls","Trizepsdrücken"];

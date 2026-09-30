@@ -36,11 +36,38 @@ document.querySelectorAll(".nav button").forEach(b=>b.addEventListener("click",(
 $("focusBtn").onclick=()=>$("weight").focus();
 function fillExercises(){$("exercise").innerHTML=allExercises().map(e=>"<option>"+esc(e)+"</option>").join("")}
 function sortedChecks(){return [...data.checks].sort((a,b)=>new Date(a.date)-new Date(b.date))}
+function avg(a){return a.length?a.reduce((s,x)=>s+x,0)/a.length:null}
+function recentChecks(days){const c=sortedChecks();if(!c.length)return[];const end=new Date(c[c.length-1].date);return c.filter(x=>(end-new Date(x.date))/86400000<=days)}
+function analysis(){
+ const r=recentChecks(14);
+ if(r.length<3)return {type:"insufficient",count:r.length};
+ const mid=Math.max(1,Math.floor(r.length/2)),a=r.slice(0,mid),b=r.slice(mid);
+ const dw=avg(b.map(x=>x.weight))-avg(a.map(x=>x.weight));
+ const dt=avg(b.map(x=>x.waist))-avg(a.map(x=>x.waist));
+ const db=avg(b.map(x=>x.belly))-avg(a.map(x=>x.belly));
+ const span=(new Date(r[r.length-1].date)-new Date(r[0].date))/86400000;
+ if(span<10)return {type:"insufficient",count:r.length};
+ if(dw<-0.15||dt<-0.3||db<-0.3)return {type:"progress",dw,dt,db};
+ if(Math.abs(dw)<=0.15&&(dt<-0.2||db<-0.2))return {type:"recomp",dw,dt,db};
+ if(Math.abs(dw)<=0.15&&Math.abs(dt)<=0.2&&Math.abs(db)<=0.2)return {type:"plateau",dw,dt,db};
+ return {type:"observe",dw,dt,db};
+}
 function render(){
  const c=sortedChecks(),l=c[c.length-1];
  if(l){$("weightOut").textContent=l.weight.toFixed(1)+" kg";$("waistOut").textContent=l.waist.toFixed(1)+" cm"}
- if(c.length>1){const p=c[c.length-2],dw=l.weight-p.weight,da=l.waist-p.waist;$("trendOut").textContent="Vergleich: "+(dw>0?"+":"")+dw.toFixed(1)+" kg";$("assessment").textContent=(dw<0||da<0)?"Fortschritt erkennbar — Kalorien zunächst beibehalten.":"Verlauf weiter beobachten; Umfänge und Fotos mitbewerten."}
- $("history").innerHTML=c.length?'<table><tr><th>Datum</th><th>Gewicht</th><th>Taille</th><th>Bauch</th></tr>'+c.slice().reverse().map(x=>"<tr><td>"+new Date(x.date).toLocaleDateString("de-DE")+"</td><td>"+x.weight+"</td><td>"+x.waist+"</td><td>"+x.belly+"</td></tr>").join("")+"</table>":"<div class='empty'>Noch keine Check-ins.</div>";
+ if(c.length>1){const p=c[c.length-2],dw=l.weight-p.weight;$("trendOut").textContent=(dw>0?"+":"")+dw.toFixed(1)+" kg seit letztem Check-in";$("trendOut").className="green"}
+ const r7=recentChecks(7);$("trend7Out").textContent=r7.length?avg(r7.map(x=>x.weight)).toFixed(1)+" kg":"—";$("trend7Status").textContent=r7.length>=2?"Mittelwert aus "+r7.length+" Check-ins":"Mehr Daten nötig";
+ if(c.length>1){const d=l.waist-c[c.length-2].waist;$("waistStatus").textContent=(d<0?"↓ verbessert":d>0?"↑ verändert":"→ stabil")+" · "+(d>0?"+":"")+d.toFixed(1)+" cm";$("waistStatus").className="status "+(d<0?"green":d>0?"red":"muted")}
+ const a=analysis();let msg,detail,cl="notice";
+ if(a.type==="insufficient"){msg="Noch nicht genug Daten für eine belastbare Trendentscheidung.";detail="Mindestens mehrere Check-ins über etwa 10–14 Tage sammeln. Keine Kalorienänderung aus einer einzelnen Messung.";cl+=" neutral"}
+ if(a.type==="progress"){msg="Fortschritt erkennbar — aktuelle Kalorien zunächst beibehalten.";detail="Trend verbessert sich bei Gewicht und/oder Umfang.";cl+=" ok"}
+ if(a.type==="recomp"){msg="Gewicht weitgehend stabil, aber Umfänge verbessern sich — keine Kalorienreduktion.";detail="Körpermaße werden gemeinsam mit dem Gewicht bewertet.";cl+=" ok"}
+ if(a.type==="plateau"){msg="Mögliches Plateau über den betrachteten Zeitraum.";detail="Vor einer Kalorienänderung zuerst Tracking, Portionsgenauigkeit, Aktivität und weitere Check-ins prüfen.";cl+=" warn"}
+ if(a.type==="observe"){msg="Verlauf weiter beobachten — noch kein eindeutiges Signal für eine Kalorienänderung.";detail="Gewicht und Umfänge entwickeln sich gemischt.";cl+=" neutral"}
+ $("assessment").className=cl;$("assessment").textContent=msg;
+ if($("plateauDetail"))$("plateauDetail").textContent=detail;
+ if($("calorieDecision")){$("calorieDecision").className=cl;$("calorieDecision").textContent=msg}
+ $("history").innerHTML=c.length?'<table><tr><th>Datum</th><th>Gewicht</th><th>Taille</th><th>Bauch</th><th>Brust</th><th>Hüfte</th><th>Arm</th><th>Obers.</th><th>Wade</th></tr>'+c.slice().reverse().map(x=>"<tr><td>"+new Date(x.date).toLocaleDateString("de-DE")+"</td><td>"+x.weight.toFixed(1)+"</td><td>"+x.waist.toFixed(1)+"</td><td>"+x.belly.toFixed(1)+"</td><td>"+x.chest.toFixed(1)+"</td><td>"+x.hip.toFixed(1)+"</td><td>"+x.arm.toFixed(1)+"</td><td>"+x.thigh.toFixed(1)+"</td><td>"+x.calf.toFixed(1)+"</td></tr>").join("")+"</table>":"<div class='empty'>Noch keine Check-ins.</div>";
  renderStrength();
 }
 $("saveCheck").onclick=()=>{const ids=["weight","waist","belly","chest","hip","arm","thigh","calf"],c={date:new Date().toISOString()};for(const id of ids){const v=Number($(id).value);if(!v)return alert("Bitte alle Werte ausfüllen.");c[id]=v}data.checks.push(c);save();$("saveMsg").style.display="block";render()};

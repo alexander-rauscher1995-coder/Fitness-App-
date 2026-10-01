@@ -4,6 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#1f9d61">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="ALEX FITNESS PRO">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="./icon.svg">
 <title>ALEX FITNESS PRO</title>
 <style>
 *{box-sizing:border-box}
@@ -15,6 +22,11 @@ h1{margin:0;font-size:28px;letter-spacing:-.5px}.sub{color:#68736c;margin-top:5p
 .nav{display:flex;gap:8px;overflow-x:auto;margin-top:18px;padding-bottom:2px}
 .nav button{border:0;border-radius:13px;padding:12px 15px;background:#edf1ee;color:#17201b;font-weight:750;white-space:nowrap;font-size:14px}
 .nav button.active{background:#1f9d61;color:#fff}
+.install-card{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#17201b;color:#fff;border-radius:18px;padding:14px 16px;margin-bottom:10px;box-shadow:0 8px 28px #17201b18}
+.install-card .label{color:#dce6df;margin-top:3px}
+.install-card button{border:0;border-radius:11px;padding:10px 14px;background:#fff;color:#17201b;font-weight:800}
+.bottom-nav{display:none}
+@media(max-width:700px){.bottom-nav{position:fixed;left:8px;right:8px;bottom:8px;display:grid;grid-template-columns:repeat(4,1fr);gap:5px;background:#ffffffee;backdrop-filter:blur(14px);border:1px solid #dfe6e2;border-radius:18px;padding:6px;box-shadow:0 10px 35px #17201b22;z-index:20}.bottom-nav button{border:0;background:transparent;border-radius:12px;padding:9px 4px;font-size:11px;font-weight:750;color:#68736c}.bottom-nav button.active{background:#eaf6ef;color:#1f9d61}.app{padding-bottom:92px}}
 .page{display:none;margin-top:16px}.page.active{display:block}
 .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
 .card{background:#fff;border:1px solid #e3e9e5;border-radius:20px;padding:18px;box-shadow:0 7px 25px #17201b09}
@@ -32,6 +44,10 @@ table{width:100%;border-collapse:collapse;margin-top:12px}th,td{text-align:left;
 </head>
 <body>
 <div class="app">
+<div id="installCard" class="install-card" style="display:none">
+  <div><b>ALEX FITNESS PRO installieren</b><div class="label">Direkt als App auf dem Startbildschirm nutzen.</div></div>
+  <button id="installBtn">Installieren</button>
+</div>
 <header class="header">
 <h1>ALEX FITNESS PRO</h1>
 <div class="sub">Check-in · Körperfortschritt · Kraftentwicklung</div>
@@ -116,6 +132,12 @@ table{width:100%;border-collapse:collapse;margin-top:12px}th,td{text-align:left;
 </div>
 </section>
 </div>
+<nav class="bottom-nav" aria-label="App Navigation">
+<button class="active" data-page="daily">⚖️<br>Gewicht</button>
+<button data-page="weekly">📊<br>Check</button>
+<button data-page="strength">💪<br>Kraft</button>
+<button data-page="calories">🔥<br>Makros</button>
+</nav>
 
 <script>
 (function(){
@@ -138,14 +160,13 @@ const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"
 
 $("today").textContent=new Date().toLocaleDateString("de-DE");
 
-document.querySelectorAll(".nav button").forEach(btn=>{
+document.querySelectorAll("[data-page]").forEach(btn=>{
 btn.addEventListener("click",()=>{
-document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));
-document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));
-btn.classList.add("active");
-const page=$(btn.dataset.page);
-if(page)page.classList.add("active");
-if(btn.dataset.page==="daily")drawChart();
+const target=btn.dataset.page;
+document.querySelectorAll("[data-page]").forEach(x=>x.classList.toggle("active",x.dataset.page===target));
+document.querySelectorAll(".page").forEach(x=>x.classList.toggle("active",x.id===target));
+if(target==="daily")drawChart();
+window.scrollTo({top:0,behavior:"smooth"});
 });
 });
 
@@ -223,6 +244,25 @@ if(n&&n.trim()&&!allExercises().includes(n.trim())){data.customExercises.push(n.
 });
 
 window.addEventListener("resize",drawChart);
+
+let deferredInstall=null;
+window.addEventListener("beforeinstallprompt",e=>{
+e.preventDefault();deferredInstall=e;
+const card=$("installCard"); if(card) card.style.display="flex";
+});
+$("installBtn")?.addEventListener("click",async()=>{
+if(!deferredInstall)return;
+deferredInstall.prompt();
+await deferredInstall.userChoice;
+deferredInstall=null;
+$("installCard").style.display="none";
+});
+window.addEventListener("appinstalled",()=>{
+const card=$("installCard"); if(card) card.style.display="none";
+});
+if("serviceWorker" in navigator){
+window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
+}
 render();
 })();
 </script>

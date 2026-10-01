@@ -26,7 +26,7 @@ h1{margin:0;font-size:28px;letter-spacing:-.5px}.sub{color:#68736c;margin-top:5p
 .install-card .label{color:#dce6df;margin-top:3px}
 .install-card button{border:0;border-radius:11px;padding:10px 14px;background:#fff;color:#17201b;font-weight:800}
 .bottom-nav{display:none}
-@media(max-width:700px){.bottom-nav{position:fixed;left:8px;right:8px;bottom:8px;display:grid;grid-template-columns:repeat(4,1fr);gap:5px;background:#ffffffee;backdrop-filter:blur(14px);border:1px solid #dfe6e2;border-radius:18px;padding:6px;box-shadow:0 10px 35px #17201b22;z-index:20}.bottom-nav button{border:0;background:transparent;border-radius:12px;padding:9px 4px;font-size:11px;font-weight:750;color:#68736c}.bottom-nav button.active{background:#eaf6ef;color:#1f9d61}.app{padding-bottom:92px}}
+@media(max-width:700px){.bottom-nav{position:fixed;left:8px;right:8px;bottom:8px;display:grid;grid-template-columns:repeat(5,1fr);gap:4px;background:#ffffffee;backdrop-filter:blur(14px);border:1px solid #dfe6e2;border-radius:18px;padding:6px;box-shadow:0 10px 35px #17201b22;z-index:20}.bottom-nav button{border:0;background:transparent;border-radius:12px;padding:9px 4px;font-size:11px;font-weight:750;color:#68736c}.bottom-nav button.active{background:#eaf6ef;color:#1f9d61}.app{padding-bottom:92px}}
 .page{display:none;margin-top:16px}.page.active{display:block}
 .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
 .card{background:#fff;border:1px solid #e3e9e5;border-radius:20px;padding:18px;box-shadow:0 7px 25px #17201b09}
@@ -56,6 +56,7 @@ table{width:100%;border-collapse:collapse;margin-top:12px}th,td{text-align:left;
 <button class="active" data-page="daily">⚖️ Gewicht täglich</button>
 <button data-page="weekly">📊 Wochen-Check</button>
 <button data-page="strength">💪 Kraft-Check</button>
+<button data-page="progress">📈 Fortschritt</button>
 <button data-page="calories">🔥 Kalorien & Makros</button>
 </nav>
 </header>
@@ -123,6 +124,7 @@ table{width:100%;border-collapse:collapse;margin-top:12px}th,td{text-align:left;
 </div>
 </section>
 
+<section id="progress" class="page"><div class="grid"><div class="card"><div class="label">GEWICHT</div><div class="value" id="pWeight">—</div><div class="label" id="pWeightChange">Noch keine Vergleichsdaten</div></div><div class="card"><div class="label">TAILLE</div><div class="value" id="pWaist">—</div><div class="label" id="pWaistChange">Noch keine Vergleichsdaten</div></div><div class="card"><div class="label">KRAFTWERTE</div><div class="value" id="pStrength">0</div><div class="label">gespeicherte Einträge</div></div><div class="card wide"><h3>📈 Fortschritt</h3><div class="label">Verlauf deiner gespeicherten Messwerte.</div><canvas id="progressWeightChart" class="chart"></canvas></div><div class="card"><h3>⚖️ Gewicht</h3><div id="progressWeightTable"></div></div><div class="card"><h3>📏 Maße</h3><div id="progressMeasureTable"></div></div><div class="card wide"><h3>💪 Kraftentwicklung</h3><div id="progressStrengthTable"></div></div></div></section>
 <section id="calories" class="page">
 <div class="grid">
 <div class="card wide"><h3>🔥 Kalorien & Makros</h3></div>
@@ -136,6 +138,7 @@ table{width:100%;border-collapse:collapse;margin-top:12px}th,td{text-align:left;
 <button class="active" data-page="daily">⚖️<br>Gewicht</button>
 <button data-page="weekly">📊<br>Check</button>
 <button data-page="strength">💪<br>Kraft</button>
+<button data-page="progress">📈<br>Fortschritt</button>
 <button data-page="calories">🔥<br>Makros</button>
 </nav>
 
@@ -166,6 +169,7 @@ const target=btn.dataset.page;
 document.querySelectorAll("[data-page]").forEach(x=>x.classList.toggle("active",x.dataset.page===target));
 document.querySelectorAll(".page").forEach(x=>x.classList.toggle("active",x.id===target));
 if(target==="daily")drawChart();
+if(target==="progress")renderProgress();
 window.scrollTo({top:0,behavior:"smooth"});
 });
 });
@@ -188,7 +192,45 @@ $("lastWaist").textContent=last?Number(last.waist).toFixed(1)+" cm":"—";
 $("weightTable").innerHTML=w.length?"<table><tr><th>Datum</th><th>Gewicht</th></tr>"+w.slice().reverse().slice(0,14).map(x=>"<tr><td>"+new Date(x.date+"T12:00:00").toLocaleDateString("de-DE")+"</td><td>"+Number(x.weight).toFixed(1)+" kg</td></tr>").join("")+"</table>":"<div class='empty'>Noch keine Gewichtswerte gespeichert.</div>";
 $("weeklyTable").innerHTML=c.length?"<table><tr><th>Datum</th><th>Gewicht</th><th>Taille</th><th>Bauch</th></tr>"+c.slice().reverse().map(x=>"<tr><td>"+new Date(x.date).toLocaleDateString("de-DE")+"</td><td>"+x.weight+" kg</td><td>"+x.waist+" cm</td><td>"+x.belly+" cm</td></tr>").join("")+"</table>":"<div class='empty'>Noch keine Wochen-Checks.</div>";
 renderStrength();
+renderProgress();
 drawChart();
+}
+
+function renderProgress(){
+const w=sortedWeights(), c=sortedChecks(), firstW=w[0], lastW=w[w.length-1], firstC=c[0], lastC=c[c.length-1];
+$("pWeight").textContent=lastW?Number(lastW.weight).toFixed(1)+" kg":"—";
+$("pWeightChange").textContent=firstW&&lastW&&w.length>1?formatDelta(Number(lastW.weight)-Number(firstW.weight),"kg")+" seit "+new Date(firstW.date+"T12:00:00").toLocaleDateString("de-DE"):"Noch keine Vergleichsdaten";
+$("pWaist").textContent=lastC?Number(lastC.waist).toFixed(1)+" cm":"—";
+$("pWaistChange").textContent=firstC&&lastC&&c.length>1?formatDelta(Number(lastC.waist)-Number(firstC.waist),"cm")+" seit "+new Date(firstC.date).toLocaleDateString("de-DE"):"Noch keine Vergleichsdaten";
+const strengthEntries=Object.values(data.strength).reduce((n,a)=>n+(Array.isArray(a)?a.length:0),0);
+$("pStrength").textContent=strengthEntries;
+$("progressWeightTable").innerHTML=w.length?"<table><tr><th>Zeitraum</th><th>Wert</th></tr><tr><td>Erster</td><td>"+Number(firstW.weight).toFixed(1)+" kg</td></tr><tr><td>Aktuell</td><td>"+Number(lastW.weight).toFixed(1)+" kg</td></tr></table>":"<div class='empty'>Noch keine Daten.</div>";
+$("progressMeasureTable").innerHTML=c.length?"<table><tr><th>Maß</th><th>Erster</th><th>Aktuell</th></tr>"+measureRow("Taille","waist",firstC,lastC)+"<tr><td>Bauch</td><td>"+Number(firstC.belly).toFixed(1)+"</td><td>"+Number(lastC.belly).toFixed(1)+"</td></tr><tr><td>Brust</td><td>"+Number(firstC.chest).toFixed(1)+"</td><td>"+Number(lastC.chest).toFixed(1)+"</td></tr><tr><td>Oberarm</td><td>"+Number(firstC.arm).toFixed(1)+"</td><td>"+Number(lastC.arm).toFixed(1)+"</td></tr></table>":"<div class='empty'>Noch keine Maße.</div>";
+const names=Object.keys(data.strength);
+$("progressStrengthTable").innerHTML=names.length?"<table><tr><th>Übung</th><th>Erster</th><th>Aktuell</th></tr>"+names.map(name=>{
+const arr=Array.isArray(data.strength[name])?data.strength[name]:[]; if(!arr.length)return "";
+const first=arr[0],last=arr[arr.length-1];
+return "<tr><td>"+esc(name)+"</td><td>"+Number(first.weight).toFixed(1)+" × "+first.reps+"</td><td>"+Number(last.weight).toFixed(1)+" × "+last.reps+"</td></tr>";
+}).join("")+"</table>":"<div class='empty'>Noch keine Kraftwerte.</div>";
+drawProgressChart(w);
+}
+function formatDelta(v,unit){const sign=v>0?"+":v<0?"−":"±";return sign+Math.abs(v).toFixed(1)+" "+unit;}
+function measureRow(label,key,a,b){return "<tr><td>"+label+"</td><td>"+(a&&a[key]!=null?Number(a[key]).toFixed(1):"—")+"</td><td>"+(b&&b[key]!=null?Number(b[key]).toFixed(1):"—")+"</td></tr>";}
+function drawProgressChart(w){
+const cv=$("progressWeightChart");if(!cv)return;
+const box=cv.getBoundingClientRect(),width=Math.max(300,box.width||300),height=230,ratio=window.devicePixelRatio||1;
+cv.width=width*ratio;cv.height=height*ratio;
+const ctx=cv.getContext("2d");ctx.setTransform(ratio,0,0,ratio,0,0);ctx.clearRect(0,0,width,height);
+if(w.length<2){ctx.fillStyle="#68736c";ctx.font="14px sans-serif";ctx.fillText("Mindestens 2 Gewichtseinträge für den Verlauf.",16,30);return}
+const vals=w.map(x=>Number(x.weight)),min=Math.min(...vals),max=Math.max(...vals),range=Math.max(max-min,.5),pad=28;
+ctx.strokeStyle="#e4ebe7";ctx.lineWidth=1;
+for(let i=0;i<4;i++){const y=20+(height-55)*i/3;ctx.beginPath();ctx.moveTo(pad,y);ctx.lineTo(width-pad,y);ctx.stroke()}
+ctx.strokeStyle="#1f9d61";ctx.lineWidth=3;ctx.beginPath();
+w.forEach((p,i)=>{const x=pad+(width-pad*2)*i/(w.length-1),y=20+(height-55)-(Number(p.weight)-min+range*.05)/(range*1.1)*(height-55);i?ctx.lineTo(x,y):ctx.moveTo(x,y)});
+ctx.stroke();
+ctx.fillStyle="#17201b";ctx.font="12px sans-serif";
+ctx.fillText(Number(w[0].weight).toFixed(1)+" kg",pad,215);
+ctx.fillText(Number(w[w.length-1].weight).toFixed(1)+" kg",Math.max(pad,width-95),215);
 }
 
 function drawChart(){
@@ -243,7 +285,7 @@ const n=prompt("Name der eigenen Übung:");
 if(n&&n.trim()&&!allExercises().includes(n.trim())){data.customExercises.push(n.trim());save();renderStrength();$("exercise").value=n.trim()}
 });
 
-window.addEventListener("resize",drawChart);
+window.addEventListener("resize",()=>{drawChart();drawProgressChart(sortedWeights());});
 
 let deferredInstall=null;
 window.addEventListener("beforeinstallprompt",e=>{

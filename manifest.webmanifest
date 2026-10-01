@@ -1,0 +1,20 @@
+{
+  "name": "ALEX FITNESS PRO",
+  "short_name": "Fitness PRO",
+  "description": "Persönliches Fitness- und Check-in Dashboard",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f3f6f4",
+  "theme_color": "#1f9d61",
+  "lang": "de",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

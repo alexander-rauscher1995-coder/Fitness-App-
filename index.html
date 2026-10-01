@@ -48,7 +48,7 @@ button,input,select{font:inherit}.shell{min-height:100vh;display:grid;grid-templ
 <div class="card span3"><div class="eyebrow">KRAFT-EINTRÄGE</div><div class="big" id="homeStrength">0</div><div class="delta">gespeicherte Werte</div></div>
 <div class="card span8"><h3>📈 Gewichtsverlauf</h3><canvas id="homeChart" class="chart"></canvas></div>
 <div class="card span4"><h3>⚡ Schnellzugriff</h3><div class="quick"><button data-page="weight">Gewicht</button><button data-page="check">Check-in</button><button data-page="strength">Kraft</button><button data-page="progress">Fortschritt</button></div><div class="notice">Alle Daten werden lokal im Browser gespeichert.</div></div>
-<div class="card span12"><h3>🕘 Letzte Aktivitäten</h3><div id="activity"></div></div>
+<div class="card span6"><h3>🕘 Letzte Aktivitäten</h3><div id="activity"></div></div><div class="card span6"><h3>🗓 Nächste Einheiten</h3><div id="homePlan"></div></div>
 </div>
 </section>
 
@@ -213,16 +213,16 @@ const lc=c[c.length-1];$("homeWaist").textContent=lc?Number(lc.waist).toFixed(1)
 const sc=Object.values(data.strength).reduce((n,a)=>n+(Array.isArray(a)?a.length:0),0);$("homeStrength").textContent=sc;
 $("wToday").textContent=(w.find(x=>x.date===today())?.weight??"—")+(w.find(x=>x.date===today())?" kg":"");
 $("wAvg").textContent=r.length?(r.reduce((s,x)=>s+Number(x.weight),0)/r.length).toFixed(1)+" kg":"—";$("wCount").textContent=w.length;
-renderWeightTable();renderChecks();renderStrength();renderTraining();renderNutrition();renderPlan();renderExercises();renderProgress();renderActivity();draw("homeChart",w);draw("progressChart",w);
+renderWeightTable();renderChecks();renderStrength();renderTraining();renderNutrition();renderPlan();renderExercises();renderProgress();renderActivity();renderHomePlan();draw("homeChart",w);draw("progressChart",w);
 }
 function renderWeightTable(){
 const w=sortedW().reverse();
-$("weightTable").innerHTML=w.length?"<table><tr><th>Datum</th><th>Gewicht</th><th></th></tr>"+w.map(x=>"<tr><td>"+fmtDate(x.date)+"</td><td>"+Number(x.weight).toFixed(1)+" kg</td><td><button class='btn secondary editW' data-date='"+x.date+"' style='padding:6px 9px'>Bearbeiten</button></td></tr>").join("")+"</table>":"<div class='empty'>Noch keine Gewichtswerte.</div>";
+$("weightTable").innerHTML=w.length?"<table><tr><th>Datum</th><th>Gewicht</th><th></th></tr>"+w.map(x=>"<tr><td>"+fmtDate(x.date)+"</td><td>"+Number(x.weight).toFixed(1)+" kg</td><td><button class='btn secondary editW' data-date='"+x.date+"' style='padding:6px 9px'>Bearbeiten</button> <button class='btn danger' data-delete='weight' data-id='"+x.date+"' style='padding:6px 9px'>Löschen</button></td></tr>").join("")+"</table>":"<div class='empty'>Noch keine Gewichtswerte.</div>";
 document.querySelectorAll(".editW").forEach(b=>b.onclick=()=>{const x=data.weights.find(v=>v.date===b.dataset.date);$("weightDate").value=x.date;$("weightValue").value=x.weight;page("weight")});
 }
 function renderChecks(){
 const c=sortedC().reverse();
-$("checkTable").innerHTML=c.length?"<table><tr><th>Datum</th><th>Gewicht</th><th>Taille</th><th>Bauch</th><th>Brust</th><th>Arm</th></tr>"+c.map(x=>"<tr><td>"+fmtDate(x.date)+"</td><td>"+x.weight+"</td><td>"+x.waist+"</td><td>"+x.belly+"</td><td>"+x.chest+"</td><td>"+x.arm+"</td></tr>").join("")+"</table>":"<div class='empty'>Noch keine Check-ins.</div>";
+$("checkTable").innerHTML=c.length?"<table><tr><th>Datum</th><th>Gewicht</th><th>Taille</th><th>Bauch</th><th>Brust</th><th>Arm</th><th></th></tr>"+c.map(x=>"<tr><td>"+fmtDate(x.date)+"</td><td>"+x.weight+"</td><td>"+x.waist+"</td><td>"+x.belly+"</td><td>"+x.chest+"</td><td>"+x.arm+"</td><td><button class='btn danger' data-delete='check' data-id='"+x.date+"' style='padding:6px 9px'>Löschen</button></td></tr>").join("")+"</table>":"<div class='empty'>Noch keine Check-ins.</div>";
 }
 function renderStrength(){
 $("exercise").innerHTML=allEx().map(x=>"<option>"+esc(x)+"</option>").join("");
@@ -239,7 +239,7 @@ $("tSessions").textContent=sessions.size;
 $("tExerciseCount").textContent=t.length;
 $("tLast").textContent=t.length?fmtDate(t[0].date):"—";
 $("tExercise").innerHTML=allEx().map(x=>"<option>"+esc(x)+"</option>").join("");
-$("trainingTable").innerHTML=t.length?"<table><tr><th>Datum</th><th>Einheit</th><th>Übung</th><th>Gewicht</th><th>Wdh.</th><th>Sätze</th></tr>"+t.map(x=>"<tr><td>"+fmtDate(x.date)+"</td><td>"+esc(x.name)+"</td><td>"+esc(x.exercise)+"</td><td>"+x.weight+" kg</td><td>"+x.reps+"</td><td>"+x.sets+"</td></tr>").join("")+"</table>":"<div class='empty'>Noch keine Trainingseinträge.</div>";
+$("trainingTable").innerHTML=t.length?"<table><tr><th>Datum</th><th>Einheit</th><th>Übung</th><th>Gewicht</th><th>Wdh.</th><th>Sätze</th><th></th></tr>"+t.map((x,i)=>"<tr><td>"+fmtDate(x.date)+"</td><td>"+esc(x.name)+"</td><td>"+esc(x.exercise)+"</td><td>"+x.weight+" kg</td><td>"+x.reps+"</td><td>"+x.sets+"</td><td><button class='btn danger' data-delete='workout' data-id='"+i+"' style='padding:6px 9px'>Löschen</button></td></tr>").join("")+"</table>":"<div class='empty'>Noch keine Trainingseinträge.</div>";
 }
 function renderNutrition(){
 const n=data.nutrition.slice().sort((a,b)=>b.date.localeCompare(a.date));
@@ -248,11 +248,11 @@ $("nToday").textContent=todayN?todayN.kcal+" kcal":"—";
 $("nTodayProtein").textContent=todayN?todayN.protein+" g":"—";
 $("nTodayCarbs").textContent=todayN?todayN.carbs+" g":"—";
 $("nTodayFat").textContent=todayN?todayN.fat+" g":"—";
-$("nutritionTable").innerHTML=n.length?"<table><tr><th>Datum</th><th>Kcal</th><th>Protein</th><th>Carbs</th><th>Fett</th><th>Notiz</th></tr>"+n.map(x=>"<tr><td>"+fmtDate(x.date)+"</td><td>"+x.kcal+"</td><td>"+x.protein+" g</td><td>"+x.carbs+" g</td><td>"+x.fat+" g</td><td>"+esc(x.note||"")+"</td></tr>").join("")+"</table>":"<div class='empty'>Noch keine Ernährungswerte.</div>";
+$("nutritionTable").innerHTML=n.length?"<table><tr><th>Datum</th><th>Kcal</th><th>Protein</th><th>Carbs</th><th>Fett</th><th>Notiz</th><th></th></tr>"+n.map(x=>"<tr><td>"+fmtDate(x.date)+"</td><td>"+x.kcal+"</td><td>"+x.protein+" g</td><td>"+x.carbs+" g</td><td>"+x.fat+" g</td><td>"+esc(x.note||"")+"</td><td><button class='btn danger' data-delete='nutrition' data-id='"+x.date+"' style='padding:6px 9px'>Löschen</button></td></tr>").join("")+"</table>":"<div class='empty'>Noch keine Ernährungswerte.</div>";
 }
 function renderPlan(){
 const p=data.plans.slice().sort((a,b)=>a.date.localeCompare(b.date));
-$("planTable").innerHTML=p.length?"<table><tr><th>Datum</th><th>Einheit</th><th>Notiz</th><th>Status</th><th></th></tr>"+p.map((x,i)=>"<tr><td>"+fmtDate(x.date)+"</td><td>"+esc(x.name)+"</td><td>"+esc(x.note||"")+"</td><td><b>"+esc(x.status)+"</b></td><td><button class='btn secondary planToggle' data-i='"+i+"' style='padding:6px 9px'>Status ändern</button></td></tr>").join("")+"</table>":"<div class='empty'>Noch keine geplanten Einheiten.</div>";
+$("planTable").innerHTML=p.length?"<table><tr><th>Datum</th><th>Einheit</th><th>Notiz</th><th>Status</th><th></th></tr>"+p.map((x,i)=>"<tr><td>"+fmtDate(x.date)+"</td><td>"+esc(x.name)+"</td><td>"+esc(x.note||"")+"</td><td><b>"+esc(x.status)+"</b></td><td><button class='btn secondary planToggle' data-i='"+i+"' style='padding:6px 9px'>Status ändern</button> <button class='btn danger' data-delete='plan' data-id='"+i+"' style='padding:6px 9px'>Löschen</button></td></tr>").join("")+"</table>":"<div class='empty'>Noch keine geplanten Einheiten.</div>";
 document.querySelectorAll(".planToggle").forEach(b=>b.onclick=()=>{const sorted=data.plans.slice().sort((a,b)=>a.date.localeCompare(b.date));const x=sorted[Number(b.dataset.i)];if(x){x.status=x.status==="erledigt"?"geplant":"erledigt";save();render()}});
 }
 function renderExercises(){
@@ -268,6 +268,10 @@ const sc=Object.values(data.strength).reduce((n,a)=>n+(Array.isArray(a)?a.length
 $("compare").innerHTML=f&&l?"<div class='notice'>Gewicht<br><b>"+Number(f.weight).toFixed(1)+" → "+Number(l.weight).toFixed(1)+" kg</b></div>"+(fc&&lc?"<div class='notice'>Taille<br><b>"+Number(fc.waist).toFixed(1)+" → "+Number(lc.waist).toFixed(1)+" cm</b></div>":""):"<div class='empty'>Mehrere Werte nötig.</div>";
 const names=Object.keys(data.strength);
 $("progressStrength").innerHTML=names.length?"<table><tr><th>Übung</th><th>Start</th><th>Aktuell</th></tr>"+names.map(n=>{const a=data.strength[n]||[];if(!a.length)return "";return "<tr><td>"+esc(n)+"</td><td>"+a[0].weight+" × "+a[0].reps+"</td><td>"+a[a.length-1].weight+" × "+a[a.length-1].reps+"</td></tr>"}).join("")+"</table>":"<div class='empty'>Noch keine Kraftentwicklung.</div>";
+}
+function renderHomePlan(){
+const p=data.plans.filter(x=>x.date>=today()).sort((a,b)=>a.date.localeCompare(b.date)).slice(0,5);
+$("homePlan").innerHTML=p.length?p.map(x=>"<div class='notice'><b>"+fmtDate(x.date)+"</b> · "+esc(x.name)+"<br><span class='muted'>"+esc(x.status)+(x.note?" · "+esc(x.note):"")+"</span></div>").join(""):"<div class='empty'>Keine kommenden Einheiten geplant.</div>";
 }
 function renderActivity(){
 const items=[];
@@ -318,6 +322,17 @@ $("exportData").onclick=()=>{const blob=new Blob([JSON.stringify(data,null,2)],{
 $("importBtn").onclick=()=>$("importFile").click();
 $("importFile").onchange=e=>{const f=e.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{try{const x=JSON.parse(rd.result);if(!x||!Array.isArray(x.weights))throw Error();data=x;data.plans=Array.isArray(data.plans)?data.plans:[];data.customExercises=Array.isArray(data.customExercises)?data.customExercises:[];save();render();alert("Daten importiert.")}catch(_){alert("Die Datei konnte nicht importiert werden.")}};rd.readAsText(f)};
 $("resetData").onclick=()=>{if(confirm("Wirklich alle lokalen Daten löschen?")){localStorage.removeItem(KEY);location.reload()}};
+document.addEventListener("click",e=>{
+const b=e.target.closest("[data-delete]");if(!b)return;
+if(!confirm("Diesen Eintrag wirklich löschen?"))return;
+const type=b.dataset.delete;
+if(type==="weight")data.weights=data.weights.filter(x=>x.date!==b.dataset.id);
+if(type==="check")data.checks=data.checks.filter(x=>x.date!==b.dataset.id);
+if(type==="nutrition")data.nutrition=data.nutrition.filter(x=>x.date!==b.dataset.id);
+if(type==="plan"){const i=Number(b.dataset.id);data.plans.splice(i,1)}
+if(type==="workout"){const i=Number(b.dataset.id);data.workouts.splice(i,1)}
+save();render();
+});
 
 let deferred=null;window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferred=e;$("install").style.display="flex"});$("installBtn").onclick=async()=>{if(deferred){deferred.prompt();await deferred.userChoice;deferred=null;$("install").style.display="none"}};
 if("serviceWorker"in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));

@@ -16,7 +16,7 @@
 :root{--bg:#f4f7f5;--panel:#fff;--ink:#142019;--muted:#718078;--line:#e2e9e4;--accent:#1f9d61;--accent2:#16784a;--soft:#eaf6ef;--danger:#c63d3d;--shadow:0 12px 35px #1420190d}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
 button,input,select{font:inherit}.shell{min-height:100vh;display:grid;grid-template-columns:245px 1fr}.sidebar{background:#101714;color:#fff;padding:20px 14px;position:sticky;top:0;height:100vh}.brand{padding:10px 12px 22px}.brand b{font-size:20px}.brand span{display:block;color:#aebbb4;font-size:12px;margin-top:4px}.side-nav{display:grid;gap:6px}.side-nav button{border:0;background:transparent;color:#b9c5bf;text-align:left;padding:12px;border-radius:12px;font-weight:700;cursor:pointer}.side-nav button.active,.side-nav button:hover{background:#1d2a24;color:#fff}.main{max-width:1250px;width:100%;margin:auto;padding:22px}.topbar{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:18px}.topbar h1{margin:0;font-size:30px}.date{color:var(--muted);font-size:13px;margin-top:3px}.mobile-nav{display:none}.page{display:none}.page.active{display:block}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}.card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:var(--shadow)}.span3{grid-column:span 3}.span4{grid-column:span 4}.span6{grid-column:span 6}.span8{grid-column:span 8}.span12{grid-column:span 12}.eyebrow{font-size:11px;color:var(--muted);font-weight:800;letter-spacing:.08em}.big{font-size:30px;font-weight:850;margin:5px 0}.muted{color:var(--muted)}h2,h3{margin:0 0 10px}.delta{font-size:12px;color:var(--muted)}.positive{color:var(--accent2)}.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}.field label{font-size:12px;color:var(--muted);font-weight:700}.field input,.field select{width:100%;margin-top:6px;padding:12px;border:1px solid #d5dfd9;border-radius:12px;background:#fff;outline:0}.field input:focus,.field select:focus{border-color:var(--accent);box-shadow:0 0 0 3px #1f9d6117}.btn{border:0;border-radius:12px;padding:12px 15px;background:var(--accent);color:#fff;font-weight:800;cursor:pointer}.btn.secondary{background:#edf2ef;color:var(--ink)}.btn.danger{background:#fff0f0;color:var(--danger)}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:10px 7px;border-bottom:1px solid #edf1ee;font-size:13px;white-space:nowrap}th{color:var(--muted);font-size:11px;text-transform:uppercase}.chart{width:100%;height:260px;display:block}.notice{padding:11px 13px;background:var(--soft);border:1px solid #d6ecdf;border-radius:12px;margin-top:10px}.empty{text-align:center;color:var(--muted);padding:30px 10px}.quick{display:flex;gap:8px;flex-wrap:wrap}.quick button{border:1px solid var(--line);background:#fff;border-radius:12px;padding:9px 12px;cursor:pointer}.progressbar{height:9px;background:#eaf0ec;border-radius:99px;overflow:hidden}.progressbar i{display:block;height:100%;background:var(--accent);border-radius:99px}.install{display:none;background:#17221d;color:#fff;padding:13px 15px;border-radius:15px;margin-bottom:15px;justify-content:space-between;align-items:center;gap:10px}.install button{border:0;border-radius:10px;padding:9px 12px;font-weight:800}
-@media(max-width:900px){.shell{display:block}.sidebar{display:none}.main{padding:12px 10px 92px}.mobile-nav{position:fixed;display:grid;grid-template-columns:repeat(8,1fr);bottom:8px;left:8px;right:8px;z-index:50;background:#ffffffee;backdrop-filter:blur(15px);border:1px solid var(--line);border-radius:18px;padding:5px;box-shadow:0 10px 35px #0002}.mobile-nav button{border:0;background:transparent;color:var(--muted);border-radius:12px;padding:7px 2px;font-size:10px;font-weight:800}.mobile-nav button.active{background:var(--soft);color:var(--accent)}.span3,.span4,.span6,.span8{grid-column:span 12}.topbar h1{font-size:24px}.form-grid{grid-template-columns:1fr}}
+@media(max-width:900px){.shell{display:block}.sidebar{display:none}.main{padding:12px 10px 92px}.mobile-nav{position:fixed;display:grid;grid-template-columns:repeat(10,1fr);bottom:8px;left:8px;right:8px;z-index:50;background:#ffffffee;backdrop-filter:blur(15px);border:1px solid var(--line);border-radius:18px;padding:5px;box-shadow:0 10px 35px #0002}.mobile-nav button{border:0;background:transparent;color:var(--muted);border-radius:12px;padding:7px 2px;font-size:10px;font-weight:800}.mobile-nav button.active{background:var(--soft);color:var(--accent)}.span3,.span4,.span6,.span8{grid-column:span 12}.topbar h1{font-size:24px}.form-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -30,6 +30,8 @@ button,input,select{font:inherit}.shell{min-height:100vh;display:grid;grid-templ
 <button data-page="strength">💪 Kraft</button>
 <button data-page="training">🏋 Training</button>
 <button data-page="nutrition">🍽 Ernährung</button>
+<button data-page="plan">🗓 Plan</button>
+<button data-page="exercises">📚 Übungen</button>
 <button data-page="progress">📈 Fortschritt</button>
 <button data-page="settings">⚙ Einstellungen</button>
 </nav>
@@ -131,6 +133,26 @@ button,input,select{font:inherit}.shell{min-height:100vh;display:grid;grid-templ
 </div>
 </section>
 
+<section id="plan" class="page">
+<div class="grid">
+<div class="card span12"><h2>🗓 Wochenplan</h2><div class="muted">Eigene Trainingseinheiten für die Woche planen und abhaken.</div>
+<div class="form-grid" style="margin-top:12px">
+<div class="field"><label>Datum</label><input id="pDate" type="date"></div>
+<div class="field"><label>Einheit</label><input id="pName" placeholder="z. B. Ganzkörper A"></div>
+<div class="field"><label>Notiz</label><input id="pNote" placeholder="optional"></div>
+<div class="field"><label>Status</label><select id="pStatus"><option value="geplant">Geplant</option><option value="erledigt">Erledigt</option></select></div>
+</div><div class="actions"><button class="btn" id="savePlan">✓ Plan speichern</button></div></div>
+<div class="card span12"><h3>📅 Planübersicht</h3><div class="table-wrap" id="planTable"></div></div>
+</div></section>
+
+<section id="exercises" class="page">
+<div class="grid">
+<div class="card span12"><h2>📚 Übungsdatenbank</h2><div class="muted">Übungen durchsuchen und eigene Übungen hinzufügen.</div>
+<div class="form-grid" style="margin-top:12px"><div class="field"><label>Suche</label><input id="exerciseSearch" placeholder="Übung suchen"></div><div class="field"><label>Eigene Übung</label><input id="exerciseNew" placeholder="z. B. Face Pulls"></div></div>
+<div class="actions"><button class="btn" id="addExercise">＋ Übung hinzufügen</button></div></div>
+<div class="card span12"><div id="exerciseLibrary"></div></div>
+</div></section>
+
 <section id="progress" class="page">
 <div class="grid">
 <div class="card span4"><div class="eyebrow">GEWICHT</div><div class="big" id="pWeight">—</div><div class="delta" id="pWeightDelta">—</div></div>
@@ -146,22 +168,22 @@ button,input,select{font:inherit}.shell{min-height:100vh;display:grid;grid-templ
 <div class="grid">
 <div class="card span6"><h2>⚙ Einstellungen</h2><p class="muted">App-Daten verwalten.</p><div class="actions"><button class="btn secondary" id="exportData">Daten exportieren</button><button class="btn secondary" id="importBtn">Daten importieren</button><input id="importFile" type="file" accept=".json" hidden></div></div>
 <div class="card span6"><h2>🗑 Daten</h2><p class="muted">Das Löschen entfernt die lokal gespeicherten App-Daten auf diesem Gerät.</p><button class="btn danger" id="resetData">Alle lokalen Daten löschen</button></div>
-<div class="card span12"><h3>ℹ️ App-Info</h3><div class="muted">ALEX FITNESS PRO · lokale Web-App/PWA · Datenhaltung im Browser.</div></div>
+<div class="card span12"><h3>ℹ️ App-Info</h3><div class="muted">ALEX FITNESS PRO · lokale Web-App/PWA · Datenhaltung im Browser. Export/Import dient als Backup. Eine echte Cloud-Anmeldung benötigt zusätzlich einen Server bzw. eine Datenbank.</div></div>
 </div>
 </section>
 </main>
 </div>
 <nav class="mobile-nav">
-<button class="active" data-page="home">⌂<br>Home</button><button data-page="weight">⚖<br>Gewicht</button><button data-page="check">📏<br>Check</button><button data-page="strength">💪<br>Kraft</button><button data-page="training">🏋<br>Training</button><button data-page="nutrition">🍽<br>Ernährung</button><button data-page="progress">📈<br>Fortschritt</button><button data-page="settings">⚙<br>Mehr</button>
+<button class="active" data-page="home">⌂<br>Home</button><button data-page="weight">⚖<br>Gewicht</button><button data-page="check">📏<br>Check</button><button data-page="strength">💪<br>Kraft</button><button data-page="training">🏋<br>Training</button><button data-page="nutrition">🍽<br>Ernährung</button><button data-page="plan">🗓<br>Plan</button><button data-page="exercises">📚<br>Übungen</button><button data-page="progress">📈<br>Fortschritt</button><button data-page="settings">⚙<br>Mehr</button>
 </nav>
 
 <script>
 (()=>{"use strict";
 const KEY="alexFitnessPro";
-const base={weights:[],checks:[],strength:{},customExercises:[],workouts:[],nutrition:[]};
+const base={weights:[],checks:[],strength:{},customExercises:[],workouts:[],nutrition:[],plans:[]};
 let data;
 try{data=JSON.parse(localStorage.getItem(KEY)||"null")||base}catch(e){data=base}
-data.weights=Array.isArray(data.weights)?data.weights:[];data.checks=Array.isArray(data.checks)?data.checks:[];data.strength=data.strength&&typeof data.strength==="object"?data.strength:{};data.customExercises=Array.isArray(data.customExercises)?data.customExercises:[];data.workouts=Array.isArray(data.workouts)?data.workouts:[];data.nutrition=Array.isArray(data.nutrition)?data.nutrition:[];
+data.weights=Array.isArray(data.weights)?data.weights:[];data.checks=Array.isArray(data.checks)?data.checks:[];data.strength=data.strength&&typeof data.strength==="object"?data.strength:{};data.customExercises=Array.isArray(data.customExercises)?data.customExercises:[];data.workouts=Array.isArray(data.workouts)?data.workouts:[];data.nutrition=Array.isArray(data.nutrition)?data.nutrition:[];data.plans=Array.isArray(data.plans)?data.plans:[];
 const $=id=>document.getElementById(id), today=()=>new Date().toLocaleDateString("sv-SE"), save=()=>localStorage.setItem(KEY,JSON.stringify(data));
 const exBase=["Schrägbankdrücken","RDL","Beinpresse","Latzug","Rudern","Seitheben","Bizeps-Curls","Trizepsdrücken"];
 const allEx=()=>[...new Set(exBase.concat(data.customExercises))];
@@ -171,12 +193,12 @@ const sortedW=()=>data.weights.slice().sort((a,b)=>a.date.localeCompare(b.date))
 const sortedC=()=>data.checks.slice().sort((a,b)=>a.date.localeCompare(b.date));
 const fmtDelta=(v,u)=>{const sign=v>0?"+":v<0?"−":"±";return sign+Math.abs(v).toFixed(1)+" "+u};
 $("date").textContent=new Date().toLocaleDateString("de-DE",{weekday:"long",day:"2-digit",month:"long",year:"numeric"});
-$("weightDate").value=today();$("checkDate").value=today();$("sDate").value=today();$("tDate").value=today();$("nDate").value=today();
+$("weightDate").value=today();$("checkDate").value=today();$("sDate").value=today();$("tDate").value=today();$("nDate").value=today();$("pDate").value=today();
 
 function page(name){
 document.querySelectorAll("[data-page]").forEach(b=>b.classList.toggle("active",b.dataset.page===name));
 document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===name));
-const titles={home:"Dashboard",weight:"Gewicht",check:"Wochen-Check-in",strength:"Kraft-Tracker",progress:"Fortschritt",training:"Training",nutrition:"Ernährung",settings:"Einstellungen"};
+const titles={home:"Dashboard",weight:"Gewicht",check:"Wochen-Check-in",strength:"Kraft-Tracker",training:"Training",nutrition:"Ernährung",plan:"Wochenplan",exercises:"Übungsdatenbank",progress:"Fortschritt",settings:"Einstellungen"};
 $("pageTitle").textContent=titles[name]||"Dashboard";window.scrollTo({top:0,behavior:"smooth"});
 render();
 }
@@ -191,7 +213,7 @@ const lc=c[c.length-1];$("homeWaist").textContent=lc?Number(lc.waist).toFixed(1)
 const sc=Object.values(data.strength).reduce((n,a)=>n+(Array.isArray(a)?a.length:0),0);$("homeStrength").textContent=sc;
 $("wToday").textContent=(w.find(x=>x.date===today())?.weight??"—")+(w.find(x=>x.date===today())?" kg":"");
 $("wAvg").textContent=r.length?(r.reduce((s,x)=>s+Number(x.weight),0)/r.length).toFixed(1)+" kg":"—";$("wCount").textContent=w.length;
-renderWeightTable();renderChecks();renderStrength();renderTraining();renderNutrition();renderProgress();renderActivity();draw("homeChart",w);draw("progressChart",w);
+renderWeightTable();renderChecks();renderStrength();renderTraining();renderNutrition();renderPlan();renderExercises();renderProgress();renderActivity();draw("homeChart",w);draw("progressChart",w);
 }
 function renderWeightTable(){
 const w=sortedW().reverse();
@@ -227,6 +249,16 @@ $("nTodayProtein").textContent=todayN?todayN.protein+" g":"—";
 $("nTodayCarbs").textContent=todayN?todayN.carbs+" g":"—";
 $("nTodayFat").textContent=todayN?todayN.fat+" g":"—";
 $("nutritionTable").innerHTML=n.length?"<table><tr><th>Datum</th><th>Kcal</th><th>Protein</th><th>Carbs</th><th>Fett</th><th>Notiz</th></tr>"+n.map(x=>"<tr><td>"+fmtDate(x.date)+"</td><td>"+x.kcal+"</td><td>"+x.protein+" g</td><td>"+x.carbs+" g</td><td>"+x.fat+" g</td><td>"+esc(x.note||"")+"</td></tr>").join("")+"</table>":"<div class='empty'>Noch keine Ernährungswerte.</div>";
+}
+function renderPlan(){
+const p=data.plans.slice().sort((a,b)=>a.date.localeCompare(b.date));
+$("planTable").innerHTML=p.length?"<table><tr><th>Datum</th><th>Einheit</th><th>Notiz</th><th>Status</th><th></th></tr>"+p.map((x,i)=>"<tr><td>"+fmtDate(x.date)+"</td><td>"+esc(x.name)+"</td><td>"+esc(x.note||"")+"</td><td><b>"+esc(x.status)+"</b></td><td><button class='btn secondary planToggle' data-i='"+i+"' style='padding:6px 9px'>Status ändern</button></td></tr>").join("")+"</table>":"<div class='empty'>Noch keine geplanten Einheiten.</div>";
+document.querySelectorAll(".planToggle").forEach(b=>b.onclick=()=>{const sorted=data.plans.slice().sort((a,b)=>a.date.localeCompare(b.date));const x=sorted[Number(b.dataset.i)];if(x){x.status=x.status==="erledigt"?"geplant":"erledigt";save();render()}});
+}
+function renderExercises(){
+const q=($("exerciseSearch")?.value||"").trim().toLowerCase();
+const list=allEx().filter(x=>x.toLowerCase().includes(q));
+$("exerciseLibrary").innerHTML=list.length?"<div class='grid'>"+list.map((x,i)=>"<div class='card span4'><div class='eyebrow'>ÜBUNG</div><h3>"+esc(x)+"</h3><div class='muted'>Für Kraft- und Trainingseinträge verfügbar.</div></div>").join("")+"</div>":"<div class='empty'>Keine passende Übung gefunden.</div>";
 }
 function renderProgress(){
 const w=sortedW(),c=sortedC(),f=w[0],l=w[w.length-1],fc=c[0],lc=c[c.length-1];
@@ -272,6 +304,9 @@ const d=$("tDate").value,name=$("tName").value.trim(),exercise=$("tExercise").va
 if(!d||!name||!exercise||w<=0||reps<=0||sets<=0){alert("Datum, Einheit, Übung, Gewicht, Wiederholungen und Sätze eingeben.");return}
 data.workouts.push({date:d,name,exercise,weight:w,reps,sets});save();$("tWeight").value="";$("tReps").value="";render();
 };
+$("savePlan").onclick=()=>{const d=$("pDate").value,name=$("pName").value.trim(),note=$("pNote").value.trim(),status=$("pStatus").value;if(!d||!name){alert("Datum und Einheit eingeben.");return}data.plans.push({date:d,name,note,status});save();$("pName").value="";$("pNote").value="";render()};
+$("exerciseSearch").oninput=renderExercises;
+$("addExercise").onclick=()=>{const n=$("exerciseNew").value.trim();if(!n){alert("Übungsname eingeben.");return}if(allEx().includes(n)){alert("Diese Übung ist bereits vorhanden.");return}data.customExercises.push(n);$("exerciseNew").value="";save();render()};
 $("saveNutrition").onclick=()=>{
 const d=$("nDate").value,k=Number($("nKcal").value),p=Number($("nProtein").value),c=Number($("nCarbs").value),f=Number($("nFat").value),note=$("nNote").value.trim();
 if(!d||k<0||p<0||c<0||f<0){alert("Bitte gültige Tageswerte eingeben.");return}
@@ -281,7 +316,7 @@ if(idx>=0)data.nutrition[idx]=o;else data.nutrition.push(o);save();render();
 $("quickAdd").onclick=()=>page("weight");
 $("exportData").onclick=()=>{const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="alex-fitness-pro-backup.json";a.click();URL.revokeObjectURL(a.href)};
 $("importBtn").onclick=()=>$("importFile").click();
-$("importFile").onchange=e=>{const f=e.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{try{const x=JSON.parse(rd.result);if(!x||!Array.isArray(x.weights))throw Error();data=x;save();render();alert("Daten importiert.")}catch(_){alert("Die Datei konnte nicht importiert werden.")}};rd.readAsText(f)};
+$("importFile").onchange=e=>{const f=e.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{try{const x=JSON.parse(rd.result);if(!x||!Array.isArray(x.weights))throw Error();data=x;data.plans=Array.isArray(data.plans)?data.plans:[];data.customExercises=Array.isArray(data.customExercises)?data.customExercises:[];save();render();alert("Daten importiert.")}catch(_){alert("Die Datei konnte nicht importiert werden.")}};rd.readAsText(f)};
 $("resetData").onclick=()=>{if(confirm("Wirklich alle lokalen Daten löschen?")){localStorage.removeItem(KEY);location.reload()}};
 
 let deferred=null;window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferred=e;$("install").style.display="flex"});$("installBtn").onclick=async()=>{if(deferred){deferred.prompt();await deferred.userChoice;deferred=null;$("install").style.display="none"}};

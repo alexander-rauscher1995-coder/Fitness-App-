@@ -3,308 +3,217 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#1f9d61">
+<meta name="theme-color" content="#101714">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="ALEX FITNESS PRO">
 <link rel="manifest" href="./manifest.webmanifest">
-<link rel="icon" href="./icon.svg" type="image/svg+xml">
+<link rel="icon" href="./icon.svg">
 <link rel="apple-touch-icon" href="./icon.svg">
 <title>ALEX FITNESS PRO</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#f3f6f4;color:#17201b;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-.app{max-width:980px;margin:auto;padding:14px}
-.header{background:#fff;border:1px solid #e3e9e5;border-radius:24px;padding:20px;box-shadow:0 8px 28px #17201b0b}
-h1{margin:0;font-size:28px;letter-spacing:-.5px}.sub{color:#68736c;margin-top:5px}
-.today{font-size:13px;color:#68736c;margin-top:10px}
-.nav{display:flex;gap:8px;overflow-x:auto;margin-top:18px;padding-bottom:2px}
-.nav button{border:0;border-radius:13px;padding:12px 15px;background:#edf1ee;color:#17201b;font-weight:750;white-space:nowrap;font-size:14px}
-.nav button.active{background:#1f9d61;color:#fff}
-.install-card{display:flex;align-items:center;justify-content:space-between;gap:12px;background:#17201b;color:#fff;border-radius:18px;padding:14px 16px;margin-bottom:10px;box-shadow:0 8px 28px #17201b18}
-.install-card .label{color:#dce6df;margin-top:3px}
-.install-card button{border:0;border-radius:11px;padding:10px 14px;background:#fff;color:#17201b;font-weight:800}
-.bottom-nav{display:none}
-@media(max-width:700px){.bottom-nav{position:fixed;left:8px;right:8px;bottom:8px;display:grid;grid-template-columns:repeat(5,1fr);gap:4px;background:#ffffffee;backdrop-filter:blur(14px);border:1px solid #dfe6e2;border-radius:18px;padding:6px;box-shadow:0 10px 35px #17201b22;z-index:20}.bottom-nav button{border:0;background:transparent;border-radius:12px;padding:9px 4px;font-size:11px;font-weight:750;color:#68736c}.bottom-nav button.active{background:#eaf6ef;color:#1f9d61}.app{padding-bottom:92px}}
-.page{display:none;margin-top:16px}.page.active{display:block}
-.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
-.card{background:#fff;border:1px solid #e3e9e5;border-radius:20px;padding:18px;box-shadow:0 7px 25px #17201b09}
-.wide{grid-column:1/-1}.label{font-size:13px;color:#68736c}.value{font-size:29px;font-weight:800;margin-top:4px}
-input,select{width:100%;margin-top:7px;padding:13px;border:1px solid #d7dfda;border-radius:12px;background:#fff;font-size:16px;outline:none}
-input:focus,select:focus{border-color:#1f9d61;box-shadow:0 0 0 3px #1f9d6118}
-.action{width:100%;border:0;border-radius:12px;padding:13px;margin-top:11px;background:#1f9d61;color:#fff;font-weight:750;font-size:15px}
-.secondary{background:#edf1ee;color:#17201b}
-.notice{margin-top:11px;padding:12px;border-radius:12px;background:#eef8f2;border:1px solid #d8ecdf}
-.row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-table{width:100%;border-collapse:collapse;margin-top:12px}th,td{text-align:left;padding:9px 5px;border-bottom:1px solid #edf0ee;font-size:13px}
-.chart{width:100%;height:230px;display:block}.empty{text-align:center;color:#68736c;padding:25px}
-@media(max-width:700px){.app{padding:9px}.header{padding:16px;border-radius:20px}.grid{grid-template-columns:1fr}.wide{grid-column:auto}.row{grid-template-columns:1fr}.nav button{padding:11px 13px}}
+:root{--bg:#f4f7f5;--panel:#fff;--ink:#142019;--muted:#718078;--line:#e2e9e4;--accent:#1f9d61;--accent2:#16784a;--soft:#eaf6ef;--danger:#c63d3d;--shadow:0 12px 35px #1420190d}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,input,select{font:inherit}.shell{min-height:100vh;display:grid;grid-template-columns:245px 1fr}.sidebar{background:#101714;color:#fff;padding:20px 14px;position:sticky;top:0;height:100vh}.brand{padding:10px 12px 22px}.brand b{font-size:20px}.brand span{display:block;color:#aebbb4;font-size:12px;margin-top:4px}.side-nav{display:grid;gap:6px}.side-nav button{border:0;background:transparent;color:#b9c5bf;text-align:left;padding:12px;border-radius:12px;font-weight:700;cursor:pointer}.side-nav button.active,.side-nav button:hover{background:#1d2a24;color:#fff}.main{max-width:1250px;width:100%;margin:auto;padding:22px}.topbar{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:18px}.topbar h1{margin:0;font-size:30px}.date{color:var(--muted);font-size:13px;margin-top:3px}.mobile-nav{display:none}.page{display:none}.page.active{display:block}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}.card{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:var(--shadow)}.span3{grid-column:span 3}.span4{grid-column:span 4}.span6{grid-column:span 6}.span8{grid-column:span 8}.span12{grid-column:span 12}.eyebrow{font-size:11px;color:var(--muted);font-weight:800;letter-spacing:.08em}.big{font-size:30px;font-weight:850;margin:5px 0}.muted{color:var(--muted)}h2,h3{margin:0 0 10px}.delta{font-size:12px;color:var(--muted)}.positive{color:var(--accent2)}.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}.field label{font-size:12px;color:var(--muted);font-weight:700}.field input,.field select{width:100%;margin-top:6px;padding:12px;border:1px solid #d5dfd9;border-radius:12px;background:#fff;outline:0}.field input:focus,.field select:focus{border-color:var(--accent);box-shadow:0 0 0 3px #1f9d6117}.btn{border:0;border-radius:12px;padding:12px 15px;background:var(--accent);color:#fff;font-weight:800;cursor:pointer}.btn.secondary{background:#edf2ef;color:var(--ink)}.btn.danger{background:#fff0f0;color:var(--danger)}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:10px 7px;border-bottom:1px solid #edf1ee;font-size:13px;white-space:nowrap}th{color:var(--muted);font-size:11px;text-transform:uppercase}.chart{width:100%;height:260px;display:block}.notice{padding:11px 13px;background:var(--soft);border:1px solid #d6ecdf;border-radius:12px;margin-top:10px}.empty{text-align:center;color:var(--muted);padding:30px 10px}.quick{display:flex;gap:8px;flex-wrap:wrap}.quick button{border:1px solid var(--line);background:#fff;border-radius:12px;padding:9px 12px;cursor:pointer}.progressbar{height:9px;background:#eaf0ec;border-radius:99px;overflow:hidden}.progressbar i{display:block;height:100%;background:var(--accent);border-radius:99px}.install{display:none;background:#17221d;color:#fff;padding:13px 15px;border-radius:15px;margin-bottom:15px;justify-content:space-between;align-items:center;gap:10px}.install button{border:0;border-radius:10px;padding:9px 12px;font-weight:800}
+@media(max-width:900px){.shell{display:block}.sidebar{display:none}.main{padding:12px 10px 92px}.mobile-nav{position:fixed;display:grid;grid-template-columns:repeat(6,1fr);bottom:8px;left:8px;right:8px;z-index:50;background:#ffffffee;backdrop-filter:blur(15px);border:1px solid var(--line);border-radius:18px;padding:5px;box-shadow:0 10px 35px #0002}.mobile-nav button{border:0;background:transparent;color:var(--muted);border-radius:12px;padding:7px 2px;font-size:10px;font-weight:800}.mobile-nav button.active{background:var(--soft);color:var(--accent)}.span3,.span4,.span6,.span8{grid-column:span 12}.topbar h1{font-size:24px}.form-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-<div class="app">
-<div id="installCard" class="install-card" style="display:none">
-  <div><b>ALEX FITNESS PRO installieren</b><div class="label">Direkt als App auf dem Startbildschirm nutzen.</div></div>
-  <button id="installBtn">Installieren</button>
-</div>
-<header class="header">
-<h1>ALEX FITNESS PRO</h1>
-<div class="sub">Check-in · Körperfortschritt · Kraftentwicklung</div>
-<div class="today">Heute: <span id="today"></span></div>
-<nav class="nav">
-<button class="active" data-page="daily">⚖️ Gewicht täglich</button>
-<button data-page="weekly">📊 Wochen-Check</button>
-<button data-page="strength">💪 Kraft-Check</button>
+<div class="shell">
+<aside class="sidebar">
+<div class="brand"><b>ALEX FITNESS PRO</b><span>Personal Fitness Dashboard</span></div>
+<nav class="side-nav">
+<button class="active" data-page="home">⌂ Dashboard</button>
+<button data-page="weight">⚖ Gewicht</button>
+<button data-page="check">📏 Check-in</button>
+<button data-page="strength">💪 Kraft</button>
 <button data-page="progress">📈 Fortschritt</button>
-<button data-page="calories">🔥 Kalorien & Makros</button>
+<button data-page="settings">⚙ Einstellungen</button>
 </nav>
-</header>
+</aside>
+<main class="main">
+<div id="install" class="install"><div><b>Als App installieren</b><div style="font-size:12px;color:#c7d2cc">ALEX FITNESS PRO direkt vom Startbildschirm öffnen.</div></div><button id="installBtn">Installieren</button></div>
+<header class="topbar"><div><h1 id="pageTitle">Dashboard</h1><div class="date" id="date"></div></div><button class="btn secondary" id="quickAdd">＋ Eintrag</button></header>
 
-<section id="daily" class="page active">
+<section id="home" class="page active">
 <div class="grid">
-<div class="card"><div class="label">HEUTE</div><div class="value" id="todayWeight">—</div><div class="label">aktuelles Gewicht</div></div>
-<div class="card"><div class="label">7-TAGE-MITTEL</div><div class="value" id="avg7">—</div><div class="label">tägliche Einträge</div></div>
-<div class="card"><div class="label">EINTRÄGE</div><div class="value" id="weightCount">0</div><div class="label">gespeicherte Gewichtswerte</div></div>
-<div class="card wide">
-<h3>⚖️ Körpergewicht heute</h3>
-<div class="label">Nur das heutige Gewicht. Das Datum wird automatisch gespeichert.</div>
-<label>Gewicht (kg)<input id="weightToday" type="number" step="0.1" inputmode="decimal" placeholder="z. B. 79,5"></label>
-<button class="action" id="saveWeight">✓ Gewicht für heute speichern</button>
-<div id="weightMessage" class="notice" style="display:none"></div>
-</div>
-<div class="card wide">
-<h3>📈 Gewichtsverlauf</h3>
-<div class="label">Tägliche Messungen</div>
-<canvas id="weightChart" class="chart"></canvas>
-<div id="weightTable"></div>
-</div>
+<div class="card span3"><div class="eyebrow">AKTUELLES GEWICHT</div><div class="big" id="homeWeight">—</div><div class="delta" id="homeWeightDelta">—</div></div>
+<div class="card span3"><div class="eyebrow">7-TAGE-MITTEL</div><div class="big" id="homeAvg">—</div><div class="delta">aus gespeicherten Tageswerten</div></div>
+<div class="card span3"><div class="eyebrow">LETZTER CHECK</div><div class="big" id="homeWaist">—</div><div class="delta">Taille</div></div>
+<div class="card span3"><div class="eyebrow">KRAFT-EINTRÄGE</div><div class="big" id="homeStrength">0</div><div class="delta">gespeicherte Werte</div></div>
+<div class="card span8"><h3>📈 Gewichtsverlauf</h3><canvas id="homeChart" class="chart"></canvas></div>
+<div class="card span4"><h3>⚡ Schnellzugriff</h3><div class="quick"><button data-page="weight">Gewicht</button><button data-page="check">Check-in</button><button data-page="strength">Kraft</button><button data-page="progress">Fortschritt</button></div><div class="notice">Alle Daten werden lokal im Browser gespeichert.</div></div>
+<div class="card span12"><h3>🕘 Letzte Aktivitäten</h3><div id="activity"></div></div>
 </div>
 </section>
 
-<section id="weekly" class="page">
+<section id="weight" class="page">
 <div class="grid">
-<div class="card"><div class="label">LETZTER CHECK</div><div class="value" id="lastCheck">—</div></div>
-<div class="card"><div class="label">TAILLE</div><div class="value" id="lastWaist">—</div></div>
-<div class="card"><div class="label">CHECKS</div><div class="value" id="checkCount">0</div></div>
-<div class="card wide">
-<h3>📏 Wöchentlicher Check</h3>
-<div class="label">Körpermaße separat vom täglichen Gewicht erfassen.</div>
-<div class="row">
-<label>Gewicht (kg)<input id="wWeight" type="number" step="0.1"></label>
-<label>Taille (cm)<input id="waist" type="number" step="0.1"></label>
-<label>Bauch (cm)<input id="belly" type="number" step="0.1"></label>
-<label>Brust (cm)<input id="chest" type="number" step="0.1"></label>
-<label>Hüfte (cm)<input id="hip" type="number" step="0.1"></label>
-<label>Oberarm (cm)<input id="arm" type="number" step="0.1"></label>
-<label>Oberschenkel (cm)<input id="thigh" type="number" step="0.1"></label>
-<label>Wade (cm)<input id="calf" type="number" step="0.1"></label>
+<div class="card span12"><h2>⚖ Gewicht erfassen</h2><div class="muted">Historische Werte können direkt mit Datum eingetragen oder geändert werden.</div>
+<div class="form-grid" style="margin-top:12px"><div class="field"><label>Datum</label><input id="weightDate" type="date"></div><div class="field"><label>Gewicht (kg)</label><input id="weightValue" type="number" step="0.1" inputmode="decimal" placeholder="z. B. 80,2"></div></div>
+<div class="actions"><button class="btn" id="saveWeight">✓ Speichern</button><button class="btn secondary" id="todayWeightBtn">Heute</button></div><div id="weightMsg" class="notice" style="display:none"></div></div>
+<div class="card span4"><div class="eyebrow">HEUTE</div><div class="big" id="wToday">—</div></div>
+<div class="card span4"><div class="eyebrow">7-TAGE-MITTEL</div><div class="big" id="wAvg">—</div></div>
+<div class="card span4"><div class="eyebrow">EINTRÄGE</div><div class="big" id="wCount">0</div></div>
+<div class="card span12"><h3>📋 Gewichtsverlauf</h3><div class="table-wrap" id="weightTable"></div></div>
 </div>
-<button class="action" id="saveWeekly">✓ Wochen-Check speichern</button>
-<div id="weeklyMessage" class="notice" style="display:none"></div>
-</div>
-<div class="card wide"><h3>📋 Verlauf</h3><div id="weeklyTable"></div></div>
+</section>
+
+<section id="check" class="page">
+<div class="grid">
+<div class="card span12"><h2>📏 Wochen-Check-in</h2><div class="muted">Messwerte mit Datum speichern und später vergleichen.</div>
+<div class="form-grid" style="margin-top:12px">
+<div class="field"><label>Datum</label><input id="checkDate" type="date"></div><div></div>
+<div class="field"><label>Gewicht (kg)</label><input id="cWeight" type="number" step="0.1"></div>
+<div class="field"><label>Taille (cm)</label><input id="cWaist" type="number" step="0.1"></div>
+<div class="field"><label>Bauch (cm)</label><input id="cBelly" type="number" step="0.1"></div>
+<div class="field"><label>Brust (cm)</label><input id="cChest" type="number" step="0.1"></div>
+<div class="field"><label>Hüfte (cm)</label><input id="cHip" type="number" step="0.1"></div>
+<div class="field"><label>Oberarm (cm)</label><input id="cArm" type="number" step="0.1"></div>
+<div class="field"><label>Oberschenkel (cm)</label><input id="cThigh" type="number" step="0.1"></div>
+<div class="field"><label>Wade (cm)</label><input id="cCalf" type="number" step="0.1"></div>
+</div><div class="actions"><button class="btn" id="saveCheck">✓ Check-in speichern</button></div><div id="checkMsg" class="notice" style="display:none"></div></div>
+<div class="card span12"><h3>📋 Check-in Verlauf</h3><div class="table-wrap" id="checkTable"></div></div>
 </div>
 </section>
 
 <section id="strength" class="page">
 <div class="grid">
-<div class="card wide">
-<h3>💪 Kraft-Check</h3>
-<div class="label">Nur Kraftwerte dokumentieren — kein Trainingsplan.</div>
-<div class="row">
-<label>Übung<select id="exercise"></select></label>
-<label>Gewicht (kg)<input id="exWeight" type="number" step="0.5"></label>
-<label>Wiederholungen<input id="exReps" type="number" min="1"></label>
-</div>
-<button class="action" id="saveStrength">✓ Kraftwert speichern</button>
-<button class="action secondary" id="newExercise">+ Eigene Übung</button>
-</div>
-<div class="card wide"><div id="strengthList"></div></div>
+<div class="card span12"><h2>💪 Kraft-Tracker</h2><div class="muted">Übung, Gewicht und Wiederholungen dokumentieren.</div>
+<div class="form-grid" style="margin-top:12px"><div class="field"><label>Übung</label><select id="exercise"></select></div><div class="field"><label>Gewicht (kg)</label><input id="sWeight" type="number" step="0.5"></div><div class="field"><label>Wiederholungen</label><input id="sReps" type="number" min="1"></div><div class="field"><label>Datum</label><input id="sDate" type="date"></div></div>
+<div class="actions"><button class="btn" id="saveStrength">✓ Kraftwert speichern</button><button class="btn secondary" id="newExercise">＋ Eigene Übung</button></div></div>
+<div class="card span12"><div id="strengthTable"></div></div>
 </div>
 </section>
 
-<section id="progress" class="page"><div class="grid"><div class="card"><div class="label">GEWICHT</div><div class="value" id="pWeight">—</div><div class="label" id="pWeightChange">Noch keine Vergleichsdaten</div></div><div class="card"><div class="label">TAILLE</div><div class="value" id="pWaist">—</div><div class="label" id="pWaistChange">Noch keine Vergleichsdaten</div></div><div class="card"><div class="label">KRAFTWERTE</div><div class="value" id="pStrength">0</div><div class="label">gespeicherte Einträge</div></div><div class="card wide"><h3>📈 Fortschritt</h3><div class="label">Verlauf deiner gespeicherten Messwerte.</div><canvas id="progressWeightChart" class="chart"></canvas></div><div class="card"><h3>⚖️ Gewicht</h3><div id="progressWeightTable"></div></div><div class="card"><h3>📏 Maße</h3><div id="progressMeasureTable"></div></div><div class="card wide"><h3>💪 Kraftentwicklung</h3><div id="progressStrengthTable"></div></div></div></section>
-<section id="calories" class="page">
+<section id="progress" class="page">
 <div class="grid">
-<div class="card wide"><h3>🔥 Kalorien & Makros</h3></div>
-<div class="card"><div class="label">ERHALT</div><div class="value">2.600–2.700</div><div class="label">kcal</div></div>
-<div class="card"><div class="label">TRAINING</div><div class="value">2.300</div><div class="label">200 g Protein · 50 g Fett · 263 g Carbs</div></div>
-<div class="card"><div class="label">PAUSE</div><div class="value">2.060</div><div class="label">200 g Protein · 60 g Fett · 180 g Carbs</div></div>
+<div class="card span4"><div class="eyebrow">GEWICHT</div><div class="big" id="pWeight">—</div><div class="delta" id="pWeightDelta">—</div></div>
+<div class="card span4"><div class="eyebrow">TAILLE</div><div class="big" id="pWaist">—</div><div class="delta" id="pWaistDelta">—</div></div>
+<div class="card span4"><div class="eyebrow">KRAFTWERTE</div><div class="big" id="pStrength">0</div><div class="delta">Einträge</div></div>
+<div class="card span8"><h3>📈 Gewicht über Zeit</h3><canvas id="progressChart" class="chart"></canvas></div>
+<div class="card span4"><h3>📊 Vergleich</h3><div id="compare"></div></div>
+<div class="card span12"><h3>💪 Kraftentwicklung</h3><div class="table-wrap" id="progressStrength"></div></div>
 </div>
 </section>
+
+<section id="settings" class="page">
+<div class="grid">
+<div class="card span6"><h2>⚙ Einstellungen</h2><p class="muted">App-Daten verwalten.</p><div class="actions"><button class="btn secondary" id="exportData">Daten exportieren</button><button class="btn secondary" id="importBtn">Daten importieren</button><input id="importFile" type="file" accept=".json" hidden></div></div>
+<div class="card span6"><h2>🗑 Daten</h2><p class="muted">Das Löschen entfernt die lokal gespeicherten App-Daten auf diesem Gerät.</p><button class="btn danger" id="resetData">Alle lokalen Daten löschen</button></div>
+<div class="card span12"><h3>ℹ️ App-Info</h3><div class="muted">ALEX FITNESS PRO · lokale Web-App/PWA · Datenhaltung im Browser.</div></div>
 </div>
-<nav class="bottom-nav" aria-label="App Navigation">
-<button class="active" data-page="daily">⚖️<br>Gewicht</button>
-<button data-page="weekly">📊<br>Check</button>
-<button data-page="strength">💪<br>Kraft</button>
-<button data-page="progress">📈<br>Fortschritt</button>
-<button data-page="calories">🔥<br>Makros</button>
+</section>
+</main>
+</div>
+<nav class="mobile-nav">
+<button class="active" data-page="home">⌂<br>Home</button><button data-page="weight">⚖<br>Gewicht</button><button data-page="check">📏<br>Check</button><button data-page="strength">💪<br>Kraft</button><button data-page="progress">📈<br>Fortschritt</button><button data-page="settings">⚙<br>Mehr</button>
 </nav>
 
 <script>
-(function(){
-"use strict";
+(()=>{"use strict";
 const KEY="alexFitnessPro";
-const defaultData={weights:[],checks:[],strength:{},customExercises:[]};
+const base={weights:[],checks:[],strength:{},customExercises:[]};
 let data;
-try{data=JSON.parse(localStorage.getItem(KEY)||"null")||defaultData}catch(e){data=defaultData}
-data.weights=Array.isArray(data.weights)?data.weights:Array.isArray(data.dailyWeights)?data.dailyWeights:[];
-data.checks=Array.isArray(data.checks)?data.checks:[];
-data.strength=data.strength&&typeof data.strength==="object"?data.strength:(data.exercises||{});
-data.customExercises=Array.isArray(data.customExercises)?data.customExercises:[];
-
-const $=id=>document.getElementById(id);
-const dateKey=()=>new Date().toLocaleDateString("sv-SE");
-const save=()=>localStorage.setItem(KEY,JSON.stringify(data));
-const exercises=["Schrägbankdrücken","RDL","Beinpresse","Latzug","Rudern","Seitheben","Bizeps-Curls","Trizepsdrücken"];
-const allExercises=()=>[...new Set(exercises.concat(data.customExercises))];
+try{data=JSON.parse(localStorage.getItem(KEY)||"null")||base}catch(e){data=base}
+data.weights=Array.isArray(data.weights)?data.weights:[];data.checks=Array.isArray(data.checks)?data.checks:[];data.strength=data.strength&&typeof data.strength==="object"?data.strength:{};data.customExercises=Array.isArray(data.customExercises)?data.customExercises:[];
+const $=id=>document.getElementById(id), today=()=>new Date().toLocaleDateString("sv-SE"), save=()=>localStorage.setItem(KEY,JSON.stringify(data));
+const exBase=["Schrägbankdrücken","RDL","Beinpresse","Latzug","Rudern","Seitheben","Bizeps-Curls","Trizepsdrücken"];
+const allEx=()=>[...new Set(exBase.concat(data.customExercises))];
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmtDate=d=>new Date(d+"T12:00:00").toLocaleDateString("de-DE");
+const sortedW=()=>data.weights.slice().sort((a,b)=>a.date.localeCompare(b.date));
+const sortedC=()=>data.checks.slice().sort((a,b)=>a.date.localeCompare(b.date));
+const fmtDelta=(v,u)=>{const sign=v>0?"+":v<0?"−":"±";return sign+Math.abs(v).toFixed(1)+" "+u};
+$("date").textContent=new Date().toLocaleDateString("de-DE",{weekday:"long",day:"2-digit",month:"long",year:"numeric"});
+$("weightDate").value=today();$("checkDate").value=today();$("sDate").value=today();
 
-$("today").textContent=new Date().toLocaleDateString("de-DE");
-
-document.querySelectorAll("[data-page]").forEach(btn=>{
-btn.addEventListener("click",()=>{
-const target=btn.dataset.page;
-document.querySelectorAll("[data-page]").forEach(x=>x.classList.toggle("active",x.dataset.page===target));
-document.querySelectorAll(".page").forEach(x=>x.classList.toggle("active",x.id===target));
-if(target==="daily")drawChart();
-if(target==="progress")renderProgress();
-window.scrollTo({top:0,behavior:"smooth"});
-});
-});
-
-function sortedWeights(){return data.weights.slice().sort((a,b)=>a.date.localeCompare(b.date))}
-function sortedChecks(){return data.checks.slice().sort((a,b)=>new Date(a.date)-new Date(b.date))}
-function avg(a){return a.length?a.reduce((x,y)=>x+y,0)/a.length:0}
+function page(name){
+document.querySelectorAll("[data-page]").forEach(b=>b.classList.toggle("active",b.dataset.page===name));
+document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===name));
+const titles={home:"Dashboard",weight:"Gewicht",check:"Wochen-Check-in",strength:"Kraft-Tracker",progress:"Fortschritt",settings:"Einstellungen"};
+$("pageTitle").textContent=titles[name]||"Dashboard";window.scrollTo({top:0,behavior:"smooth"});
+render();
+}
+document.querySelectorAll("[data-page]").forEach(b=>b.addEventListener("click",()=>page(b.dataset.page)));
 
 function render(){
-const w=sortedWeights(), c=sortedChecks(), today=dateKey();
-const todayEntry=w.find(x=>x.date===today);
-$("todayWeight").textContent=todayEntry?Number(todayEntry.weight).toFixed(1)+" kg":"—";
-const recent=w.slice(-7);
-$("avg7").textContent=recent.length?avg(recent.map(x=>Number(x.weight))).toFixed(1)+" kg":"—";
-$("weightCount").textContent=w.length;
-$("checkCount").textContent=c.length;
-const last=c[c.length-1];
-$("lastCheck").textContent=last?new Date(last.date).toLocaleDateString("de-DE"):"—";
-$("lastWaist").textContent=last?Number(last.waist).toFixed(1)+" cm":"—";
-$("weightTable").innerHTML=w.length?"<table><tr><th>Datum</th><th>Gewicht</th></tr>"+w.slice().reverse().slice(0,14).map(x=>"<tr><td>"+new Date(x.date+"T12:00:00").toLocaleDateString("de-DE")+"</td><td>"+Number(x.weight).toFixed(1)+" kg</td></tr>").join("")+"</table>":"<div class='empty'>Noch keine Gewichtswerte gespeichert.</div>";
-$("weeklyTable").innerHTML=c.length?"<table><tr><th>Datum</th><th>Gewicht</th><th>Taille</th><th>Bauch</th></tr>"+c.slice().reverse().map(x=>"<tr><td>"+new Date(x.date).toLocaleDateString("de-DE")+"</td><td>"+x.weight+" kg</td><td>"+x.waist+" cm</td><td>"+x.belly+" cm</td></tr>").join("")+"</table>":"<div class='empty'>Noch keine Wochen-Checks.</div>";
-renderStrength();
-renderProgress();
-drawChart();
+const w=sortedW(),c=sortedC(),last=w[w.length-1],prev=w[w.length-2];
+$("homeWeight").textContent=last?Number(last.weight).toFixed(1)+" kg":"—";
+$("homeWeightDelta").textContent=last&&prev?fmtDelta(Number(last.weight)-Number(prev.weight),"kg")+" zum vorherigen Wert":"Noch keine Vergleichsdaten";
+const r=w.slice(-7);$("homeAvg").textContent=r.length?(r.reduce((s,x)=>s+Number(x.weight),0)/r.length).toFixed(1)+" kg":"—";
+const lc=c[c.length-1];$("homeWaist").textContent=lc?Number(lc.waist).toFixed(1)+" cm":"—";
+const sc=Object.values(data.strength).reduce((n,a)=>n+(Array.isArray(a)?a.length:0),0);$("homeStrength").textContent=sc;
+$("wToday").textContent=(w.find(x=>x.date===today())?.weight??"—")+(w.find(x=>x.date===today())?" kg":"");
+$("wAvg").textContent=r.length?(r.reduce((s,x)=>s+Number(x.weight),0)/r.length).toFixed(1)+" kg":"—";$("wCount").textContent=w.length;
+renderWeightTable();renderChecks();renderStrength();renderProgress();renderActivity();draw("homeChart",w);draw("progressChart",w);
 }
-
-function renderProgress(){
-const w=sortedWeights(), c=sortedChecks(), firstW=w[0], lastW=w[w.length-1], firstC=c[0], lastC=c[c.length-1];
-$("pWeight").textContent=lastW?Number(lastW.weight).toFixed(1)+" kg":"—";
-$("pWeightChange").textContent=firstW&&lastW&&w.length>1?formatDelta(Number(lastW.weight)-Number(firstW.weight),"kg")+" seit "+new Date(firstW.date+"T12:00:00").toLocaleDateString("de-DE"):"Noch keine Vergleichsdaten";
-$("pWaist").textContent=lastC?Number(lastC.waist).toFixed(1)+" cm":"—";
-$("pWaistChange").textContent=firstC&&lastC&&c.length>1?formatDelta(Number(lastC.waist)-Number(firstC.waist),"cm")+" seit "+new Date(firstC.date).toLocaleDateString("de-DE"):"Noch keine Vergleichsdaten";
-const strengthEntries=Object.values(data.strength).reduce((n,a)=>n+(Array.isArray(a)?a.length:0),0);
-$("pStrength").textContent=strengthEntries;
-$("progressWeightTable").innerHTML=w.length?"<table><tr><th>Zeitraum</th><th>Wert</th></tr><tr><td>Erster</td><td>"+Number(firstW.weight).toFixed(1)+" kg</td></tr><tr><td>Aktuell</td><td>"+Number(lastW.weight).toFixed(1)+" kg</td></tr></table>":"<div class='empty'>Noch keine Daten.</div>";
-$("progressMeasureTable").innerHTML=c.length?"<table><tr><th>Maß</th><th>Erster</th><th>Aktuell</th></tr>"+measureRow("Taille","waist",firstC,lastC)+"<tr><td>Bauch</td><td>"+Number(firstC.belly).toFixed(1)+"</td><td>"+Number(lastC.belly).toFixed(1)+"</td></tr><tr><td>Brust</td><td>"+Number(firstC.chest).toFixed(1)+"</td><td>"+Number(lastC.chest).toFixed(1)+"</td></tr><tr><td>Oberarm</td><td>"+Number(firstC.arm).toFixed(1)+"</td><td>"+Number(lastC.arm).toFixed(1)+"</td></tr></table>":"<div class='empty'>Noch keine Maße.</div>";
-const names=Object.keys(data.strength);
-$("progressStrengthTable").innerHTML=names.length?"<table><tr><th>Übung</th><th>Erster</th><th>Aktuell</th></tr>"+names.map(name=>{
-const arr=Array.isArray(data.strength[name])?data.strength[name]:[]; if(!arr.length)return "";
-const first=arr[0],last=arr[arr.length-1];
-return "<tr><td>"+esc(name)+"</td><td>"+Number(first.weight).toFixed(1)+" × "+first.reps+"</td><td>"+Number(last.weight).toFixed(1)+" × "+last.reps+"</td></tr>";
-}).join("")+"</table>":"<div class='empty'>Noch keine Kraftwerte.</div>";
-drawProgressChart(w);
+function renderWeightTable(){
+const w=sortedW().reverse();
+$("weightTable").innerHTML=w.length?"<table><tr><th>Datum</th><th>Gewicht</th><th></th></tr>"+w.map(x=>"<tr><td>"+fmtDate(x.date)+"</td><td>"+Number(x.weight).toFixed(1)+" kg</td><td><button class='btn secondary editW' data-date='"+x.date+"' style='padding:6px 9px'>Bearbeiten</button></td></tr>").join("")+"</table>":"<div class='empty'>Noch keine Gewichtswerte.</div>";
+document.querySelectorAll(".editW").forEach(b=>b.onclick=()=>{const x=data.weights.find(v=>v.date===b.dataset.date);$("weightDate").value=x.date;$("weightValue").value=x.weight;page("weight")});
 }
-function formatDelta(v,unit){const sign=v>0?"+":v<0?"−":"±";return sign+Math.abs(v).toFixed(1)+" "+unit;}
-function measureRow(label,key,a,b){return "<tr><td>"+label+"</td><td>"+(a&&a[key]!=null?Number(a[key]).toFixed(1):"—")+"</td><td>"+(b&&b[key]!=null?Number(b[key]).toFixed(1):"—")+"</td></tr>";}
-function drawProgressChart(w){
-const cv=$("progressWeightChart");if(!cv)return;
-const box=cv.getBoundingClientRect(),width=Math.max(300,box.width||300),height=230,ratio=window.devicePixelRatio||1;
-cv.width=width*ratio;cv.height=height*ratio;
-const ctx=cv.getContext("2d");ctx.setTransform(ratio,0,0,ratio,0,0);ctx.clearRect(0,0,width,height);
-if(w.length<2){ctx.fillStyle="#68736c";ctx.font="14px sans-serif";ctx.fillText("Mindestens 2 Gewichtseinträge für den Verlauf.",16,30);return}
-const vals=w.map(x=>Number(x.weight)),min=Math.min(...vals),max=Math.max(...vals),range=Math.max(max-min,.5),pad=28;
-ctx.strokeStyle="#e4ebe7";ctx.lineWidth=1;
-for(let i=0;i<4;i++){const y=20+(height-55)*i/3;ctx.beginPath();ctx.moveTo(pad,y);ctx.lineTo(width-pad,y);ctx.stroke()}
-ctx.strokeStyle="#1f9d61";ctx.lineWidth=3;ctx.beginPath();
-w.forEach((p,i)=>{const x=pad+(width-pad*2)*i/(w.length-1),y=20+(height-55)-(Number(p.weight)-min+range*.05)/(range*1.1)*(height-55);i?ctx.lineTo(x,y):ctx.moveTo(x,y)});
-ctx.stroke();
-ctx.fillStyle="#17201b";ctx.font="12px sans-serif";
-ctx.fillText(Number(w[0].weight).toFixed(1)+" kg",pad,215);
-ctx.fillText(Number(w[w.length-1].weight).toFixed(1)+" kg",Math.max(pad,width-95),215);
+function renderChecks(){
+const c=sortedC().reverse();
+$("checkTable").innerHTML=c.length?"<table><tr><th>Datum</th><th>Gewicht</th><th>Taille</th><th>Bauch</th><th>Brust</th><th>Arm</th></tr>"+c.map(x=>"<tr><td>"+fmtDate(x.date)+"</td><td>"+x.weight+"</td><td>"+x.waist+"</td><td>"+x.belly+"</td><td>"+x.chest+"</td><td>"+x.arm+"</td></tr>").join("")+"</table>":"<div class='empty'>Noch keine Check-ins.</div>";
 }
-
-function drawChart(){
-const cv=$("weightChart");if(!cv)return;
-const w=sortedWeights(),box=cv.getBoundingClientRect(),width=Math.max(300,box.width||300),height=230,ratio=window.devicePixelRatio||1;
-cv.width=width*ratio;cv.height=height*ratio;
-const ctx=cv.getContext("2d");ctx.setTransform(ratio,0,0,ratio,0,0);ctx.clearRect(0,0,width,height);
-if(w.length<2){ctx.fillStyle="#68736c";ctx.font="14px sans-serif";ctx.fillText("Mindestens 2 Gewichtseinträge für einen Verlauf.",16,30);return}
-const vals=w.map(x=>Number(x.weight)),min=Math.min(...vals),max=Math.max(...vals),range=Math.max(max-min,.5),pad=25;
-ctx.strokeStyle="#e4ebe7";ctx.lineWidth=1;
-for(let i=0;i<4;i++){const y=20+(height-55)*i/3;ctx.beginPath();ctx.moveTo(pad,y);ctx.lineTo(width-pad,y);ctx.stroke()}
-ctx.strokeStyle="#1f9d61";ctx.lineWidth=3;ctx.beginPath();
-w.forEach((p,i)=>{const x=pad+(width-pad*2)*i/(w.length-1),y=20+(height-55)-(Number(p.weight)-min+range*.05)/(range*1.1)*(height-55);i?ctx.lineTo(x,y):ctx.moveTo(x,y)});
-ctx.stroke();
-}
-
 function renderStrength(){
-const keys=Object.keys(data.strength);
-$("strengthList").innerHTML=keys.length?keys.map(name=>{
-const arr=Array.isArray(data.strength[name])?data.strength[name]:[];
-const last=arr[arr.length-1],best=arr.reduce((a,b)=>Number(b.weight)*Number(b.reps)>Number(a.weight)*Number(a.reps)?b:a,arr[0]);
-return "<div class='card' style='margin-top:10px'><b>"+esc(name)+"</b><br>Aktuell: "+last.weight+" kg × "+last.reps+"<br><span class='label'>Bestwert: "+best.weight+" kg × "+best.reps+" · "+arr.length+" Einträge</span></div>";
-}).join(""):"<div class='empty'>Noch keine Kraftwerte gespeichert.</div>";
-$("exercise").innerHTML=allExercises().map(x=>"<option>"+esc(x)+"</option>").join("");
+$("exercise").innerHTML=allEx().map(x=>"<option>"+esc(x)+"</option>").join("");
+const names=Object.keys(data.strength);
+$("strengthTable").innerHTML=names.length?"<table><tr><th>Übung</th><th>Letzter Wert</th><th>Bestwert</th><th>Einträge</th></tr>"+names.map(n=>{
+const a=Array.isArray(data.strength[n])?data.strength[n]:[],l=a[a.length-1],best=a.reduce((p,x)=>Number(x.weight)*Number(x.reps)>Number(p.weight)*Number(p.reps)?x:p,a[0]);
+return "<tr><td>"+esc(n)+"</td><td>"+l.weight+" kg × "+l.reps+"</td><td>"+best.weight+" kg × "+best.reps+"</td><td>"+a.length+"</td></tr>";
+}).join("")+"</table>":"<div class='empty'>Noch keine Kraftwerte.</div>";
+}
+function renderProgress(){
+const w=sortedW(),c=sortedC(),f=w[0],l=w[w.length-1],fc=c[0],lc=c[c.length-1];
+$("pWeight").textContent=l?Number(l.weight).toFixed(1)+" kg":"—";$("pWeightDelta").textContent=f&&l&&w.length>1?fmtDelta(Number(l.weight)-Number(f.weight),"kg")+" seit "+fmtDate(f.date):"Noch keine Vergleichsdaten";
+$("pWaist").textContent=lc?Number(lc.waist).toFixed(1)+" cm":"—";$("pWaistDelta").textContent=fc&&lc&&c.length>1?fmtDelta(Number(lc.waist)-Number(fc.waist),"cm")+" seit "+fmtDate(fc.date):"Noch keine Vergleichsdaten";
+const sc=Object.values(data.strength).reduce((n,a)=>n+(Array.isArray(a)?a.length:0),0);$("pStrength").textContent=sc;
+$("compare").innerHTML=f&&l?"<div class='notice'>Gewicht<br><b>"+Number(f.weight).toFixed(1)+" → "+Number(l.weight).toFixed(1)+" kg</b></div>"+(fc&&lc?"<div class='notice'>Taille<br><b>"+Number(fc.waist).toFixed(1)+" → "+Number(lc.waist).toFixed(1)+" cm</b></div>":""):"<div class='empty'>Mehrere Werte nötig.</div>";
+const names=Object.keys(data.strength);
+$("progressStrength").innerHTML=names.length?"<table><tr><th>Übung</th><th>Start</th><th>Aktuell</th></tr>"+names.map(n=>{const a=data.strength[n]||[];if(!a.length)return "";return "<tr><td>"+esc(n)+"</td><td>"+a[0].weight+" × "+a[0].reps+"</td><td>"+a[a.length-1].weight+" × "+a[a.length-1].reps+"</td></tr>"}).join("")+"</table>":"<div class='empty'>Noch keine Kraftentwicklung.</div>";
+}
+function renderActivity(){
+const items=[];
+sortedW().slice(-3).reverse().forEach(x=>items.push("<div class='notice'>⚖ Gewicht: <b>"+x.weight+" kg</b> · "+fmtDate(x.date)+"</div>"));
+sortedC().slice(-2).reverse().forEach(x=>items.push("<div class='notice'>📏 Check-in: <b>"+x.waist+" cm Taille</b> · "+fmtDate(x.date)+"</div>"));
+$("activity").innerHTML=items.length?items.join(""):"<div class='empty'>Noch keine Aktivitäten gespeichert.</div>";
+}
+function draw(id,w){
+const cv=$(id);if(!cv)return;const box=cv.getBoundingClientRect(),W=Math.max(300,box.width||300),H=260,R=devicePixelRatio||1;cv.width=W*R;cv.height=H*R;const c=cv.getContext("2d");c.setTransform(R,0,0,R,0,0);c.clearRect(0,0,W,H);
+if(w.length<2){c.fillStyle="#718078";c.font="14px sans-serif";c.fillText("Mindestens 2 Werte für einen Verlauf.",18,32);return}
+const vals=w.map(x=>+x.weight),min=Math.min(...vals),max=Math.max(...vals),range=Math.max(max-min,.5),p=30;
+c.strokeStyle="#e2e9e4";for(let i=0;i<4;i++){const y=20+(H-55)*i/3;c.beginPath();c.moveTo(p,y);c.lineTo(W-p,y);c.stroke()}
+c.strokeStyle="#1f9d61";c.lineWidth=3;c.beginPath();w.forEach((x,i)=>{const X=p+(W-2*p)*i/(w.length-1),Y=20+(H-55)-(+x.weight-min+range*.05)/(range*1.1)*(H-55);i?c.lineTo(X,Y):c.moveTo(X,Y)});c.stroke();
+c.fillStyle="#142019";c.font="12px sans-serif";c.fillText(vals[0].toFixed(1)+" kg",p,H-10);c.fillText(vals.at(-1).toFixed(1)+" kg",Math.max(p,W-90),H-10);
 }
 
-$("saveWeight").addEventListener("click",()=>{
-const input=$("weightToday"),value=Number(String(input.value).replace(",","."));if(!Number.isFinite(value)||value<=0){alert("Bitte das heutige Gewicht eingeben.");return}
-const d=dateKey(),i=data.weights.findIndex(x=>x.date===d);
-if(i>=0)data.weights[i].weight=value;else data.weights.push({date:d,weight:value});
-save();input.value="";$("weightMessage").textContent="✓ Gewicht für heute gespeichert.";$("weightMessage").style.display="block";render();
-setTimeout(()=>{$("weightMessage").style.display="none"},2500);
-});
+$("saveWeight").onclick=()=>{
+const d=$("weightDate").value,v=Number(String($("weightValue").value).replace(",","."));if(!d||!Number.isFinite(v)||v<=0){alert("Datum und Gewicht eingeben.");return}
+const i=data.weights.findIndex(x=>x.date===d);if(i>=0)data.weights[i].weight=v;else data.weights.push({date:d,weight:v});save();$("weightValue").value="";$("weightMsg").textContent="✓ Gewicht gespeichert.";$("weightMsg").style.display="block";render();setTimeout(()=>$("weightMsg").style.display="none",2200);
+};
+$("todayWeightBtn").onclick=()=>{$("weightDate").value=today();$("weightValue").focus()};
+$("saveCheck").onclick=()=>{
+const d=$("checkDate").value,ids=["cWeight","cWaist","cBelly","cChest","cHip","cArm","cThigh","cCalf"],keys=["weight","waist","belly","chest","hip","arm","thigh","calf"];if(!d){alert("Datum eingeben.");return}
+const o={date:d};for(let i=0;i<ids.length;i++){const v=Number($(ids[i]).value);if(!Number.isFinite(v)||v<=0){alert("Bitte alle Check-in-Werte ausfüllen.");return}o[keys[i]]=v}
+const idx=data.checks.findIndex(x=>x.date===d);if(idx>=0)data.checks[idx]=o;else data.checks.push(o);save();$("checkMsg").textContent="✓ Check-in gespeichert.";$("checkMsg").style.display="block";render();setTimeout(()=>$("checkMsg").style.display="none",2200);
+};
+$("saveStrength").onclick=()=>{
+const n=$("exercise").value,w=Number($("sWeight").value),r=Number($("sReps").value),d=$("sDate").value;if(!n||w<=0||r<=0||!d){alert("Übung, Gewicht, Wiederholungen und Datum eingeben.");return}
+if(!data.strength[n])data.strength[n]=[];data.strength[n].push({weight:w,reps:r,date:d});save();$("sWeight").value="";$("sReps").value="";render();
+};
+$("newExercise").onclick=()=>{const n=prompt("Name der eigenen Übung:");if(n&&n.trim()&&!allEx().includes(n.trim())){data.customExercises.push(n.trim());save();render()}};
+$("quickAdd").onclick=()=>page("weight");
+$("exportData").onclick=()=>{const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="alex-fitness-pro-backup.json";a.click();URL.revokeObjectURL(a.href)};
+$("importBtn").onclick=()=>$("importFile").click();
+$("importFile").onchange=e=>{const f=e.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{try{const x=JSON.parse(rd.result);if(!x||!Array.isArray(x.weights))throw Error();data=x;save();render();alert("Daten importiert.")}catch(_){alert("Die Datei konnte nicht importiert werden.")}};rd.readAsText(f)};
+$("resetData").onclick=()=>{if(confirm("Wirklich alle lokalen Daten löschen?")){localStorage.removeItem(KEY);location.reload()}};
 
-$("saveWeekly").addEventListener("click",()=>{
-const ids=["wWeight","waist","belly","chest","hip","arm","thigh","calf"],obj={date:new Date().toISOString()};
-for(const id of ids){const v=Number($(id).value);if(!Number.isFinite(v)||v<=0){alert("Bitte alle Werte ausfüllen.");return}obj[id==="wWeight"?"weight":id]=v}
-data.checks.push({date:obj.date,weight:obj.weight,waist:obj.waist,belly:obj.belly,chest:obj.chest,hip:obj.hip,arm:obj.arm,thigh:obj.thigh,calf:obj.calf});
-save();$("weeklyMessage").textContent="✓ Wochen-Check gespeichert.";$("weeklyMessage").style.display="block";render();
-});
-
-$("saveStrength").addEventListener("click",()=>{
-const n=$("exercise").value,w=Number($("exWeight").value),r=Number($("exReps").value);
-if(!n||w<=0||r<=0){alert("Übung, Gewicht und Wiederholungen eingeben.");return}
-if(!data.strength[n])data.strength[n]=[];
-data.strength[n].push({weight:w,reps:r,date:new Date().toISOString()});
-save();$("exWeight").value="";$("exReps").value="";renderStrength();
-});
-
-$("newExercise").addEventListener("click",()=>{
-const n=prompt("Name der eigenen Übung:");
-if(n&&n.trim()&&!allExercises().includes(n.trim())){data.customExercises.push(n.trim());save();renderStrength();$("exercise").value=n.trim()}
-});
-
-window.addEventListener("resize",()=>{drawChart();drawProgressChart(sortedWeights());});
-
-let deferredInstall=null;
-window.addEventListener("beforeinstallprompt",e=>{
-e.preventDefault();deferredInstall=e;
-const card=$("installCard"); if(card) card.style.display="flex";
-});
-$("installBtn")?.addEventListener("click",async()=>{
-if(!deferredInstall)return;
-deferredInstall.prompt();
-await deferredInstall.userChoice;
-deferredInstall=null;
-$("installCard").style.display="none";
-});
-window.addEventListener("appinstalled",()=>{
-const card=$("installCard"); if(card) card.style.display="none";
-});
-if("serviceWorker" in navigator){
-window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
-}
+let deferred=null;window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();deferred=e;$("install").style.display="flex"});$("installBtn").onclick=async()=>{if(deferred){deferred.prompt();await deferred.userChoice;deferred=null;$("install").style.display="none"}};
+if("serviceWorker"in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
+window.addEventListener("resize",()=>{draw("homeChart",sortedW());draw("progressChart",sortedW())});
 render();
 })();
 </script>

@@ -1,13 +1,13 @@
 {
-  "name": "ALEX FITNESS PRO",
-  "short_name": "Fitness PRO",
-  "description": "Persönliches Fitness- und Check-in Dashboard",
+  "name": "ALEX FITNESS",
+  "short_name": "ALEX FITNESS",
+  "description": "Fettverlust, Körperfortschritt und Training",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#f3f6f4",
-  "theme_color": "#1f9d61",
+  "theme_color": "#0f1713",
   "lang": "de",
   "icons": [
     {

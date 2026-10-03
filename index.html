@@ -161,9 +161,9 @@ const c=sc().reverse();$("bodyTable").innerHTML=c.length?"<table><tr><th>Datum</
 function renderTraining(){
 $("tExercise").innerHTML=ex.map(x=>"<option>"+x+"</option>").join("");
 const t=d.workouts.slice().sort((a,b)=>b.date.localeCompare(a.date)),days=new Set(t.map(x=>x.date+"|"+x.name));
-$("sessions").textContent=days.size;$("lastTraining").textContent=t[0]?fmt(t[0].date):"—";$("strengthCount").textContent=Object.values(d.strength).reduce((n,a)=>n+(Array.isArray(a)?a.length:0),0);
-$("trainingTable").innerHTML=t.length?"<table><tr><th>Datum</th><th>Einheit</th><th>Übung</th><th>Gewicht</th><th>Wdh.</th><th>Satz</th><th>Typ</th><th></th></tr>"+t.map((x,i)=>"<tr><td>"+fmt(x.date)+"</td><td>"+x.name+"</td><td>"+x.exercise+"</td><td>"+x.weight+" kg</td><td>"+x.reps+"</td><td>"+(x.setNo||1)+"</td><td>"+(x.setType==="warmup"?"Warm-up":"Arbeit")+"</td><td><button class='btn danger del' data-i='"+i+"' style='padding:5px 8px'>Löschen</button></td></tr>").join("")+"</table>":"<div class='empty'>Noch kein Training gespeichert.</div>";
-document.querySelectorAll(".del").forEach(b=>b.onclick=()=>{if(confirm("Training löschen?")){const sorted=d.workouts.slice().sort((a,b)=>b.date.localeCompare(a.date));d.workouts.splice(d.workouts.indexOf(sorted[+b.dataset.i]),1);save();render()}})
+$("sessions").textContent=days.size;$("lastTraining").textContent=t[0]?fmt(t[0].date):"—";$("strengthCount").textContent=t.filter(x=>x.setType!=="warmup").length;
+$("trainingTable").innerHTML=t.length?"<table><tr><th>Datum</th><th>Einheit</th><th>Übung</th><th>Gewicht</th><th>Wdh.</th><th>Satz</th><th>Typ</th><th></th></tr>"+t.map((x,i)=>"<tr><td>"+fmt(x.date)+"</td><td>"+x.name+"</td><td>"+x.exercise+"</td><td>"+x.weight+" kg</td><td>"+x.reps+"</td><td>"+(x.setNo||1)+"</td><td>"+(x.setType==="warmup"?"Warm-up":"Arbeit")+"</td><td><button class='btn danger del' data-id='"+x._id+"' style='padding:5px 8px'>Löschen</button></td></tr>").join("")+"</table>":"<div class='empty'>Noch kein Training gespeichert.</div>";
+document.querySelectorAll(".del").forEach(b=>b.onclick=()=>{if(confirm("Training löschen?")){const i=d.workouts.findIndex(x=>String(x._id)===String(b.dataset.id));if(i>=0){d.workouts.splice(i,1);save();render()}}})
 }
 function renderMeasure(){const key=$("measureSelect").value,period=+$("measurePeriod").value,all=sc().filter(x=>Number.isFinite(+x[key])&&+x[key]>0),limit=period?new Date(Date.now()-period*7*86400000).toLocaleDateString("sv-SE"):"",c=all.filter(x=>!limit||x.date>=limit),summary=$("measureSummary");summary.textContent=c.length?"Aktuell: "+(+c.at(-1)[key]).toFixed(1)+" cm · letzte Messung: "+(c.length>1?delta(c.at(-2)[key],c.at(-1)[key],"cm"):"—")+" · seit Start: "+(all.length>1?delta(all[0][key],all.at(-1)[key],"cm"):"—"):"Für diesen Zeitraum sind noch keine Messungen vorhanden.";drawMeasure(c,key)}
 function drawMeasure(a,key){const cv=$("measureChart"),W=Math.max(300,cv.getBoundingClientRect().width),H=240,R=devicePixelRatio||1;cv.width=W*R;cv.height=H*R;const c=cv.getContext("2d");c.setTransform(R,0,0,R,0,0);c.clearRect(0,0,W,H);if(a.length<2){c.fillStyle="#718078";c.font="13px sans-serif";c.fillText("Mindestens 2 Messungen für den Trend.",12,30);return}const v=a.map(x=>+x[key]),min=Math.min(...v),range=Math.max(.5,Math.max(...v)-min),p=35;for(let i=0;i<4;i++){let y=18+(H-52)*i/3;c.strokeStyle="#e1e9e4";c.beginPath();c.moveTo(p,y);c.lineTo(W-p,y);c.stroke()}c.strokeStyle="#1f9d61";c.lineWidth=3;c.beginPath();v.forEach((n,i)=>{const x=p+(W-2*p)*i/(v.length-1),y=18+(H-52)-(n-min+range*.05)/(range*1.1)*(H-52);i?c.lineTo(x,y):c.moveTo(x,y)});c.stroke();c.fillStyle="#132019";c.font="12px sans-serif";c.fillText(v[0].toFixed(1)+" cm",p,H-8);c.fillText(v.at(-1).toFixed(1)+" cm",Math.max(p,W-90),H-8)}
@@ -211,10 +211,12 @@ buildSetRows();
 $("saveTraining").onclick=()=>{
 const date=$("tDate").value,name=$("tName").value.trim(),exercise=$("tExercise").value;
 const ws=[...document.querySelectorAll(".setWeight")],rs=[...document.querySelectorAll(".setReps")],ts=[...document.querySelectorAll(".setType")];
-if(!date||!name){alert("Datum und Einheit ausfüllen.");return}
+if(!date||!name){alert("Bitte Datum und Einheit ausfüllen.");return}
 if(ws.some(x=>!Number(x.value))||rs.some(x=>!Number(x.value))){alert("Bitte Gewicht und Wiederholungen für jeden Satz ausfüllen.");return}
-ws.forEach((x,i)=>{
-const o={date,name,exercise,weight:Number(x.value),reps:Number(rs[i].value),sets:1,setNo:i+1,setType:ts[i].value};
+const stamp=Date.now();
+ws.forEach((x,i)=>{const o={_id:stamp+"-"+i,date,name,exercise,weight:Number(x.value),reps:Number(rs[i].value),sets:1,setNo:i+1,setType:ts[i].value};d.workouts.push(o);if(!d.strength[o.exercise])d.strength[o.exercise]=[];d.strength[o.exercise].push({date:o.date,weight:o.weight,reps:o.reps,setNo:o.setNo,setType:o.setType})});
+save();alert("Training mit "+ws.length+" Sätzen gespeichert.");$("tName").value="";$("tWeight")&&($("tWeight").value="");$("tReps")&&($("tReps").value="");render()
+};
 d.workouts.push(o);if(!d.strength[o.exercise])d.strength[o.exercise]=[];d.strength[o.exercise].push({date:o.date,weight:o.weight,reps:o.reps,setNo:o.setNo,setType:o.setType});
 });
 save();alert("Training mit "+ws.length+" Sätzen gespeichert.");render()

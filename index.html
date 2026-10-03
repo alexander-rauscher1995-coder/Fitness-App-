@@ -94,7 +94,8 @@ body{background:linear-gradient(180deg,#f6f9f7 0%,#eef4f0 100%)}
 </div><div class="actions"><button class="btn" id="saveTraining">✓ Training speichern</button></div></div>
 <div class="card s4"><div class="eyebrow">EINHEITEN</div><div class="big" id="sessions">0</div></div>
 <div class="card s4"><div class="eyebrow">LETZTES TRAINING</div><div class="big" id="lastTraining">—</div></div>
-<div class="card s4"><div class="eyebrow">KRAFTWERTE</div><div class="big" id="strengthCount">0</div></div>
+<div class="card s4"><div class="eyebrow">KRAFTWERTE</div><div class="big" id="strengthCount">0</div><div class="small muted">Arbeitssätze gespeichert</div></div>
+<div class="card s12"><h3>💪 Kraftentwicklung</h3><div class="form"><div class="field"><label>Übung</label><select id="strengthExercise"></select></div><div class="field"><label>Bester Arbeitssatz</label><div class="big" id="bestStrength">—</div></div></div><div id="strengthHistory" class="table" style="margin-top:12px"></div></div>
 <div class="card s12"><h3>Trainingsverlauf</h3><div class="table" id="trainingTable"></div></div>
 </div>
 </section>
@@ -152,7 +153,7 @@ if(l&&lc)$("focusText").textContent=(Number(l.weight)<Number(f?.weight||l.weight
 else $("focusText").textContent="Gewicht und Körperumfang erfassen, um den Fettverlust-Trend sichtbar zu machen.";
 $("bodyWeight").textContent=l?Number(l.weight).toFixed(1)+" kg":"—";$("bodyWaist").textContent=lc?Number(lc.waist).toFixed(1)+" cm":"—";$("bodyCount").textContent=c.length;
 $("bodyWeightDelta").textContent=f&&l?delta(f.weight,l.weight,"kg")+" seit Start":"—";$("bodyWaistDelta").textContent=fc&&lc?delta(fc.waist,lc.waist,"cm")+" seit Start":"—";
-renderBody();renderTraining();renderProgress();renderMeasurements();draw("chartHome",w);draw("chartProgress",w)
+renderBody();renderTraining();renderProgress();renderMeasurements();renderStrength();draw("chartHome",w);draw("chartProgress",w)
 }
 function renderBody(){
 const c=sc().reverse();$("bodyTable").innerHTML=c.length?"<table><tr><th>Datum</th><th>Gewicht</th><th>Taille</th><th>Bauch</th><th>Brust</th><th>Arm</th><th>Hüfte</th><th>Oberschenkel</th></tr>"+c.map(x=>"<tr><td>"+fmt(x.date)+"</td><td>"+x.weight+" kg</td><td>"+x.waist+" cm</td><td>"+x.belly+" cm</td><td>"+x.chest+" cm</td><td>"+x.arm+" cm</td><td>"+x.hip+" cm</td><td>"+x.thigh+" cm</td></tr>").join("")+"</table>":"<div class='empty'>Noch keine Körperdaten.</div>"
@@ -172,6 +173,18 @@ if(!f||!l){$("measureSummary").innerHTML="<div class='empty'>Noch keine Vergleic
 const rows=fields.map(([k,n])=>({name:n,start:Number(f[k]),current:Number(l[k]),change:Number(l[k])-Number(f[k])}));
 $("measureSummary").innerHTML=rows.map(x=>"<div style='display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line)'><span><b>"+x.name+"</b></span><span class='"+(x.change<=0?"good":"bad")+"'>"+(x.change>0?"+":"")+x.change.toFixed(1)+" cm</span></div>").join("");
 $("measureTable").innerHTML="<table><tr><th>Umfang</th><th>Start</th><th>Aktuell</th><th>Veränderung</th></tr>"+rows.map(x=>"<tr><td><b>"+x.name+"</b></td><td>"+x.start.toFixed(1)+" cm</td><td>"+x.current.toFixed(1)+" cm</td><td class='"+(x.change<=0?"good":"bad")+"'><b>"+(x.change>0?"+":"")+x.change.toFixed(1)+" cm</b></td></tr>").join("")+"</table>"
+}
+function renderStrength(){
+const sel=$("strengthExercise"), names=[...new Set(d.workouts.map(x=>x.exercise))];
+sel.innerHTML=(names.length?names:ex).map(x=>"<option>"+x+"</option>").join("");
+const update=()=>{
+const name=sel.value, rows=d.workouts.filter(x=>x.exercise===name&&x.setType!=="warmup").sort((a,b)=>a.date.localeCompare(b.date));
+if(!rows.length){$("bestStrength").textContent="—";$("strengthHistory").innerHTML="<div class='empty'>Noch keine Arbeitssätze für diese Übung.</div>";return}
+const best=rows.reduce((a,b)=>(Number(b.weight)>Number(a.weight)||Number(b.weight)===Number(a.weight)&&Number(b.reps)>Number(a.reps)?b:a));
+$("bestStrength").textContent=Number(best.weight).toFixed(1)+" kg × "+best.reps+" Wdh.";
+$("strengthHistory").innerHTML="<table><tr><th>Datum</th><th>Satz</th><th>Gewicht</th><th>Wdh.</th><th>Typ</th></tr>"+rows.slice().reverse().map(x=>"<tr><td>"+fmt(x.date)+"</td><td>"+(x.setNo||1)+"</td><td>"+x.weight+" kg</td><td>"+x.reps+"</td><td>Arbeit</td></tr>").join("")+"</table>"
+};
+sel.onchange=update;update()
 }
 function renderProgress(){
 const w=sw(),c=sc(),l=w.at(-1),f=w[0],lc=c.at(-1),fc=c[0];$("pWeight").textContent=l?Number(l.weight).toFixed(1)+" kg":"—";$("pWeightDelta").textContent=f&&l?delta(f.weight,l.weight,"kg")+" seit Start":"—";$("pWaist").textContent=lc?Number(lc.waist).toFixed(1)+" cm":"—";$("pWaistDelta").textContent=fc&&lc?delta(fc.waist,lc.waist,"cm")+" seit Start":"—";$("pSessions").textContent=new Set(d.workouts.map(x=>x.date+"|"+x.name)).size;renderMeasure();

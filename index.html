@@ -95,7 +95,7 @@ body{background:linear-gradient(180deg,#f6f9f7 0%,#eef4f0 100%)}
 <div class="card s4"><div class="eyebrow">EINHEITEN</div><div class="big" id="sessions">0</div></div>
 <div class="card s4"><div class="eyebrow">LETZTES TRAINING</div><div class="big" id="lastTraining">—</div></div>
 <div class="card s4"><div class="eyebrow">KRAFTWERTE</div><div class="big" id="strengthCount">0</div><div class="small muted">Arbeitssätze gespeichert</div></div>
-<div class="card s12"><h3>💪 Kraftentwicklung</h3><div class="form"><div class="field"><label>Übung</label><select id="strengthExercise"></select></div><div class="field"><label>Bester Arbeitssatz</label><div class="big" id="bestStrength">—</div></div></div><div id="strengthHistory" class="table" style="margin-top:12px"></div></div>
+<div class="card s12"><h3>💪 Kraftentwicklung</h3><div class="form"><div class="field"><label>Übung</label><select id="strengthExercise"></select></div><div class="field"><label>Letzter Arbeitssatz</label><div class="big" id="lastStrength">—</div></div><div class="field"><label>Bester Arbeitssatz</label><div class="big" id="bestStrength">—</div></div><div class="field"><label>Veränderung seit Start</label><div class="big" id="strengthDelta">—</div></div></div><div id="strengthHistory" class="table" style="margin-top:12px"></div></div>
 <div class="card s12"><h3>Trainingsverlauf</h3><div class="table" id="trainingTable"></div></div>
 </div>
 </section>
@@ -180,8 +180,10 @@ sel.innerHTML=(names.length?names:ex).map(x=>"<option>"+x+"</option>").join("");
 const update=()=>{
 const name=sel.value, rows=d.workouts.filter(x=>x.exercise===name&&x.setType!=="warmup").sort((a,b)=>a.date.localeCompare(b.date));
 if(!rows.length){$("bestStrength").textContent="—";$("strengthHistory").innerHTML="<div class='empty'>Noch keine Arbeitssätze für diese Übung.</div>";return}
-const best=rows.reduce((a,b)=>(Number(b.weight)>Number(a.weight)||Number(b.weight)===Number(a.weight)&&Number(b.reps)>Number(a.reps)?b:a));
+const first=rows[0],last=rows.at(-1); const best=rows.reduce((a,b)=>(Number(b.weight)>Number(a.weight)||Number(b.weight)===Number(a.weight)&&Number(b.reps)>Number(a.reps)?b:a));
+$("lastStrength").textContent=Number(last.weight).toFixed(1)+" kg × "+last.reps+" Wdh.";
 $("bestStrength").textContent=Number(best.weight).toFixed(1)+" kg × "+best.reps+" Wdh.";
+const diff=Number(last.weight)-Number(first.weight); $("strengthDelta").textContent=(diff>0?"+":"")+diff.toFixed(1)+" kg";
 $("strengthHistory").innerHTML="<table><tr><th>Datum</th><th>Satz</th><th>Gewicht</th><th>Wdh.</th><th>Typ</th></tr>"+rows.slice().reverse().map(x=>"<tr><td>"+fmt(x.date)+"</td><td>"+(x.setNo||1)+"</td><td>"+x.weight+" kg</td><td>"+x.reps+"</td><td>Arbeit</td></tr>").join("")+"</table>"
 };
 sel.onchange=update;update()

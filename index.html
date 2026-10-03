@@ -89,9 +89,8 @@ body{background:linear-gradient(180deg,#f6f9f7 0%,#eef4f0 100%)}
 <div class="form" style="margin-top:12px">
 <div class="field"><label>Datum</label><input id="tDate" type="date"></div><div class="field"><label>Einheit</label><input id="tName" placeholder="z. B. Ganzkörper A"></div>
 <div class="field"><label>Übung</label><select id="tExercise"></select></div><div class="field"><label>Gewicht (kg)</label><input id="tWeight" type="number" step=".5"></div>
-<div class="field"><label>Wiederholungen</label><input id="tReps" type="number"></div>
-<div class="field"><label>Satztyp</label><select id="tSetType"><option value="work">Arbeitssatz</option><option value="warmup">Warm-up</option></select></div>
-<div class="field"><label>Satz-Nr.</label><input id="tSetNo" type="number" value="1" min="1"></div>
+<div class="field"><label>Sätze</label><select id="tSetCount"><option>1</option><option selected>3</option><option>4</option><option>5</option></select></div>
+<div class="s12" style="grid-column:1/-1"><div id="setRows"></div></div>
 </div><div class="actions"><button class="btn" id="saveTraining">✓ Training speichern</button></div></div>
 <div class="card s4"><div class="eyebrow">EINHEITEN</div><div class="big" id="sessions">0</div></div>
 <div class="card s4"><div class="eyebrow">LETZTES TRAINING</div><div class="big" id="lastTraining">—</div></div>
@@ -188,8 +187,23 @@ const ids=["bWeight","bWaist","bBelly","bChest","bArm","bHip","bThigh"],keys=["w
 const wi=d.weights.findIndex(x=>x.date===date);if(wi>=0)d.weights[wi].weight=o.weight;else d.weights.push({date,weight:o.weight});
 const ci=d.checks.findIndex(x=>x.date===date);if(ci>=0)d.checks[ci]=o;else d.checks.push(o);save();alert("Check-in gespeichert.");render()
 };
+function buildSetRows(){
+const n=Number($("tSetCount").value)||3;
+$("setRows").innerHTML=Array.from({length:n},(_,i)=>`<div class="card" style="margin-top:8px;padding:11px;background:#fbfdfc"><div style="display:grid;grid-template-columns:70px 1fr 1fr;gap:8px;align-items:end"><div><div class="eyebrow">SATZ</div><b>${i+1}</b></div><div class="field"><label>Gewicht (kg)</label><input class="setWeight" type="number" step=".5"></div><div class="field"><label>Wiederholungen</label><input class="setReps" type="number"></div></div><div class="field" style="margin-top:8px"><label>Typ</label><select class="setType"><option value="work">${i===0?"Arbeitssatz":"Arbeitssatz"}</option><option value="warmup">Warm-up</option></select></div></div>`).join("");
+}
+$("tSetCount").onchange=buildSetRows;
+buildSetRows();
 $("saveTraining").onclick=()=>{
-const o={date:$("tDate").value,name:$("tName").value.trim(),exercise:$("tExercise").value,weight:Number($("tWeight").value),reps:Number($("tReps").value),sets:1,setNo:Number($("tSetNo").value),setType:$("tSetType").value};if(!o.date||!o.name||!o.weight||!o.reps||!o.setNo){alert("Bitte alle Trainingsfelder ausfüllen.");return}d.workouts.push(o);if(!d.strength[o.exercise])d.strength[o.exercise]=[];d.strength[o.exercise].push({date:o.date,weight:o.weight,reps:o.reps});save();$("tWeight").value="";$("tReps").value="";render()
+const date=$("tDate").value,name=$("tName").value.trim(),exercise=$("tExercise").value;
+const ws=[...document.querySelectorAll(".setWeight")],rs=[...document.querySelectorAll(".setReps")],ts=[...document.querySelectorAll(".setType")];
+if(!date||!name){alert("Datum und Einheit ausfüllen.");return}
+if(ws.some(x=>!Number(x.value))||rs.some(x=>!Number(x.value))){alert("Bitte Gewicht und Wiederholungen für jeden Satz ausfüllen.");return}
+ws.forEach((x,i)=>{
+const o={date,name,exercise,weight:Number(x.value),reps:Number(rs[i].value),sets:1,setNo:i+1,setType:ts[i].value};
+d.workouts.push(o);if(!d.strength[o.exercise])d.strength[o.exercise]=[];d.strength[o.exercise].push({date:o.date,weight:o.weight,reps:o.reps,setNo:o.setNo,setType:o.setType});
+});
+save();alert("Training mit "+ws.length+" Sätzen gespeichert.");render()
+};if(!o.date||!o.name||!o.weight||!o.reps||!o.setNo){alert("Bitte alle Trainingsfelder ausfüllen.");return}d.workouts.push(o);if(!d.strength[o.exercise])d.strength[o.exercise]=[];d.strength[o.exercise].push({date:o.date,weight:o.weight,reps:o.reps});save();$("tWeight").value="";$("tReps").value="";render()
 };
 ["measureSelect","measurePeriod"].forEach(id=>$(id).onchange=renderMeasure);render();window.onresize=()=>{draw("chartHome",sw());draw("chartProgress",sw());renderMeasure()}
 })();

@@ -103,9 +103,9 @@ button,input,select{font:inherit}.app{min-height:100vh}.desktop{display:grid;gri
 
 <script>
 (()=>{"use strict";
-const KEY="alexFitnessFocusV2";
+const KEY="alexFitnessFocusV2"; const OLD_KEY="alexFitnessPro";
 const base={weights:[],checks:[],workouts:[],strength:{}};
-let d;try{d=JSON.parse(localStorage.getItem(KEY)||"null")||base}catch(e){d=base}
+let d;try{d=JSON.parse(localStorage.getItem(KEY)||"null")||JSON.parse(localStorage.getItem(OLD_KEY)||"null")||base}catch(e){d=base}
 d.weights=Array.isArray(d.weights)?d.weights:[];d.checks=Array.isArray(d.checks)?d.checks:[];d.workouts=Array.isArray(d.workouts)?d.workouts:[];d.strength=d.strength&&typeof d.strength==="object"?d.strength:{};
 const $=x=>document.getElementById(x),today=()=>new Date().toLocaleDateString("sv-SE"),save=()=>localStorage.setItem(KEY,JSON.stringify(d));
 const ex=["Schrägbankdrücken","RDL","Beinpresse","Latzug","Rudern","Seitheben","Bizeps-Curls","Trizepsdrücken"];

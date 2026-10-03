@@ -91,7 +91,7 @@ body{background:linear-gradient(180deg,#f6f9f7 0%,#eef4f0 100%)}
 <div class="field"><label>Übung</label><select id="tExercise"></select></div><div class="field"><label>Gewicht (kg)</label><input id="tWeight" type="number" step=".5"></div>
 <div class="field"><label>Wiederholungen</label><input id="tReps" type="number"></div>
 <div class="field"><label>Satztyp</label><select id="tSetType"><option value="work">Arbeitssatz</option><option value="warmup">Warm-up</option></select></div>
-<div class="field"><label>Sätze</label><input id="tSets" type="number" value="3" min="1"></div>
+<div class="field"><label>Satz-Nr.</label><input id="tSetNo" type="number" value="1" min="1"></div>
 </div><div class="actions"><button class="btn" id="saveTraining">✓ Training speichern</button></div></div>
 <div class="card s4"><div class="eyebrow">EINHEITEN</div><div class="big" id="sessions">0</div></div>
 <div class="card s4"><div class="eyebrow">LETZTES TRAINING</div><div class="big" id="lastTraining">—</div></div>
@@ -162,7 +162,7 @@ function renderTraining(){
 $("tExercise").innerHTML=ex.map(x=>"<option>"+x+"</option>").join("");
 const t=d.workouts.slice().sort((a,b)=>b.date.localeCompare(a.date)),days=new Set(t.map(x=>x.date+"|"+x.name));
 $("sessions").textContent=days.size;$("lastTraining").textContent=t[0]?fmt(t[0].date):"—";$("strengthCount").textContent=Object.values(d.strength).reduce((n,a)=>n+(Array.isArray(a)?a.length:0),0);
-$("trainingTable").innerHTML=t.length?"<table><tr><th>Datum</th><th>Einheit</th><th>Übung</th><th>Gewicht</th><th>Wdh.</th><th>Sätze</th><th>Typ</th><th></th></tr>"+t.map((x,i)=>"<tr><td>"+fmt(x.date)+"</td><td>"+x.name+"</td><td>"+x.exercise+"</td><td>"+x.weight+" kg</td><td>"+x.reps+"</td><td>"+x.sets+"</td><td>"+(x.setType==="warmup"?"Warm-up":"Arbeit")+"</td><td><button class='btn danger del' data-i='"+i+"' style='padding:5px 8px'>Löschen</button></td></tr>").join("")+"</table>":"<div class='empty'>Noch kein Training gespeichert.</div>";
+$("trainingTable").innerHTML=t.length?"<table><tr><th>Datum</th><th>Einheit</th><th>Übung</th><th>Gewicht</th><th>Wdh.</th><th>Satz</th><th>Typ</th><th></th></tr>"+t.map((x,i)=>"<tr><td>"+fmt(x.date)+"</td><td>"+x.name+"</td><td>"+x.exercise+"</td><td>"+x.weight+" kg</td><td>"+x.reps+"</td><td>"+(x.setNo||1)+"</td><td>"+(x.setType==="warmup"?"Warm-up":"Arbeit")+"</td><td><button class='btn danger del' data-i='"+i+"' style='padding:5px 8px'>Löschen</button></td></tr>").join("")+"</table>":"<div class='empty'>Noch kein Training gespeichert.</div>";
 document.querySelectorAll(".del").forEach(b=>b.onclick=()=>{if(confirm("Training löschen?")){const sorted=d.workouts.slice().sort((a,b)=>b.date.localeCompare(a.date));d.workouts.splice(d.workouts.indexOf(sorted[+b.dataset.i]),1);save();render()}})
 }
 function renderMeasure(){const key=$("measureSelect").value,period=+$("measurePeriod").value,all=sc().filter(x=>Number.isFinite(+x[key])&&+x[key]>0),limit=period?new Date(Date.now()-period*7*86400000).toLocaleDateString("sv-SE"):"",c=all.filter(x=>!limit||x.date>=limit),summary=$("measureSummary");summary.textContent=c.length?"Aktuell: "+(+c.at(-1)[key]).toFixed(1)+" cm · letzte Messung: "+(c.length>1?delta(c.at(-2)[key],c.at(-1)[key],"cm"):"—")+" · seit Start: "+(all.length>1?delta(all[0][key],all.at(-1)[key],"cm"):"—"):"Für diesen Zeitraum sind noch keine Messungen vorhanden.";drawMeasure(c,key)}
@@ -189,7 +189,7 @@ const wi=d.weights.findIndex(x=>x.date===date);if(wi>=0)d.weights[wi].weight=o.w
 const ci=d.checks.findIndex(x=>x.date===date);if(ci>=0)d.checks[ci]=o;else d.checks.push(o);save();alert("Check-in gespeichert.");render()
 };
 $("saveTraining").onclick=()=>{
-const o={date:$("tDate").value,name:$("tName").value.trim(),exercise:$("tExercise").value,weight:Number($("tWeight").value),reps:Number($("tReps").value),sets:Number($("tSets").value),setType:$("tSetType").value};if(!o.date||!o.name||!o.weight||!o.reps||!o.sets){alert("Bitte alle Trainingsfelder ausfüllen.");return}d.workouts.push(o);if(!d.strength[o.exercise])d.strength[o.exercise]=[];d.strength[o.exercise].push({date:o.date,weight:o.weight,reps:o.reps});save();$("tWeight").value="";$("tReps").value="";render()
+const o={date:$("tDate").value,name:$("tName").value.trim(),exercise:$("tExercise").value,weight:Number($("tWeight").value),reps:Number($("tReps").value),sets:1,setNo:Number($("tSetNo").value),setType:$("tSetType").value};if(!o.date||!o.name||!o.weight||!o.reps||!o.setNo){alert("Bitte alle Trainingsfelder ausfüllen.");return}d.workouts.push(o);if(!d.strength[o.exercise])d.strength[o.exercise]=[];d.strength[o.exercise].push({date:o.date,weight:o.weight,reps:o.reps});save();$("tWeight").value="";$("tReps").value="";render()
 };
 ["measureSelect","measurePeriod"].forEach(id=>$(id).onchange=renderMeasure);render();window.onresize=()=>{draw("chartHome",sw());draw("chartProgress",sw());renderMeasure()}
 })();

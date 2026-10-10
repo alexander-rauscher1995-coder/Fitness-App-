@@ -96,7 +96,7 @@ body{background:linear-gradient(180deg,#f6f9f7 0%,#eef4f0 100%)}
 <div class="card s4"><div class="eyebrow">EINHEITEN</div><div class="big" id="sessions">0</div></div>
 <div class="card s4"><div class="eyebrow">LETZTES TRAINING</div><div class="big" id="lastTraining">—</div></div>
 <div class="card s4"><div class="eyebrow">KRAFTWERTE</div><div class="big" id="strengthCount">0</div><div class="small muted">Arbeitssätze gespeichert</div></div>
-<div class="card s12"><h3>💪 Kraftentwicklung</h3><div class="form"><div class="field"><label>Übung</label><select id="strengthExercise"></select></div><div class="field"><label>Letzter Arbeitssatz</label><div class="big" id="lastStrength">—</div></div><div class="field"><label>Bester Arbeitssatz</label><div class="big" id="bestStrength">—</div></div><div class="field"><label>Veränderung seit Start</label><div class="big" id="strengthDelta">—</div></div></div><div id="strengthHistory" class="table" style="margin-top:12px"></div></div>
+<div class="card s12"><h3>💪 Kraftentwicklung</h3><div class="form"><div class="field"><label>Übung</label><select id="strengthExercise"></select></div><div class="field"><label>Letzter Arbeitssatz</label><div class="big" id="lastStrength">—</div></div><div class="field"><label>Bester Arbeitssatz</label><div class="big" id="bestStrength">—</div></div><div class="field"><label>Veränderung seit Start</label><div class="big" id="strengthDelta">—</div></div></div><div id="strengthHistory" class="table" style="margin-top:12px"></div><h3 style="margin-top:18px">Kraftverlauf</h3><div class="small muted">Entwicklung des verwendeten Gewichts pro Arbeitssatz</div><canvas id="strengthChart" class="chart" aria-label="Grafik zum Kraftverlauf"></canvas></div>
 <div class="card s12"><h3>Trainingsverlauf</h3><div class="table" id="trainingTable"></div></div>
 </div>
 </section>
@@ -198,14 +198,27 @@ const sel=$("strengthExercise"), names=[...new Set(d.workouts.map(x=>x.exercise)
 sel.innerHTML=(names.length?names:ex).map(x=>"<option>"+x+"</option>").join("");
 const update=()=>{
 const name=sel.value, rows=d.workouts.filter(x=>x.exercise===name&&x.setType!=="warmup").sort((a,b)=>a.date.localeCompare(b.date));
-if(!rows.length){$("bestStrength").textContent="—";$("strengthHistory").innerHTML="<div class='empty'>Noch keine Arbeitssätze für diese Übung.</div>";return}
+if(!rows.length){$("bestStrength").textContent="—";$("lastStrength").textContent="—";$("strengthDelta").textContent="—";$("strengthHistory").innerHTML="<div class='empty'>Noch keine Arbeitssätze für diese Übung.</div>";drawStrength([]);return}
 const first=rows[0],last=rows.at(-1); const best=rows.reduce((a,b)=>(Number(b.weight)>Number(a.weight)||Number(b.weight)===Number(a.weight)&&Number(b.reps)>Number(a.reps)?b:a));
 $("lastStrength").textContent=Number(last.weight).toFixed(1)+" kg × "+last.reps+" Wdh.";
 $("bestStrength").textContent=Number(best.weight).toFixed(1)+" kg × "+best.reps+" Wdh.";
 const diff=Number(last.weight)-Number(first.weight); $("strengthDelta").textContent=(diff>0?"+":"")+diff.toFixed(1)+" kg";
-$("strengthHistory").innerHTML="<table><tr><th>Datum</th><th>Satz</th><th>Gewicht</th><th>Wdh.</th><th>Typ</th></tr>"+rows.slice().reverse().map(x=>"<tr><td>"+fmt(x.date)+"</td><td>"+(x.setNo||1)+"</td><td>"+x.weight+" kg</td><td>"+x.reps+"</td><td>Arbeit</td></tr>").join("")+"</table>"
+$("strengthHistory").innerHTML="<table><tr><th>Datum</th><th>Satz</th><th>Gewicht</th><th>Wdh.</th><th>Typ</th></tr>"+rows.slice().reverse().map(x=>"<tr><td>"+fmt(x.date)+"</td><td>"+(x.setNo||1)+"</td><td>"+x.weight+" kg</td><td>"+x.reps+"</td><td>Arbeit</td></tr>").join("")+"</table>";
+drawStrength(rows);
 };
 sel.onchange=update;update()
+}
+function drawStrength(rows){
+const cv=$("strengthChart");if(!cv)return;
+const W=Math.max(280,cv.getBoundingClientRect().width),H=220,R=window.devicePixelRatio||1;
+cv.width=W*R;cv.height=H*R;const c=cv.getContext("2d");c.setTransform(R,0,0,R,0,0);c.clearRect(0,0,W,H);
+if(rows.length<2){c.fillStyle="#718078";c.font="13px sans-serif";c.fillText("Mindestens 2 Arbeitssätze für einen Verlauf speichern.",12,28);return}
+const vals=rows.map(x=>Number(x.weight)).filter(Number.isFinite);if(vals.length<2)return;
+const min=Math.min(...vals),max=Math.max(...vals),range=Math.max(1,max-min),left=34,right=16,top=18,bottom=34,plotH=H-top-bottom,plotW=W-left-right;
+for(let i=0;i<4;i++){const y=top+plotH*i/3;c.strokeStyle="#e1e9e4";c.beginPath();c.moveTo(left,y);c.lineTo(W-right,y);c.stroke();const label=(max-(max-min)*i/3).toFixed(1);c.fillStyle="#718078";c.font="10px sans-serif";c.fillText(label,left-28,y+3)}
+c.strokeStyle="#1f9d61";c.lineWidth=2.5;c.beginPath();vals.forEach((v,i)=>{const x=left+plotW*i/(vals.length-1),y=top+plotH-(v-min+range*.02)/(range*1.04)*plotH;i?c.lineTo(x,y):c.moveTo(x,y)});c.stroke();
+vals.forEach((v,i)=>{const x=left+plotW*i/(vals.length-1),y=top+plotH-(v-min+range*.02)/(range*1.04)*plotH;c.fillStyle="#1f9d61";c.beginPath();c.arc(x,y,3,0,Math.PI*2);c.fill()});
+c.fillStyle="#132019";c.font="11px sans-serif";c.fillText(vals[0].toFixed(1)+" kg",left,H-8);c.fillText(vals.at(-1).toFixed(1)+" kg",Math.max(left,W-65),H-8)
 }
 function renderProgress(){
 const w=sw(),c=sc(),l=w.at(-1),f=w[0],lc=c.at(-1),fc=c[0];$("pWeight").textContent=l?Number(l.weight).toFixed(1)+" kg":"—";$("pWeightDelta").textContent=f&&l?delta(f.weight,l.weight,"kg")+" seit Start":"—";$("pWaist").textContent=lc?Number(lc.waist).toFixed(1)+" cm":"—";$("pWaistDelta").textContent=fc&&lc?delta(fc.waist,lc.waist,"cm")+" seit Start":"—";$("pSessions").textContent=new Set(d.workouts.map(x=>x.date+"|"+x.name)).size;renderMeasure();

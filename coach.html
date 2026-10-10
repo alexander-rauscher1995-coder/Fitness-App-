@@ -147,7 +147,7 @@ function renderClients(){
  $('clientList').innerHTML=data.clients.length?data.clients.map(client=>'<div class="listrow"><div style="min-width:0"><strong>'+esc(client.name)+'</strong><small>'+esc(client.email||'Keine E-Mail hinterlegt')+' · Seit '+esc(client.createdAt||'—')+'</small><small>'+esc(client.goal)+(client.notes?' · '+esc(client.notes):'')+'</small></div><button class="btn secondary" onclick="removeClient('+client.id+')" aria-label="Kundenprofil löschen">Löschen</button></div>').join(''):'<div class="empty">Noch keine Kundenprofile. Lege den ersten Kunden an.</div>';
 }
 function exportData(){const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='fitcoach-pro-daten.json';a.click();URL.revokeObjectURL(url);notify('Export wurde gestartet.')}
-function clearData(){if(!confirm('Wirklich alle gespeicherten Trainings und Einträge löschen?'))return;data={sessions:[],entries:[]};persist();notify('Lokale Daten gelöscht.')}
+function clearData(){if(!confirm('Wirklich alle gespeicherten Trainings und Einträge löschen?'))return;data={sessions:[],entries:[],clients:[],goals:{sessions:3,recovery:2}};persist();notify('Lokale Daten gelöscht.')}
 $('entryDate').value=new Date().toISOString().slice(0,10);
 render();calculate();
 </script>

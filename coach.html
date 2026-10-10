@@ -48,7 +48,7 @@
 <div class="field"><label for="activity">Alltagsaktivität</label><select id="activity"><option value="1.2">Wenig Bewegung</option><option value="1.375">Leicht aktiv</option><option value="1.55" selected>Moderat aktiv</option><option value="1.725">Sehr aktiv</option><option value="1.9">Extrem aktiv</option></select></div>
 <div class="field"><label for="training">Training pro Woche</label><select id="training"><option value="0">0–1 Einheiten</option><option value="2" selected>2–3 Einheiten</option><option value="4">4–5 Einheiten</option><option value="6">6+ Einheiten</option></select></div><div class="field full"><label for="goal">Dein Ziel</label><select id="goal"><option value="maintain">Gewicht halten / Alltag</option><option value="performance">Muskelaufbau & Trainingsleistung</option><option value="fitness">Allgemeine Fitness</option></select></div>
 </div><div class="actions"><button class="btn" onclick="calculate()">Werte berechnen</button><button class="btn secondary" onclick="resetCalc()">Zurücksetzen</button></div><p class="note">Schätzung nach einer gängigen Formel. Tatsächlicher Bedarf kann abweichen; nutze die Zahl nicht als medizinische Vorgabe.</p></div>
-<div class="card"><h3>Deine Orientierung</h3><div class="metric" id="caloriesResult">— <small>kcal / Tag</small></div><div class="metric-label" id="goalLabel">Geschätzter Erhaltungsbedarf</div><div class="results" style="grid-template-columns:1fr"><div class="result"><span>Grundumsatz (Schätzung)</span><strong id="bmrResult">—</strong></div><div class="result"><span>Protein · 2,5 g/kg</span><strong id="proteinResult">—</strong></div><div class="result"><span>Kohlenhydrate · Beispiel</span><strong id="carbResult">—</strong></div><div class="result"><span>Fett · Beispiel</span><strong id="fatResult">—</strong></div></div><p class="warning" id="calcNotice">Die Werte sind Schätzungen und ersetzen keine individuelle Beratung.</p></div>
+<div class="card wide"><h3>Deine Kalorien nach Tagesart</h3><div class="metric" id="caloriesResult">— <small>kcal / Tag im Durchschnitt</small></div><div class="metric-label" id="goalLabel">Geschätzter Tagesdurchschnitt</div><div class="grid" style="margin-top:16px"><div class="activity-stat"><span>GYM-TAG</span><strong id="gymCalories">—</strong><span>Kalorien · Beispiel</span><div class="results" style="grid-template-columns:1fr"><div class="result"><span>Protein</span><strong id="gymProtein">—</strong></div><div class="result"><span>Kohlenhydrate</span><strong id="gymCarbs">—</strong></div><div class="result"><span>Fett</span><strong id="gymFat">—</strong></div></div></div><div class="activity-stat"><span>TRAININGSFREIER TAG</span><strong id="restCalories">—</strong><span>Kalorien · Beispiel</span><div class="results" style="grid-template-columns:1fr"><div class="result"><span>Protein</span><strong id="restProtein">—</strong></div><div class="result"><span>Kohlenhydrate</span><strong id="restCarbs">—</strong></div><div class="result"><span>Fett</span><strong id="restFat">—</strong></div></div></div></div><div class="results" style="grid-template-columns:1fr;margin-top:16px"><div class="result"><span>Grundumsatz (Schätzung)</span><strong id="bmrResult">—</strong></div></div><p class="warning" id="calcNotice">Die Werte sind Schätzungen und ersetzen keine individuelle Beratung.</p></div>
 </div></section>
 <section id="training" class="page">
 <div class="heading"><div><div class="eyebrow">Struktur</div><h2>Trainingsplan</h2><p>Erstelle einen einfachen Wochenüberblick, der zu deinem Alltag passt.</p></div></div>
@@ -106,16 +106,25 @@ document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',(
 function calculate(){
  const age=+$('age').value,h=+$('height').value,w=+$('weight').value,sex=$('sex').value,pal=+$('activity').value;
  if(!age||!h||!w||age<13||age>100||h<100||h>230||w<25||w>300){notify('Bitte prüfe deine Angaben.');return}
- if(age<18){$('caloriesResult').textContent='Nicht berechnet';$('bmrResult').textContent='—';$('proteinResult').textContent='—';$('carbResult').textContent='—';$('fatResult').textContent='—';$('calcNotice').textContent='Für Jugendliche sind pauschale Kalorien- und Makroziele ungeeignet, weil Wachstum und Entwicklung den Bedarf beeinflussen. Besprich individuelle Ziele mit einer qualifizierten medizinischen oder ernährungsfachlichen Person.';return}
+ if(age<18){$('caloriesResult').textContent='Nicht berechnet';['bmrResult','gymCalories','restCalories','gymProtein','gymCarbs','gymFat','restProtein','restCarbs','restFat'].forEach(id=>$(id).textContent='—');$('calcNotice').textContent='Für Jugendliche sind pauschale Kalorien- und Makroziele ungeeignet, weil Wachstum und Entwicklung den Bedarf beeinflussen. Besprich individuelle Ziele mit einer qualifizierten medizinischen oder ernährungsfachlichen Person.';return}
  const base=10*w+6.25*h-5*age+(sex==='m'?5:sex==='f'?-161:-78);
- const bmr=Math.round(base),tdee=Math.round(base*pal);
+ const bmr=Math.round(base),restBase=Math.round(base*pal);
  const goal=$('goal').value;
- const target=goal==='performance'?tdee+150:tdee;
- const protein=Math.round(w*2.5),fat=Math.round(target*.28/9),carbs=Math.max(0,Math.round((target-protein*4-fat*9)/4));
- $('goalLabel').textContent=goal==='performance'?'Orientierungswert inkl. kleinem Leistungsaufschlag':goal==='fitness'?'Orientierungswert für Alltag & Fitness':'Geschätzter Erhaltungsbedarf';
- $('bmrResult').textContent=bmr.toLocaleString('de-DE')+' kcal';$('caloriesResult').innerHTML=target.toLocaleString('de-DE')+' <small>kcal / Tag</small>';
- $('proteinResult').textContent=protein+' g';$('carbResult').textContent=carbs+' g';$('fatResult').textContent=fat+' g';
- $('calcNotice').textContent='2,5 g Protein/kg ist ein hoher Zielwert und für viele Menschen nicht nötig. Makros und Kalorien sind Schätzungen, keine Pflichtvorgabe. Der Leistungsaufschlag ist nur ein grober Startwert. Bei Jugendlichen unter 18 werden keine Kalorien- oder Makroziele ausgegeben; bei individuellen Fragen bitte qualifizierte Fachberatung nutzen.';
+ const weeklySessions=({'0':0.5,'2':2.5,'4':4.5,'6':6.5})[$('training').value]||2.5;
+ const gymBase=restBase+250;
+ const goalOffset=goal==='performance'?150:0;
+ const rest=Math.round(restBase+goalOffset),gym=Math.round(gymBase+goalOffset);
+ const average=Math.round(rest+(gym-rest)*weeklySessions/7);
+ const protein=Math.round(w*2.5);
+ function macros(kcal){const fat=Math.round(kcal*.28/9),carbs=Math.max(0,Math.round((kcal-protein*4-fat*9)/4));return {fat,carbs}}
+ const gm=macros(gym),rm=macros(rest);
+ $('goalLabel').textContent=goal==='performance'?'Grobe Orientierung inkl. Leistungsaufschlag':goal==='fitness'?'Grobe Orientierung für Alltag & Fitness':'Geschätzter Tagesdurchschnitt';
+ $('bmrResult').textContent=bmr.toLocaleString('de-DE')+' kcal';
+ $('caloriesResult').innerHTML=average.toLocaleString('de-DE')+' <small>kcal / Tag im Durchschnitt</small>';
+ $('gymCalories').textContent=gym.toLocaleString('de-DE')+' kcal';$('restCalories').textContent=rest.toLocaleString('de-DE')+' kcal';
+ $('gymProtein').textContent=protein+' g';$('gymCarbs').textContent=gm.carbs+' g';$('gymFat').textContent=gm.fat+' g';
+ $('restProtein').textContent=protein+' g';$('restCarbs').textContent=rm.carbs+' g';$('restFat').textContent=rm.fat+' g';
+ $('calcNotice').textContent='Gym-Tag enthält pauschal +250 kcal für eine Trainingseinheit. Das ist nur eine grobe Schätzung und kann je nach Dauer und Intensität abweichen. Die Alltagsaktivität sollte deine Bewegung außerhalb des Gym abbilden. 2,5 g Protein/kg ist ein hoher Zielwert und nicht für jeden nötig. Für Jugendliche unter 18 werden keine Kalorien- oder Makroziele ausgegeben.';
 }
 function resetCalc(){$('age').value=31;$('sex').value='m';$('height').value=180;$('weight').value=80;$('activity').value='1.55';$('training').value='2';$('goal').value='maintain';calculate()}
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}

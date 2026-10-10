@@ -244,16 +244,16 @@ buildSetRows();
 $("saveTraining").onclick=()=>{
 const date=$("tDate").value,name=$("tName").value.trim(),exercise=$("tExercise").value;
 const ws=[...document.querySelectorAll(".setWeight")],rs=[...document.querySelectorAll(".setReps")],ts=[...document.querySelectorAll(".setType")];
-if(!date||!name){alert("Bitte Datum und Einheit ausfüllen.");return}
-if(ws.some(x=>!Number(x.value))||rs.some(x=>!Number(x.value))){alert("Bitte Gewicht und Wiederholungen für jeden Satz ausfüllen.");return}
+if(!date||!name||!exercise){alert("Bitte Datum, Einheit und Übung ausfüllen.");return}
+if(!ws.length||ws.some(x=>x.value===""||!Number.isFinite(Number(x.value))||Number(x.value)<0)||rs.some(x=>x.value===""||!Number.isFinite(Number(x.value))||Number(x.value)<=0)){alert("Bitte für jeden Satz ein gültiges Gewicht und positive Wiederholungszahl eingeben.");return}
 const stamp=Date.now();
-ws.forEach((x,i)=>{const o={_id:stamp+"-"+i,date,name,exercise,weight:Number(x.value),reps:Number(rs[i].value),sets:1,setNo:i+1,setType:ts[i].value};d.workouts.push(o);if(!d.strength[o.exercise])d.strength[o.exercise]=[];d.strength[o.exercise].push({date:o.date,weight:o.weight,reps:o.reps,setNo:o.setNo,setType:o.setType})});
-save();alert("Training mit "+ws.length+" Sätzen gespeichert.");$("tName").value="";$("tWeight")&&($("tWeight").value="");$("tReps")&&($("tReps").value="");render()
-};
-d.workouts.push(o);if(!d.strength[o.exercise])d.strength[o.exercise]=[];d.strength[o.exercise].push({date:o.date,weight:o.weight,reps:o.reps,setNo:o.setNo,setType:o.setType});
+ws.forEach((x,i)=>{
+const o={_id:stamp+"-"+i,date,name,exercise,weight:Number(x.value),reps:Number(rs[i].value),sets:1,setNo:i+1,setType:ts[i].value};
+d.workouts.push(o);
+if(!d.strength[o.exercise])d.strength[o.exercise]=[];
+d.strength[o.exercise].push({date:o.date,weight:o.weight,reps:o.reps,setNo:o.setNo,setType:o.setType});
 });
-save();alert("Training mit "+ws.length+" Sätzen gespeichert.");render()
-};if(!o.date||!o.name||!o.weight||!o.reps||!o.setNo){alert("Bitte alle Trainingsfelder ausfüllen.");return}d.workouts.push(o);if(!d.strength[o.exercise])d.strength[o.exercise]=[];d.strength[o.exercise].push({date:o.date,weight:o.weight,reps:o.reps});save();$("tWeight").value="";$("tReps").value="";render()
+save();alert("Training mit "+ws.length+" Sätzen gespeichert.");$("tName").value="";buildSetRows();render()
 };
 
 function calculateCalories(){

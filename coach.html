@@ -126,6 +126,12 @@ function calculate(){
  $('restProtein').textContent=protein+' g';$('restCarbs').textContent=rm.carbs+' g';$('restFat').textContent=rm.fat+' g';
  $('calcNotice').textContent='Gym-Tag enthält pauschal +250 kcal für eine Trainingseinheit. Das ist nur eine grobe Schätzung und kann je nach Dauer und Intensität abweichen. Die Alltagsaktivität sollte deine Bewegung außerhalb des Gym abbilden. 2,5 g Protein/kg ist ein hoher Zielwert und nicht für jeden nötig. Für Jugendliche unter 18 werden keine Kalorien- oder Makroziele ausgegeben.';
 }
+// Recalculate immediately when any calculator input changes.
+['age','sex','height','weight','activity','training','goal'].forEach(id=>{
+ const el=$(id);
+ if(el) el.addEventListener('input',calculate);
+ if(el) el.addEventListener('change',calculate);
+});
 function resetCalc(){$('age').value=31;$('sex').value='m';$('height').value=180;$('weight').value=80;$('activity').value='1.55';$('training').value='2';$('goal').value='maintain';calculate()}
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function addSession(){const name=$('sessionName').value.trim(),day=$('sessionDay').value,type=$('sessionType').value,duration=+$('sessionDuration').value;if(!name||duration<5||duration>300){notify('Bitte Name und Dauer prüfen.');return}data.sessions.push({id:Date.now(),name,day,type,duration});$('sessionName').value='';persist();notify('Einheit gespeichert.')}
@@ -170,7 +176,7 @@ function renderClients(){
  $('clientList').innerHTML=data.clients.length?data.clients.map(client=>'<div class="listrow"><div style="min-width:0"><strong>'+esc(client.name)+'</strong><small>'+esc(client.email||'Keine E-Mail hinterlegt')+' · Seit '+esc(client.createdAt||'—')+'</small><small>'+esc(client.goal)+(client.notes?' · '+esc(client.notes):'')+'</small></div><button class="btn secondary" onclick="removeClient('+client.id+')" aria-label="Kundenprofil löschen">Löschen</button></div>').join(''):'<div class="empty">Noch keine Kundenprofile. Lege den ersten Kunden an.</div>';
 }
 function exportData(){const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='fitcoach-pro-daten.json';a.click();URL.revokeObjectURL(url);notify('Export wurde gestartet.')}
-function clearData(){if(!confirm('Wirklich alle gespeicherten Trainings und Einträge löschen?'))return;data={sessions:[],entries:[],clients:[],goals:{sessions:3,recovery:2}};persist();notify('Lokale Daten gelöscht.')}
+function clearData(){if(!confirm('Wirklich alle gespeicherten Trainings und Einträge löschen?'))return;data={sessions:[],entries:[],clients:[],messages:[],foods:[],profile:{name:"Alexander"},goals:{sessions:3,recovery:2}};persist();notify('Lokale Daten gelöscht.')}
 $('entryDate').value=new Date().toISOString().slice(0,10);
 render();calculate();
 </script>

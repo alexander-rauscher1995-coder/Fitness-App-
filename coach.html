@@ -65,6 +65,11 @@
 <div class="field"><label for="entryNote">Notiz</label><input id="entryNote" maxlength="180" placeholder="z. B. Einheit absolviert, fühlte sich gut an"></div>
 </div><div class="actions"><button class="btn" onclick="addEntry()">Eintrag speichern</button></div></div>
 <div class="card wide"><h3>Deine Einträge</h3><div id="entryList" class="list"><div class="empty">Noch keine Einträge vorhanden.</div></div><div class="actions"><button class="btn secondary" onclick="exportData()">Daten exportieren</button><button class="btn secondary" onclick="clearData()">Alle Daten löschen</button></div><p class="note">Deine Daten bleiben lokal in diesem Browser. Exportiere sie, wenn du eine Sicherung möchtest.</p></div>
+<div class="card full"><h3>Wochenziele</h3><p class="muted">Setze dir alltagstaugliche Ziele für Bewegung und Erholung. Passe sie an deine Woche an – Regelmäßigkeit zählt mehr als Perfektion.</p><div class="fields">
+<div class="field"><label for="goalSessions">Bewegungseinheiten pro Woche</label><input id="goalSessions" type="number" min="1" max="14" value="3"></div>
+<div class="field"><label for="goalRecovery">Erholung / Mobilität pro Woche</label><input id="goalRecovery" type="number" min="0" max="14" value="2"></div>
+</div><div class="actions"><button class="btn" onclick="saveGoals()">Wochenziele speichern</button></div><div class="progress-list" id="goalProgress" style="margin-top:18px"></div><p class="note">Der Fortschritt wird aus deinen protokollierten Einträgen und Trainingsplan-Einheiten ermittelt.</p></div>
+<div class="card full"><h3>Aktivität der letzten 7 Tage</h3><div id="activityChart" class="progress-list"><div class="empty">Füge Einträge hinzu, um deine Aktivität zu sehen.</div></div></div>
 </div></section>
 </main>
 </div>
@@ -73,8 +78,8 @@
 <script>
 const $=id=>document.getElementById(id);
 const STORE='fitcoach-pro-v1';
-let data={sessions:[],entries:[]};
-try{const saved=localStorage.getItem(STORE);if(saved)data={...data,...JSON.parse(saved)}}catch(e){}
+let data={sessions:[],entries:[],goals:{sessions:3,recovery:2}};
+try{const saved=localStorage.getItem(STORE);if(saved)data={...data,...JSON.parse(saved)};if(!data.goals)data.goals={sessions:3,recovery:2}}catch(e){}
 function persist(){try{localStorage.setItem(STORE,JSON.stringify(data))}catch(e){notify('Speichern nicht verfügbar. Bitte Daten exportieren.')}render()}
 function notify(msg){const t=$('toast');t.textContent=msg;t.style.display='block';clearTimeout(window.__toastTimer);window.__toastTimer=setTimeout(()=>t.style.display='none',2300)}
 function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));document.querySelectorAll('[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===id));window.scrollTo({top:0,behavior:'smooth'})}
@@ -98,6 +103,21 @@ function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;',
 function addSession(){const name=$('sessionName').value.trim(),day=$('sessionDay').value,type=$('sessionType').value,duration=+$('sessionDuration').value;if(!name||duration<5||duration>300){notify('Bitte Name und Dauer prüfen.');return}data.sessions.push({id:Date.now(),name,day,type,duration});$('sessionName').value='';persist();notify('Einheit gespeichert.')}
 function removeSession(id){data.sessions=data.sessions.filter(s=>s.id!==id);persist()}
 function addEntry(){const date=$('entryDate').value||new Date().toISOString().slice(0,10),type=$('entryType').value,note=$('entryNote').value.trim();if(!note){notify('Bitte eine kurze Notiz eintragen.');return}data.entries.unshift({id:Date.now(),date,type,note});$('entryNote').value='';persist();notify('Eintrag gespeichert.')}
+function saveGoals(){const sessions=+$('goalSessions').value,recovery=+$('goalRecovery').value;if(!Number.isFinite(sessions)||sessions<1||sessions>14||!Number.isFinite(recovery)||recovery<0||recovery>14){notify('Bitte Wochenziele zwischen 0 und 14 prüfen.');return}data.goals={sessions,recovery};persist();notify('Wochenziele gespeichert.')}
+function dateKey(d){return d.toISOString().slice(0,10)}
+function renderGoals(){
+ const today=new Date();today.setHours(0,0,0,0);const start=new Date(today);start.setDate(today.getDate()-6);
+ const recent=data.entries.filter(e=>{const d=new Date(e.date+'T00:00:00');return d>=start&&d<=today});
+ const trainingCount=recent.filter(e=>e.type==='Training').length;
+ const recoveryCount=recent.filter(e=>e.type==='Erholung').length;
+ const goals=data.goals||{sessions:3,recovery:2};
+ $('goalSessions').value=goals.sessions;$('goalRecovery').value=goals.recovery;
+ const items=[{label:'Training protokolliert',value:trainingCount,target:goals.sessions},{label:'Erholung protokolliert',value:recoveryCount,target:goals.recovery}];
+ $('goalProgress').innerHTML=items.map(x=>{const pct=x.target?Math.min(100,Math.round(x.value/x.target*100)):100;return '<div class="progress-item"><label>'+x.label+'</label><strong>'+x.value+' / '+x.target+'</strong><div class="bar"><i style="width:'+pct+'%"></i></div></div>'}).join('');
+ const days=[];for(let i=6;i>=0;i--){const d=new Date(today);d.setDate(today.getDate()-i);const key=dateKey(d);const count=recent.filter(e=>e.date===key&&(e.type==='Training'||e.type==='Erholung')).length;days.push({label:d.toLocaleDateString('de-DE',{weekday:'short',day:'2-digit'}),count})}
+ const max=Math.max(1,...days.map(d=>d.count));
+ $('activityChart').innerHTML=days.map(d=>'<div class="progress-item"><label>'+d.label+'</label><strong>'+d.count+' Einträge</strong><div class="bar"><i style="width:'+Math.round(d.count/max*100)+'%"></i></div></div>').join('');
+}
 function removeEntry(id){data.entries=data.entries.filter(e=>e.id!==id);persist()}
 function render(){
  const days=['Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag','Sonntag'];
@@ -105,7 +125,7 @@ function render(){
  $('sessionList').innerHTML=data.sessions.length?data.sessions.map(s=>'<div class="listrow"><div><strong>'+esc(s.day)+' · '+esc(s.name)+'</strong><small>'+esc(s.type)+' · '+s.duration+' Min.</small></div><button class="btn secondary" onclick="removeSession('+s.id+')" aria-label="Einheit löschen">Löschen</button></div>').join(''):'<div class="empty">Noch keine Einheiten eingetragen.</div>';
  $('entryList').innerHTML=data.entries.length?data.entries.map(e=>'<div class="listrow"><div><strong>'+esc(e.date)+' · '+esc(e.type)+'</strong><small>'+esc(e.note)+'</small></div><button class="btn secondary" onclick="removeEntry('+e.id+')" aria-label="Eintrag löschen">Löschen</button></div>').join(''):'<div class="empty">Noch keine Einträge vorhanden.</div>';
  $('homeSessions').innerHTML=data.sessions.length+' <small>/ Woche</small>';$('homeEntries').textContent=data.entries.length;
- const latest=data.entries[0];$('homeLatest').textContent=latest?latest.date:'—';
+ const latest=data.entries[0];$('homeLatest').textContent=latest?latest.date:'—';renderGoals();
 }
 function exportData(){const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='fitcoach-pro-daten.json';a.click();URL.revokeObjectURL(url);notify('Export wurde gestartet.')}
 function clearData(){if(!confirm('Wirklich alle gespeicherten Trainings und Einträge löschen?'))return;data={sessions:[],entries:[]};persist();notify('Lokale Daten gelöscht.')}

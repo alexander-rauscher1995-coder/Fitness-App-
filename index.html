@@ -124,6 +124,7 @@ body{background:linear-gradient(180deg,#f6f9f7 0%,#eef4f0 100%)}
 <div class="field"><label>Größe (cm)</label><input id="calHeight" type="number" min="130" max="230" value="180"></div>
 <div class="field"><label>Alltagsaktivität (PAL)</label><select id="calPal"><option value="1.2">1,2 · Überwiegend sitzend</option><option value="1.4">1,4 · Leicht aktiv</option><option value="1.6" selected>1,6 · Alltag plus Training</option><option value="1.8">1,8 · Sehr aktiver Alltag</option><option value="2">2,0 · Außergewöhnlich aktiv</option></select><div class="small muted">Wähle den gesamten Alltag inklusive Bewegung und Training. Schätzwerte können abweichen.</div></div>
 <div class="field"><label>Ziel</label><select id="calGoal"><option value="maintain">Gewicht halten</option><option value="gain">Muskelaufbau (moderater Überschuss)</option><option value="lose">Fettverlust – Orientierung</option></select></div>
+<div class="field"><label>Tagestyp</label><select id="calDay"><option value="normal">Normaler Tag</option><option value="training">Trainingstag (+150 kcal)</option><option value="rest">Pausentag (−150 kcal)</option></select><div class="small muted">Optionaler Unterschied zur Tagesorientierung. Passe ihn an deinen tatsächlichen Wochenplan an.</div></div>
 <div class="field"><label>Protein-Ziel (g pro kg Körpergewicht)</label><select id="calProtein"><option value="1.2">1,2 g/kg</option><option value="1.6">1,6 g/kg</option><option value="2" selected>2,0 g/kg</option><option value="2.2">2,2 g/kg</option></select></div>
 <div class="field"><label>Fettanteil</label><select id="calFat"><option value="20">20 %</option><option value="25" selected>25 %</option><option value="30">30 %</option><option value="35">35 %</option></select></div>
 </div><div class="actions"><button class="btn" id="calCalculate">Berechnen</button><button class="btn secondary" id="calReset">Zurücksetzen</button></div></div>
@@ -260,18 +261,22 @@ const age=Number($("calAge").value),weight=Number($("calWeight").value),height=N
 const valid=Number.isFinite(age)&&Number.isFinite(weight)&&Number.isFinite(height)&&Number.isFinite(pal)&&Number.isFinite(pr)&&Number.isFinite(fatPct)&&age>=18&&age<=100&&weight>=35&&weight<=300&&height>=130&&height<=230;
 if(!valid){$("calTarget").textContent="—";$("calTargetNote").textContent="Bitte gültige Werte eingeben. Dieser Rechner ist für Erwachsene ab 18 Jahren ausgelegt.";["calBmr","calTdee","calP","calC","calF"].forEach(id=>$(id).textContent="—");if($("calMacroNote"))$("calMacroNote").textContent="Bitte prüfe deine Angaben.";return}
 const bmr=10*weight+6.25*height-5*age+(sex==="male"?5:-161),tdee=bmr*pal;
-const target=Math.round((tdee+(goal==="gain"?200:0))/50)*50;
+const goalAdjustment=goal==="gain"?200:goal==="lose"?-300:0;
+const dayAdjustment=$("calDay").value==="training"?150:$("calDay").value==="rest"?-150:0;
+const target=Math.max(0,Math.round((tdee+goalAdjustment+dayAdjustment)/50)*50);
 const p=Math.round(weight*pr),f=Math.round(target*fatPct/100/9),c=Math.max(0,Math.round((target-p*4-f*9)/4));
 $("calBmr").textContent=Math.round(bmr).toLocaleString("de-DE")+" kcal";
 $("calTdee").textContent=Math.round(tdee).toLocaleString("de-DE")+" kcal";
 $("calTarget").textContent=target.toLocaleString("de-DE")+" kcal";
-$("calTargetNote").textContent=goal==="gain"?"Richtwert mit moderatem Überschuss von rund 200 kcal.":goal==="lose"?"Ausgangspunkt: geschätzter Erhaltungsbedarf. Kein automatisches Kaloriendefizit; bei Abnehmzielen fachlich beraten lassen.":"Geschätzte Erhaltungskalorien als Ausgangspunkt.";
+const goalText=goal==="gain"?"Mit moderatem Überschuss von rund 200 kcal.":goal==="lose"?"Grobe Orientierung mit etwa 300 kcal unter dem geschätzten Erhaltungsbedarf; tatsächlichen Verlauf beobachten.":"Geschätzte Erhaltungskalorien als Ausgangspunkt.";
+const dayText=$("calDay").value==="training"?" Trainingstag-Anpassung: +150 kcal.":$("calDay").value==="rest"?" Pausentag-Anpassung: −150 kcal.":"";
+$("calTargetNote").textContent=goalText+dayText;
 $("calP").textContent=p+" g";$("calC").textContent=c+" g";$("calF").textContent=f+" g";
 const macroKcal=p*4+c*4+f*9,proteinKcal=p*4,fatKcal=f*9,carbKcal=c*4;
 $("calMacroNote").textContent="Makros gesamt: ca. "+macroKcal.toLocaleString("de-DE")+" kcal · Protein "+Math.round(proteinKcal/Math.max(1,macroKcal)*100)+" % · Kohlenhydrate "+Math.round(carbKcal/Math.max(1,macroKcal)*100)+" % · Fett "+Math.round(fatKcal/Math.max(1,macroKcal)*100)+" %. Durch Rundung sind kleine Abweichungen normal.";
 }
-["calCalculate","calReset"].forEach(id=>$(id).addEventListener("click",()=>{if(id==="calReset"){ $("calAge").value="31";$("calSex").value="male";$("calWeight").value="80";$("calHeight").value="180";$("calPal").value="1.6";$("calGoal").value="maintain";$("calProtein").value="2";$("calFat").value="25";}calculateCalories()}));
-["calAge","calSex","calWeight","calHeight","calPal","calGoal","calProtein","calFat"].forEach(id=>$(id).addEventListener("input",calculateCalories));
+["calCalculate","calReset"].forEach(id=>$(id).addEventListener("click",()=>{if(id==="calReset"){ $("calAge").value="31";$("calSex").value="male";$("calWeight").value="80";$("calHeight").value="180";$("calPal").value="1.6";$("calGoal").value="maintain";$("calDay").value="normal";$("calProtein").value="2";$("calFat").value="25";}calculateCalories()}));
+["calAge","calSex","calWeight","calHeight","calPal","calGoal","calDay","calProtein","calFat"].forEach(id=>$(id).addEventListener("input",calculateCalories));
 $("calCopy").addEventListener("click",()=>{const txt="ALEX FITNESS · KALORIEN & MAKROS\nGrundumsatz: "+$("calBmr").textContent+"\nGesamtumsatz: "+$("calTdee").textContent+"\nOrientierung: "+$("calTarget").textContent+"\nProtein: "+$("calP").textContent+"\nKohlenhydrate: "+$("calC").textContent+"\nFett: "+$("calF").textContent;if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(()=>alert("Ergebnisse kopiert.")).catch(()=>alert(txt));else alert(txt)});
 
 ["measureSelect","measurePeriod"].forEach(id=>$(id).onchange=renderMeasure);render();window.onresize=()=>{draw("chartHome",sw());draw("chartProgress",sw());renderMeasure()}

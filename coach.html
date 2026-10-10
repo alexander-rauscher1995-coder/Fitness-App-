@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101712">
+<title>FitCoach Pro – Training & Fortschritt</title>
+<style>
+:root{--bg:#0c110e;--panel:#141c17;--panel2:#1a251e;--line:#2b3a30;--text:#f3f7f3;--muted:#9eafa3;--accent:#b8f36b;--accent2:#d7ffab;--red:#ffb4a9;--radius:18px}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top right,#203126 0,transparent 42%),var(--bg);color:var(--text);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input,select{font:inherit}button{cursor:pointer}.app{max-width:1180px;margin:auto;padding:22px 20px 100px}.top{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:28px}.brand{display:flex;align-items:center;gap:12px}.logo{width:42px;height:42px;border-radius:13px;background:var(--accent);color:#10200e;display:grid;place-items:center;font-weight:900;font-size:19px}.brand h1{font-size:18px;margin:0;letter-spacing:-.4px}.brand p{margin:2px 0 0;color:var(--muted);font-size:12px}.status{border:1px solid var(--line);border-radius:999px;padding:8px 12px;color:var(--muted);font-size:12px}.layout{display:grid;grid-template-columns:220px 1fr;gap:22px}.nav{display:flex;flex-direction:column;gap:7px}.nav button{display:flex;align-items:center;gap:11px;text-align:left;border:1px solid transparent;background:transparent;color:var(--muted);padding:13px 14px;border-radius:12px}.nav button.active,.nav button:hover{background:var(--panel2);color:var(--text);border-color:var(--line)}.nav button.active .ico{color:var(--accent)}.ico{width:20px;text-align:center;font-size:17px}.content{min-width:0}.page{display:none}.page.active{display:block}.heading{display:flex;align-items:flex-end;justify-content:space-between;gap:14px;margin-bottom:22px}.eyebrow{font-size:11px;letter-spacing:1.7px;text-transform:uppercase;color:var(--accent);font-weight:800}.heading h2{font-size:clamp(26px,4vw,36px);line-height:1.1;letter-spacing:-1.1px;margin:7px 0}.heading p{margin:0;color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card{background:linear-gradient(145deg,rgba(26,37,30,.98),rgba(18,26,21,.98));border:1px solid var(--line);border-radius:var(--radius);padding:19px;min-width:0}.card h3{font-size:15px;margin:0 0 14px}.metric-label{color:var(--muted);font-size:12px}.metric{font-size:30px;font-weight:800;letter-spacing:-1px;margin:6px 0 3px}.metric small{font-size:13px;color:var(--muted);font-weight:500;letter-spacing:0}.accent{color:var(--accent)}.muted{color:var(--muted)}.wide{grid-column:span 2}.full{grid-column:1/-1}.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.field{display:flex;flex-direction:column;gap:6px}.field label{color:var(--muted);font-size:12px}.field input,.field select{width:100%;background:#0e1510;color:var(--text);border:1px solid var(--line);border-radius:10px;padding:12px;outline:none}.field input:focus,.field select:focus{border-color:var(--accent)}.btn{border:0;border-radius:11px;background:var(--accent);color:#14200f;font-weight:800;padding:12px 16px}.btn.secondary{background:var(--panel2);border:1px solid var(--line);color:var(--text)}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}.results{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:17px}.result{background:#0d1510;border:1px solid var(--line);border-radius:12px;padding:13px}.result span{display:block;color:var(--muted);font-size:11px}.result strong{display:block;font-size:22px;margin-top:4px}.bar{height:7px;background:#26352b;border-radius:99px;overflow:hidden;margin-top:10px}.bar i{display:block;height:100%;background:var(--accent);border-radius:99px}.note{font-size:12px;color:var(--muted);margin-top:12px}.list{display:flex;flex-direction:column;gap:10px}.listrow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px;background:#0d1510;border:1px solid var(--line);border-radius:12px}.listrow strong{display:block;font-size:13px}.listrow small{color:var(--muted)}.pill{border:1px solid var(--line);padding:5px 8px;border-radius:999px;font-size:11px;color:var(--accent);white-space:nowrap}.empty{padding:24px;text-align:center;border:1px dashed var(--line);border-radius:14px;color:var(--muted)}.progress-list{display:grid;gap:12px}.progress-item{display:grid;grid-template-columns:1fr auto;gap:6px}.progress-item label{font-size:12px;color:var(--muted)}.progress-item strong{font-size:12px}.progress-item .bar{grid-column:1/-1;margin:0}.table{width:100%;border-collapse:collapse;font-size:13px}.table th,.table td{text-align:left;padding:12px 8px;border-bottom:1px solid var(--line)}.table th{color:var(--muted);font-weight:600}.bottomnav{display:none}.tiny{font-size:11px;color:var(--muted)}.warning{color:#ffcf8b;font-size:12px;line-height:1.5;margin-top:12px}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--accent);color:#13200f;font-weight:700;border-radius:12px;padding:11px 16px;display:none;z-index:20}
+@media(max-width:820px){.layout{grid-template-columns:1fr}.nav{display:none}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.wide{grid-column:span 2}.bottomnav{position:fixed;bottom:0;left:0;right:0;z-index:10;display:grid;grid-template-columns:repeat(4,1fr);gap:3px;padding:8px 8px calc(8px + env(safe-area-inset-bottom));background:rgba(12,17,14,.96);border-top:1px solid var(--line);backdrop-filter:blur(16px)}.bottomnav button{border:0;background:transparent;color:var(--muted);padding:7px 2px;font-size:10px;border-radius:9px}.bottomnav button span{display:block;font-size:17px;margin-bottom:3px}.bottomnav button.active{color:var(--accent);background:var(--panel2)}.app{padding:17px 14px 105px}.status{display:none}.heading{align-items:flex-start}.card{padding:15px}}
+@media(max-width:460px){.grid{grid-template-columns:1fr}.wide,.full{grid-column:auto}.fields{grid-template-columns:1fr}.results{grid-template-columns:1fr}.heading h2{font-size:27px}.metric{font-size:27px}.app{padding-left:12px;padding-right:12px}.card{border-radius:15px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top"><div class="brand"><div class="logo">FC</div><div><h1>FitCoach <span class="accent">Pro</span></h1><p>Dein Training. Dein Überblick.</p></div></div><div class="status">● Lokal gespeichert · Privat auf diesem Gerät</div></header>
+<div class="layout">
+<nav class="nav" aria-label="Hauptnavigation">
+<button class="active" data-page="home"><span class="ico">▦</span>Übersicht</button>
+<button data-page="calculator"><span class="ico">◉</span>Kalorien & Makros</button>
+<button data-page="training"><span class="ico">▤</span>Trainingsplan</button>
+<button data-page="progress"><span class="ico">↗</span>Fortschritt</button>
+</nav>
+<main class="content">
+<section id="home" class="page active">
+<div class="heading"><div><div class="eyebrow">Dein Dashboard</div><h2>Alles im Blick.</h2><p>Plane deine Einheiten und halte deinen Fortschritt fest.</p></div><button class="btn" onclick="showPage('calculator')">Rechner öffnen ↗</button></div>
+<div class="grid">
+<div class="card"><div class="metric-label">Geplante Einheiten</div><div class="metric" id="homeSessions">0 <small>/ Woche</small></div><div class="tiny">Aus deinem Trainingsplan</div></div>
+<div class="card"><div class="metric-label">Protokollierte Einträge</div><div class="metric" id="homeEntries">0</div><div class="tiny">Dein persönliches Tracking</div></div>
+<div class="card"><div class="metric-label">Letzter Eintrag</div><div class="metric" id="homeLatest">—</div><div class="tiny">Körperdaten oder Training</div></div>
+<div class="card wide"><h3>Dein nächster Schritt</h3><p class="muted">Starte mit deinen Grunddaten, erstelle einen realistischen Trainingsplan und dokumentiere Einheiten regelmäßig. Erholung gehört genauso dazu wie Bewegung.</p><div class="actions"><button class="btn secondary" onclick="showPage('training')">Trainingsplan erstellen</button><button class="btn secondary" onclick="showPage('progress')">Fortschritt erfassen</button></div></div>
+<div class="card"><h3>Schnellzugriff</h3><div class="list"><button class="listrow" onclick="showPage('calculator')" style="color:inherit;text-align:left"><span><strong>Kalorien & Makros</strong><small>Orientierungswert berechnen</small></span><span class="pill">Öffnen</span></button><button class="listrow" onclick="showPage('progress')" style="color:inherit;text-align:left"><span><strong>Eintrag hinzufügen</strong><small>Training oder Notiz</small></span><span class="pill">Öffnen</span></button></div></div>
+</div></section>
+<section id="calculator" class="page">
+<div class="heading"><div><div class="eyebrow">Planung</div><h2>Kalorien & Makros</h2><p>Eine grobe Orientierung für deinen täglichen Energiebedarf.</p></div></div>
+<div class="grid">
+<div class="card wide"><h3>Deine Angaben</h3><div class="fields">
+<div class="field"><label for="age">Alter</label><input id="age" type="number" min="13" max="100" value="31"></div>
+<div class="field"><label for="sex">Berechnungsformel</label><select id="sex"><option value="m">Männlich</option><option value="f">Weiblich</option><option value="n">Keine Angabe / andere</option></select></div>
+<div class="field"><label for="height">Größe (cm)</label><input id="height" type="number" min="100" max="230" value="180"></div>
+<div class="field"><label for="weight">Gewicht (kg)</label><input id="weight" type="number" min="25" max="300" step=".1" value="80"></div>
+<div class="field"><label for="activity">Alltagsaktivität</label><select id="activity"><option value="1.2">Wenig Bewegung</option><option value="1.375">Leicht aktiv</option><option value="1.55" selected>Moderat aktiv</option><option value="1.725">Sehr aktiv</option><option value="1.9">Extrem aktiv</option></select></div>
+<div class="field"><label for="training">Training pro Woche</label><select id="training"><option value="0">0–1 Einheiten</option><option value="2" selected>2–3 Einheiten</option><option value="4">4–5 Einheiten</option><option value="6">6+ Einheiten</option></select></div>
+</div><div class="actions"><button class="btn" onclick="calculate()">Werte berechnen</button><button class="btn secondary" onclick="resetCalc()">Zurücksetzen</button></div><p class="note">Schätzung nach einer gängigen Formel. Tatsächlicher Bedarf kann abweichen; nutze die Zahl nicht als medizinische Vorgabe.</p></div>
+<div class="card"><h3>Deine Orientierung</h3><div class="metric" id="caloriesResult">— <small>kcal / Tag</small></div><div class="metric-label">Geschätzter Erhaltungsbedarf</div><div class="results" style="grid-template-columns:1fr"><div class="result"><span>Grundumsatz (Schätzung)</span><strong id="bmrResult">—</strong></div><div class="result"><span>Protein · Orientierung</span><strong id="proteinResult">—</strong></div><div class="result"><span>Kohlenhydrate · Beispiel</span><strong id="carbResult">—</strong></div><div class="result"><span>Fett · Beispiel</span><strong id="fatResult">—</strong></div></div><p class="warning" id="calcNotice">Die Werte sind Schätzungen und ersetzen keine individuelle Beratung.</p></div>
+</div></section>
+<section id="training" class="page">
+<div class="heading"><div><div class="eyebrow">Struktur</div><h2>Trainingsplan</h2><p>Erstelle einen einfachen Wochenüberblick, der zu deinem Alltag passt.</p></div></div>
+<div class="grid">
+<div class="card"><h3>Einheit hinzufügen</h3><div class="fields" style="grid-template-columns:1fr">
+<div class="field"><label for="sessionName">Name der Einheit</label><input id="sessionName" maxlength="50" placeholder="z. B. Ganzkörper A"></div>
+<div class="field"><label for="sessionDay">Wochentag</label><select id="sessionDay"><option>Montag</option><option>Dienstag</option><option>Mittwoch</option><option>Donnerstag</option><option>Freitag</option><option>Samstag</option><option>Sonntag</option></select></div>
+<div class="field"><label for="sessionType">Art</label><select id="sessionType"><option>Krafttraining</option><option>Ausdauer</option><option>Mobilität</option><option>Erholung</option></select></div>
+<div class="field"><label for="sessionDuration">Dauer (Minuten)</label><input id="sessionDuration" type="number" min="5" max="300" value="45"></div>
+</div><div class="actions"><button class="btn" onclick="addSession()">Einheit speichern</button></div></div>
+<div class="card wide"><h3>Deine Woche</h3><div id="sessionList" class="list"><div class="empty">Noch keine Einheiten eingetragen.</div></div><p class="note">Plane Ruhetage ein und passe Umfang und Intensität an dein Leistungsniveau an.</p></div>
+</div></section>
+<section id="progress" class="page">
+<div class="heading"><div><div class="eyebrow">Dokumentation</div><h2>Fortschritt</h2><p>Notiere Training, Energie und persönliche Beobachtungen.</p></div></div>
+<div class="grid">
+<div class="card"><h3>Eintrag hinzufügen</h3><div class="fields" style="grid-template-columns:1fr">
+<div class="field"><label for="entryDate">Datum</label><input id="entryDate" type="date"></div>
+<div class="field"><label for="entryType">Kategorie</label><select id="entryType"><option>Training</option><option>Erholung</option><option>Allgemeines Wohlbefinden</option><option>Notiz</option></select></div>
+<div class="field"><label for="entryNote">Notiz</label><input id="entryNote" maxlength="180" placeholder="z. B. Einheit absolviert, fühlte sich gut an"></div>
+</div><div class="actions"><button class="btn" onclick="addEntry()">Eintrag speichern</button></div></div>
+<div class="card wide"><h3>Deine Einträge</h3><div id="entryList" class="list"><div class="empty">Noch keine Einträge vorhanden.</div></div><div class="actions"><button class="btn secondary" onclick="exportData()">Daten exportieren</button><button class="btn secondary" onclick="clearData()">Alle Daten löschen</button></div><p class="note">Deine Daten bleiben lokal in diesem Browser. Exportiere sie, wenn du eine Sicherung möchtest.</p></div>
+</div></section>
+</main>
+</div>
+<nav class="bottomnav" aria-label="Mobile Navigation"><button class="active" data-page="home"><span>▦</span>Übersicht</button><button data-page="calculator"><span>◉</span>Rechner</button><button data-page="training"><span>▤</span>Training</button><button data-page="progress"><span>↗</span>Fortschritt</button></nav>
+</div><div class="toast" id="toast" role="status"></div>
+<script>
+const $=id=>document.getElementById(id);
+const STORE='fitcoach-pro-v1';
+let data={sessions:[],entries:[]};
+try{const saved=localStorage.getItem(STORE);if(saved)data={...data,...JSON.parse(saved)}}catch(e){}
+function persist(){try{localStorage.setItem(STORE,JSON.stringify(data))}catch(e){notify('Speichern nicht verfügbar. Bitte Daten exportieren.')}render()}
+function notify(msg){const t=$('toast');t.textContent=msg;t.style.display='block';clearTimeout(window.__toastTimer);window.__toastTimer=setTimeout(()=>t.style.display='none',2300)}
+function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));document.querySelectorAll('[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===id));window.scrollTo({top:0,behavior:'smooth'})}
+document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
+function calculate(){
+ const age=+$('age').value,h=+$('height').value,w=+$('weight').value,sex=$('sex').value,pal=+$('activity').value;
+ if(!age||!h||!w||age<13||age>100||h<100||h>230||w<25||w>300){notify('Bitte prüfe deine Angaben.');return}
+ if(age<18){$('caloriesResult').textContent='Nicht berechnet';$('bmrResult').textContent='—';$('proteinResult').textContent='—';$('carbResult').textContent='—';$('fatResult').textContent='—';$('calcNotice').textContent='Für Jugendliche sind pauschale Kalorien- und Makroziele ungeeignet, weil Wachstum und Entwicklung den Bedarf beeinflussen. Besprich individuelle Ziele mit einer qualifizierten medizinischen oder ernährungsfachlichen Person.';return}
+ const base=10*w+6.25*h-5*age+(sex==='m'?5:sex==='f'?-161:-78);
+ const bmr=Math.round(base),tdee=Math.round(base*pal);
+ const protein=Math.round(w*1.4),fat=Math.round(tdee*.28/9),carbs=Math.max(0,Math.round((tdee-protein*4-fat*9)/4));
+ $('bmrResult').textContent=bmr.toLocaleString('de-DE')+' kcal';$('caloriesResult').innerHTML=tdee.toLocaleString('de-DE')+' <small>kcal / Tag</small>';
+ $('proteinResult').textContent=protein+' g';$('carbResult').textContent=carbs+' g';$('fatResult').textContent=fat+' g';
+ $('calcNotice').textContent='Makros sind ein Beispiel, keine Pflichtvorgabe. Die Formel ist ungenau und ersetzt keine individuelle Beratung. Bei besonderen gesundheitlichen Bedürfnissen bitte fachlich abklären.';
+}
+function resetCalc(){$('age').value=31;$('sex').value='m';$('height').value=180;$('weight').value=80;$('activity').value='1.55';$('training').value='2';calculate()}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function addSession(){const name=$('sessionName').value.trim(),day=$('sessionDay').value,type=$('sessionType').value,duration=+$('sessionDuration').value;if(!name||duration<5||duration>300){notify('Bitte Name und Dauer prüfen.');return}data.sessions.push({id:Date.now(),name,day,type,duration});$('sessionName').value='';persist();notify('Einheit gespeichert.')}
+function removeSession(id){data.sessions=data.sessions.filter(s=>s.id!==id);persist()}
+function addEntry(){const date=$('entryDate').value||new Date().toISOString().slice(0,10),type=$('entryType').value,note=$('entryNote').value.trim();if(!note){notify('Bitte eine kurze Notiz eintragen.');return}data.entries.unshift({id:Date.now(),date,type,note});$('entryNote').value='';persist();notify('Eintrag gespeichert.')}
+function removeEntry(id){data.entries=data.entries.filter(e=>e.id!==id);persist()}
+function render(){
+ const days=['Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag','Sonntag'];
+ data.sessions.sort((a,b)=>days.indexOf(a.day)-days.indexOf(b.day));
+ $('sessionList').innerHTML=data.sessions.length?data.sessions.map(s=>'<div class="listrow"><div><strong>'+esc(s.day)+' · '+esc(s.name)+'</strong><small>'+esc(s.type)+' · '+s.duration+' Min.</small></div><button class="btn secondary" onclick="removeSession('+s.id+')" aria-label="Einheit löschen">Löschen</button></div>').join(''):'<div class="empty">Noch keine Einheiten eingetragen.</div>';
+ $('entryList').innerHTML=data.entries.length?data.entries.map(e=>'<div class="listrow"><div><strong>'+esc(e.date)+' · '+esc(e.type)+'</strong><small>'+esc(e.note)+'</small></div><button class="btn secondary" onclick="removeEntry('+e.id+')" aria-label="Eintrag löschen">Löschen</button></div>').join(''):'<div class="empty">Noch keine Einträge vorhanden.</div>';
+ $('homeSessions').innerHTML=data.sessions.length+' <small>/ Woche</small>';$('homeEntries').textContent=data.entries.length;
+ const latest=data.entries[0];$('homeLatest').textContent=latest?latest.date:'—';
+}
+function exportData(){const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='fitcoach-pro-daten.json';a.click();URL.revokeObjectURL(url);notify('Export wurde gestartet.')}
+function clearData(){if(!confirm('Wirklich alle gespeicherten Trainings und Einträge löschen?'))return;data={sessions:[],entries:[]};persist();notify('Lokale Daten gelöscht.')}
+$('entryDate').value=new Date().toISOString().slice(0,10);
+render();calculate();
+</script>
+</body></html>

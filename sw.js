@@ -1,7 +1,8 @@
-const CACHE_NAME="alex-fitness-pro-v1";
+const CACHE_NAME="alex-fitness-pro-v2";
 const APP_SHELL=[
   "./",
   "./index.html",
+  "./nutrition.html",
   "./manifest.webmanifest",
   "./icon.svg"
 ];

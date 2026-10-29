@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f1713">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="ALEX FITNESS">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icon.svg">
+<title>ALEX FITNESS · Ernährung</title>
+<style>
+:root{--bg:#f2f6f3;--card:#fff;--ink:#102019;--muted:#718078;--line:#dfe8e2;--green:#20a568;--green2:#137848;--soft:#e8f7ef;--shadow:0 8px 28px rgba(16,32,25,.06)}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#f6f9f7,#eef4f0);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input,select{font:inherit}.wrap{max-width:1120px;margin:auto;padding:20px 14px 90px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.brand{font-size:12px;letter-spacing:.12em;font-weight:900;color:var(--green2)}h1{font-size:28px;letter-spacing:-.04em;margin:4px 0}h2{font-size:19px;margin:0 0 10px}h3{font-size:15px;margin:0 0 8px}.muted{color:var(--muted)}.small{font-size:12px}.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:17px;box-shadow:var(--shadow);margin-bottom:12px}.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.between{justify-content:space-between}.btn{border:0;border-radius:12px;padding:11px 14px;background:var(--green);color:white;font-weight:850;cursor:pointer}.btn.secondary{background:#edf2ef;color:var(--ink)}.btn:disabled{opacity:.45}.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:12px}.s6{grid-column:span 6}.s12{grid-column:span 12}.stat{background:#f5faf7;border-radius:14px;padding:12px;flex:1;min-width:95px}.stat b{display:block;font-size:22px;margin-top:3px}.tabs{display:flex;gap:7px;margin:14px 0;flex-wrap:wrap}.tabs button{border:1px solid var(--line);background:white;border-radius:999px;padding:9px 13px;font-weight:800;color:var(--muted)}.tabs button.active{background:var(--green2);color:white;border-color:var(--green2)}.field{min-width:0;flex:1}.field label{display:block;font-size:11px;font-weight:800;color:var(--muted);margin-bottom:5px}.field input,.field select{width:100%;border:1px solid #d9e4dd;border-radius:11px;padding:11px;background:#fbfdfc;color:var(--ink)}.filters{display:flex;gap:9px;flex-wrap:wrap;margin:12px 0}.filters .field{min-width:140px}.recipes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.recipe{border:1px solid var(--line);border-radius:16px;padding:13px;display:flex;flex-direction:column;gap:8px;min-width:0}.emoji{font-size:26px}.recipe h3{margin:0}.tags{display:flex;gap:5px;flex-wrap:wrap}.tag{font-size:11px;border-radius:999px;background:var(--soft);color:var(--green2);padding:5px 8px;font-weight:800}.meal{border:1px solid var(--line);border-radius:14px;padding:12px;margin-top:9px}.meal-head{display:flex;justify-content:space-between;align-items:center;gap:8px}.meal select{max-width:100%;width:100%;margin-top:8px;padding:10px;border:1px solid #d9e4dd;border-radius:10px;background:white}.bar{height:8px;border-radius:99px;background:#e7eee9;overflow:hidden;margin-top:7px}.bar i{display:block;height:100%;background:var(--green);width:0}.notice{padding:11px 12px;border-radius:13px;background:var(--soft);font-size:12px;line-height:1.5}.days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.days button{border:1px solid var(--line);background:white;border-radius:11px;padding:10px 2px;font-weight:850;color:var(--muted)}.days button.active{background:var(--green2);color:white;border-color:var(--green2)}.days button small{display:block;font-size:9px;font-weight:600;margin-top:3px}.meal label{font-size:11px;font-weight:800;color:var(--muted)}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.empty{padding:22px;text-align:center;color:var(--muted)}.modal{position:fixed;inset:0;background:#10201980;display:none;align-items:flex-end;justify-content:center;z-index:10;padding:10px}.modal.open{display:flex}.modalbox{width:min(650px,100%);max-height:88vh;overflow:auto;background:white;border-radius:22px;padding:20px}.ingredients{line-height:1.9;padding-left:19px}.hidden{display:none!important}
+@media(min-width:800px){.wrap{padding:26px 22px}.recipes{grid-template-columns:repeat(3,minmax(0,1fr))}.planner{display:grid;grid-template-columns:1.2fr .8fr;gap:12px}.planner .card{margin-bottom:0}}
+@media(max-width:560px){.wrap{padding:14px 10px 88px}.recipes{grid-template-columns:1fr}.card{padding:14px;border-radius:17px}h1{font-size:24px}.s6{grid-column:span 12}.top .btn{padding:9px 10px}.days{gap:4px}.days button{font-size:12px}.days button small{font-size:8px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <div><div class="brand">ALEX FITNESS · ERNÄHRUNG</div><h1>Deine Rezeptküche</h1><div class="muted small">5 Mahlzeiten · proteinreich · passend zu deinem Tagesziel</div></div>
+  <a class="btn secondary" href="./index.html" style="text-decoration:none">← Zur App</a>
+</header>
+<div class="grid">
+  <div class="card s12">
+    <div class="row between"><div><h2>Dein Tagesziel</h2><div class="muted small">Ausgangswerte für dein Fitness-OS</div></div>
+      <div class="field" style="max-width:180px"><label>Tagestyp</label><select id="dayType"><option value="training">Trainingstag</option><option value="rest">Ruhetag</option></select></div>
+    </div>
+    <div class="row" style="margin-top:12px">
+      <div class="stat"><span class="muted small">Kalorien</span><b id="targetKcal">2.200</b></div>
+      <div class="stat"><span class="muted small">Protein</span><b id="targetP">200 g</b></div>
+      <div class="stat"><span class="muted small">Kohlenhydrate</span><b id="targetC">215 g</b></div>
+      <div class="stat"><span class="muted small">Fett</span><b id="targetF">60 g</b></div>
+    </div>
+    <div class="notice" style="margin-top:12px">Kalorien und Makros sind abgestimmt: Trainingstag 2.200 kcal (200 P / 215 KH / 60 F), Ruhetag 2.000 kcal (200 P / 165 KH / 60 F). Die Werte sind deine konfigurierbaren Ausgangswerte.</div>
+  </div>
+</div>
+<div class="tabs">
+  <button class="active" data-tab="week">📅 Wochenplan</button>
+  <button data-tab="library">📖 Rezepte</button>
+  <button data-tab="ai">✨ KI-Küche</button>
+</div>
+<section id="week" class="tabPage">
+  <div class="planner">
+    <div class="card">
+      <div class="row between"><div><h2>Mein Wochenplan</h2><div class="muted small">Wähle einen Tag und plane fünf Mahlzeiten.</div></div><button class="btn secondary" id="clearDay">Tag leeren</button></div>
+      <div class="days" id="days" style="margin-top:14px"></div>
+      <div class="row" style="margin-top:12px"><div class="field"><label>Dieser Tag ist</label><select id="selectedDayType"><option value="training">Trainingstag</option><option value="rest">Ruhetag</option></select></div><div class="field"><label>Datum der Woche</label><input id="weekStart" type="date"></div></div>
+      <div id="mealSlots"></div>
+      <div class="actions"><button class="btn" id="savePlan">✓ Plan speichern</button><button class="btn secondary" id="copyDay">Tag auf morgen kopieren</button></div>
+    </div>
+    <div class="card">
+      <h2>Tagesbilanz</h2><div class="muted small" id="balanceLabel">Ausgewählte Mahlzeiten</div>
+      <div class="row" style="margin-top:12px"><div class="stat"><span class="muted small">Kalorien</span><b id="sumKcal">0</b><span class="muted small" id="leftKcal">2.200 übrig</span></div><div class="stat"><span class="muted small">Protein</span><b id="sumP">0 g</b><span class="muted small" id="leftP">200 g Ziel</span></div></div>
+      <div style="margin-top:12px"><div class="row between small"><span>Kalorien</span><b id="kcalText">0 / 2.200 kcal</b></div><div class="bar"><i id="kcalBar"></i></div></div>
+      <div style="margin-top:12px"><div class="row between small"><span>Protein</span><b id="pText">0 / 200 g</b></div><div class="bar"><i id="pBar"></i></div></div>
+      <div class="row" style="margin-top:12px"><div class="stat"><span class="muted small">Kohlenhydrate</span><b id="sumC">0 g</b></div><div class="stat"><span class="muted small">Fett</span><b id="sumF">0 g</b></div></div>
+      <div class="notice" id="balanceNote" style="margin-top:12px">Wähle Rezepte für deine fünf Mahlzeiten. Die Bilanz aktualisiert sich automatisch.</div>
+      <div class="actions"><button class="btn secondary" id="makeList">🛒 Einkaufsliste erstellen</button></div>
+    </div>
+  </div>
+</section>
+<section id="library" class="tabPage hidden">
+  <div class="card">
+    <div class="row between"><div><h2>Rezeptbibliothek</h2><div class="muted small">Proteinreiche Alltagsgerichte und Snacks.</div></div><button class="btn" id="addRecipe">＋ Eigenes Rezept</button></div>
+    <div class="filters">
+      <div class="field"><label>Suche</label><input id="search" placeholder="Rezept oder Zutat suchen …"></div>
+      <div class="field"><label>Mahlzeit</label><select id="filterMeal"><option value="all">Alle Mahlzeiten</option><option>Frühstück</option><option>Vormittagssnack</option><option>Mittagessen</option><option>Nachmittagssnack</option><option>Abendessen</option></select></div>
+      <div class="field"><label>Max. Kalorien pro Portion</label><select id="filterKcal"><option value="all">Keine Grenze</option><option value="300">300 kcal</option><option value="450">450 kcal</option><option value="600">600 kcal</option></select></div>
+    </div>
+    <div id="recipeList" class="recipes"></div>
+  </div>
+</section>
+<section id="ai" class="tabPage hidden">
+  <div class="card">
+    <h2>✨ KI-Rezeptgenerator</h2><p class="muted small">Rezeptideen nach Zutaten und Makroziel vorbereiten.</p>
+    <div class="filters">
+      <div class="field"><label>Vorhandene Zutaten</label><input id="aiIngredients" placeholder="z. B. Hähnchen, Reis, Paprika"></div>
+      <div class="field"><label>Mahlzeit</label><select id="aiMeal"><option>Mittagessen</option><option>Abendessen</option><option>Frühstück</option><option>Vormittagssnack</option><option>Nachmittagssnack</option></select></div>
+      <div class="field"><label>Max. Kalorien</label><input id="aiKcal" type="number" value="550" min="100" max="1500"></div>
+      <div class="field"><label>Protein mindestens (g)</label><input id="aiProtein" type="number" value="40" min="0" max="150"></div>
+      <div class="field"><label>Max. Zubereitungszeit (Min.)</label><select id="aiTime"><option>15</option><option selected>30</option><option>45</option></select></div>
+    </div>
+    <div class="actions"><button class="btn" id="generateAI">Rezeptidee erstellen</button></div>
+    <div class="notice" style="margin-top:12px">Hinweis: In dieser ersten Version ist noch kein KI-API-Schlüssel verbunden. Der Generator erstellt eine strukturierte Rezeptanfrage und zeigt eine lokale Demo-Idee. Für echte KI-Rezepte wird später eine sichere Backend-Verbindung benötigt.</div>
+    <div id="aiResult" style="margin-top:12px"></div>
+  </div>
+</section>
+<div class="modal" id="modal"><div class="modalbox"><div class="row between"><h2 id="modalTitle">Rezept</h2><button class="btn secondary" id="closeModal">Schließen</button></div><div id="modalBody"></div></div></div>
+<div class="modal" id="listModal"><div class="modalbox"><div class="row between"><h2>🛒 Einkaufsliste</h2><button class="btn secondary" id="closeList">Schließen</button></div><div id="shoppingList"></div><button class="btn" id="copyList" style="margin-top:12px">Liste kopieren</button></div></div>
+</div>
+<script>
+(function(){
+const $=id=>document.getElementById(id);
+const meals=["Frühstück","Vormittagssnack","Mittagessen","Nachmittagssnack","Abendessen"];
+const targets={training:{kcal:2200,p:200,c:215,f:60},rest:{kcal:2000,p:200,c:165,f:60}};
+const seed=[
+{id:"oats",name:"Skyr-Overnight-Oats",meal:"Frühstück",emoji:"🥣",time:5,kcal:430,p:35,c:55,f:8,ingredients:[["Skyr",200,"g"],["Haferflocken",50,"g"],["Beeren",100,"g"],["Banane",60,"g"]],steps:["Skyr mit etwas Wasser cremig rühren.","Haferflocken und Obst dazugeben.","Abgedeckt kalt stellen oder direkt genießen."]},
+{id:"eggs",name:"Rührei mit Vollkornbrot",meal:"Frühstück",emoji:"🍳",time:12,kcal:420,p:30,c:35,f:17,ingredients:[["Eier",2,"Stück"],["Vollkornbrot",80,"g"],["Tomaten",100,"g"]],steps:["Eier verquirlen und in einer beschichteten Pfanne garen.","Mit Tomaten und Vollkornbrot servieren."]},
+{id:"pancakes",name:"Protein-Pancakes",meal:"Frühstück",emoji:"🥞",time:15,kcal:440,p:38,c:48,f:9,ingredients:[["Magerquark",150,"g"],["Ei",1,"Stück"],["Haferflocken",40,"g"],["Beeren",100,"g"]],steps:["Zutaten außer Beeren mixen.","Kleine Pancakes in einer beschichteten Pfanne ausbacken.","Mit Beeren servieren."]},
+{id:"quark",name:"Quark mit Apfel und Zimt",meal:"Vormittagssnack",emoji:"🍎",time:5,kcal:260,p:30,c:28,f:2,ingredients:[["Magerquark",250,"g"],["Apfel",150,"g"],["Zimt",1,"Prise"]],steps:["Quark cremig rühren.","Apfel würfeln, dazugeben und mit Zimt bestreuen."]},
+{id:"cottage",name:"Hüttenkäse mit Obst",meal:"Vormittagssnack",emoji:"🍐",time:4,kcal:240,p:25,c:24,f:5,ingredients:[["Hüttenkäse",200,"g"],["Birne",120,"g"]],steps:["Birne schneiden und mit Hüttenkäse servieren."]},
+{id:"skyrsnack",name:"Protein-Skyr mit Beeren",meal:"Nachmittagssnack",emoji:"🫐",time:3,kcal:230,p:27,c:24,f:2,ingredients:[["Skyr",250,"g"],["Beeren",100,"g"],["Honig",5,"g"]],steps:["Alles in einer Schüssel verrühren."]},
+{id:"sandwich",name:"Puten-Vollkorn-Sandwich",meal:"Nachmittagssnack",emoji:"🥪",time:8,kcal:350,p:30,c:40,f:7,ingredients:[["Vollkornbrot",100,"g"],["Putenbrustaufschnitt",80,"g"],["Hüttenkäse",40,"g"],["Salat",20,"g"]],steps:["Brot mit Hüttenkäse bestreichen.","Pute und Salat belegen."]},
+{id:"chicken",name:"Hähnchen-Reis-Bowl",meal:"Mittagessen",emoji:"🍗",time:25,kcal:560,p:48,c:68,f:9,ingredients:[["Hähnchenbrust",170,"g"],["Reis, trocken",75,"g"],["Brokkoli",150,"g"],["Olivenöl",5,"g"]],steps:["Reis nach Packungsangabe kochen.","Hähnchen würfeln und vollständig durchgaren.","Brokkoli garen, mit Öl und Reis anrichten."]},
+{id:"turkeywrap",name:"Puten-Wrap",meal:"Mittagessen",emoji:"🌯",time:15,kcal:490,p:42,c:48,f:12,ingredients:[["Vollkorn-Wrap",1,"Stück"],["Putenbrust",140,"g"],["Skyr",50,"g"],["Salat und Tomate",100,"g"]],steps:["Pute vollständig garen.","Skyr würzen und als Sauce verwenden.","Mit Gemüse in den Wrap füllen."]},
+{id:"salmon",name:"Lachs mit Kartoffeln",meal:"Mittagessen",emoji:"🐟",time:30,kcal:590,p:42,c:52,f:22,ingredients:[["Lachs",150,"g"],["Kartoffeln",250,"g"],["Brokkoli",150,"g"],["Zitrone",1,"Stück"]],steps:["Kartoffeln garen.","Lachs durchgaren und mit Zitrone würzen.","Mit Gemüse servieren."]},
+{id:"pasta",name:"Protein-Pasta mit Rinderhack",meal:"Abendessen",emoji:"🍝",time:25,kcal:610,p:45,c:68,f:15,ingredients:[["Vollkornnudeln, trocken",75,"g"],["Mageres Rinderhack",150,"g"],["Passierte Tomaten",150,"g"],["Spinat",50,"g"]],steps:["Nudeln kochen.","Hackfleisch vollständig durchgaren.","Tomaten und Spinat dazugeben, köcheln lassen und mit Nudeln servieren."]},
+{id:"chili",name:"Chili con Carne",meal:"Abendessen",emoji:"🌶️",time:30,kcal:570,p:43,c:58,f:14,ingredients:[["Mageres Rinderhack",140,"g"],["Kidneybohnen, abgetropft",120,"g"],["Mais",50,"g"],["Passierte Tomaten",200,"g"],["Reis, trocken",45,"g"]],steps:["Reis kochen.","Hackfleisch vollständig durchgaren.","Bohnen, Mais und Tomaten dazugeben und köcheln lassen."]},
+{id:"curry",name:"Hähnchen-Curry mit Reis",meal:"Abendessen",emoji:"🍛",time:25,kcal:580,p:46,c:70,f:10,ingredients:[["Hähnchenbrust",160,"g"],["Reis, trocken",70,"g"],["Leichte Kokosmilch",80,"ml"],["Paprika",100,"g"],["Currypulver",1,"TL"]],steps:["Reis kochen.","Hähnchen würfeln und vollständig durchgaren.","Paprika, Curry und Kokosmilch zugeben und köcheln lassen."]},
+{id:"tofu",name:"Tofu-Gemüse-Pfanne",meal:"Abendessen",emoji:"🥦",time:20,kcal:480,p:32,c:42,f:19,ingredients:[["Tofu",180,"g"],["Edamame",80,"g"],["Gemüsemix",200,"g"],["Sojasauce",10,"ml"]],steps:["Tofu würfeln und anbraten.","Gemüse und Edamame zugeben und garen.","Mit Sojasauce abschmecken."]}
+];
+const storeKey="alexFitnessNutritionV1";
+let saved={};
+try{saved=JSON.parse(localStorage.getItem(storeKey)||"{}")}catch(e){saved={}}
+let recipes=[...seed,...(Array.isArray(saved.customRecipes)?saved.customRecipes:[])];
+let selectedDay=0;
+let weekPlan=saved.weekPlan||{};
+let weekStart=saved.weekStart||monday(new Date());
+function monday(d){const x=new Date(d);x.setHours(12,0,0,0);const n=(x.getDay()+6)%7;x.setDate(x.getDate()-n);return x.toLocaleDateString("sv-SE")}
+function save(){localStorage.setItem(storeKey,JSON.stringify({weekPlan,weekStart,customRecipes:recipes.filter(r=>r.custom)}))}
+function dayKey(i){const d=new Date(weekStart+"T12:00:00");d.setDate(d.getDate()+i);return d.toLocaleDateString("sv-SE")}
+function planFor(i){const key=dayKey(i);if(!weekPlan[key])weekPlan[key]={type:i===0?"training":"rest",slots:{}};return weekPlan[key]}
+function currentType(){return planFor(selectedDay).type||"training"}
+function recipeById(id){return recipes.find(r=>r.id===id)}
+function num(v){return Number.isFinite(Number(v))?Number(v):0}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function renderTargets(){const t=targets[$("dayType").value];$("targetKcal").textContent=t.kcal.toLocaleString("de-DE");$("targetP").textContent=t.p+" g";$("targetC").textContent=t.c+" g";$("targetF").textContent=t.f+" g"}
+function renderDays(){$("days").innerHTML=["Mo","Di","Mi","Do","Fr","Sa","So"].map((d,i)=>{const p=planFor(i);const count=meals.filter(m=>p.slots[m]).length;return '<button class="'+(i===selectedDay?"active":"")+'" data-day="'+i+'">'+d+'<small>'+count+'/5</small></button>'}).join("");$("days").querySelectorAll("button").forEach(b=>b.onclick=()=>{selectedDay=Number(b.dataset.day);renderPlanner()})}
+function renderPlanner(){const p=planFor(selectedDay);$("selectedDayType").value=p.type||"training";$("dayType").value=p.type||"training";renderTargets();renderDays();$("weekStart").value=weekStart;$("mealSlots").innerHTML=meals.map((m)=>{const id=p.slots[m]||"";return '<div class="meal"><div class="meal-head"><div><b>'+m+'</b><div class="muted small">'+(id&&recipeById(id)?recipeById(id).time+" Min. · "+recipeById(id).p+" g Protein":"Noch kein Rezept ausgewählt")+'</div></div><button class="btn secondary" data-clear="'+esc(m)+'">Entfernen</button></div><select data-meal="'+esc(m)+'"><option value="">Mahlzeit auswählen …</option>'+recipes.filter(r=>r.meal===m).map(r=>'<option value="'+esc(r.id)+'" '+(r.id===id?"selected":"")+'>'+esc(r.name)+' · '+r.kcal+' kcal</option>').join("")+'</select></div>'}).join("");$("mealSlots").querySelectorAll("select").forEach(s=>s.onchange=()=>{p.slots[s.dataset.meal]=s.value;save();renderPlanner()});$("mealSlots").querySelectorAll("[data-clear]").forEach(b=>b.onclick=()=>{delete p.slots[b.dataset.clear];save();renderPlanner()});renderBalance()}
+function renderBalance(){const p=planFor(selectedDay),t=targets[p.type||"training"];const chosen=meals.map(m=>recipeById(p.slots[m])).filter(Boolean);const s=chosen.reduce((a,r)=>({kcal:a.kcal+r.kcal,p:a.p+r.p,c:a.c+r.c,f:a.f+r.f}),{kcal:0,p:0,c:0,f:0});$("sumKcal").textContent=s.kcal.toLocaleString("de-DE");$("sumP").textContent=s.p+" g";$("sumC").textContent=s.c+" g";$("sumF").textContent=s.f+" g";$("leftKcal").textContent=(t.kcal-s.kcal>=0?t.kcal-s.kcal:Math.abs(t.kcal-s.kcal))+" kcal "+(t.kcal>=s.kcal?"übrig":"über Ziel");$("leftP").textContent=(t.p-s.p>=0?t.p-s.p:Math.abs(t.p-s.p))+" g "+(t.p>=s.p?"bis Ziel":"über Ziel");$("kcalText").textContent=s.kcal+" / "+t.kcal+" kcal";$("pText").textContent=s.p+" / "+t.p+" g";$("kcalBar").style.width=Math.min(100,s.kcal/t.kcal*100)+"%";$("pBar").style.width=Math.min(100,s.p/t.p*100)+"%";$("balanceNote").textContent=chosen.length<5?"Noch "+(5-chosen.length)+" Mahlzeit(en) planen. Die Tagesbilanz wird mit jeder Auswahl aktualisiert.":s.kcal>t.kcal?"Du liegst "+(s.kcal-t.kcal)+" kcal über dem Tagesziel. Tausche eine Portion oder ein Rezept aus.":s.p<t.p?"Es fehlen noch "+(t.p-s.p)+" g Protein bis zum Tagesziel.":"Alle fünf Mahlzeiten sind geplant. Prüfe Kalorien und Makros nach deinem persönlichen Bedarf."}
+function renderRecipes(){const q=$("search").value.toLowerCase(),m=$("filterMeal").value,k=$("filterKcal").value;const list=recipes.filter(r=>(!q||(r.name+" "+r.ingredients.map(x=>x[0]).join(" ")).toLowerCase().includes(q))&&(m==="all"||r.meal===m)&&(k==="all"||r.kcal<=Number(k)));$("recipeList").innerHTML=list.map(r=>'<article class="recipe"><div class="row between"><span class="emoji">'+r.emoji+'</span><span class="tag">'+r.time+' Min.</span></div><h3>'+esc(r.name)+'</h3><div class="muted small">'+esc(r.meal)+'</div><div class="tags"><span class="tag">'+r.kcal+' kcal</span><span class="tag">'+r.p+' g Protein</span><span class="tag">'+r.c+' g KH</span><span class="tag">'+r.f+' g Fett</span></div><div class="row"><button class="btn secondary" data-detail="'+esc(r.id)+'">Rezept ansehen</button><button class="btn" data-add="'+esc(r.id)+'">Planen</button></div></article>').join("")||'<div class="empty">Keine passenden Rezepte gefunden.</div>';$("recipeList").querySelectorAll("[data-detail]").forEach(b=>b.onclick=()=>showRecipe(b.dataset.detail));$("recipeList").querySelectorAll("[data-add]").forEach(b=>b.onclick=()=>{const r=recipeById(b.dataset.add);selectedDay=selectedDay;planFor(selectedDay).slots[r.meal]=r.id;save();switchTab("week");renderPlanner()})}
+function showRecipe(id){const r=recipeById(id);if(!r)return;$("modalTitle").textContent=r.name;$("modalBody").innerHTML='<div class="tags"><span class="tag">'+r.kcal+' kcal</span><span class="tag">'+r.p+' g Protein</span><span class="tag">'+r.c+' g KH</span><span class="tag">'+r.f+' g Fett</span></div><p class="muted small">'+r.time+' Minuten · 1 Portion</p><h3>Zutaten</h3><ul class="ingredients">'+r.ingredients.map(x=>'<li>'+esc(x[0])+': <b>'+esc(x[1])+' '+esc(x[2])+'</b></li>').join("")+'</ul><h3>Zubereitung</h3><ol class="ingredients">'+r.steps.map(s=>'<li>'+esc(s)+'</li>').join("")+'</ol><div class="notice">Nährwerte sind derzeit hinterlegte Schätzwerte und können je nach Marke und Zubereitung abweichen.</div><div class="actions"><button class="btn" id="modalAdd">Für '+esc(r.meal)+' einplanen</button></div>';$("modal").classList.add("open");$("modalAdd").onclick=()=>{planFor(selectedDay).slots[r.meal]=r.id;save();$("modal").classList.remove("open");switchTab("week");renderPlanner()}}
+function switchTab(tab){document.querySelectorAll("[data-tab]").forEach(b=>b.classList.toggle("active",b.dataset.tab===tab));document.querySelectorAll(".tabPage").forEach(p=>p.classList.toggle("hidden",p.id!==tab));if(tab==="library")renderRecipes();if(tab==="week")renderPlanner();if(tab==="ai"){}}
+document.querySelectorAll("[data-tab]").forEach(b=>b.onclick=()=>switchTab(b.dataset.tab));
+$("dayType").onchange=()=>{planFor(selectedDay).type=$("dayType").value;save();renderPlanner()};
+$("selectedDayType").onchange=()=>{planFor(selectedDay).type=$("selectedDayType").value;save();renderPlanner()};
+$("weekStart").onchange=()=>{if($("weekStart").value){weekStart=monday(new Date($("weekStart").value+"T12:00:00"));selectedDay=0;save();renderPlanner()}};
+$("clearDay").onclick=()=>{planFor(selectedDay).slots={};save();renderPlanner()};
+$("savePlan").onclick=()=>{save();alert("Wochenplan auf diesem Gerät gespeichert.")};
+$("copyDay").onclick=()=>{if(selectedDay>=6){alert("Sonntag ist der letzte Tag der Woche.");return}const src=planFor(selectedDay);weekPlan[dayKey(selectedDay+1)]={type:src.type,slots:{...src.slots}};selectedDay++;save();renderPlanner()};
+$("search").oninput=renderRecipes;$("filterMeal").onchange=renderRecipes;$("filterKcal").onchange=renderRecipes;
+$("addRecipe").onclick=()=>{$("modalTitle").textContent="Eigenes Rezept";$("modalBody").innerHTML='<div class="filters"><div class="field"><label>Rezeptname</label><input id="customName" placeholder="z. B. Protein-Bowl"></div><div class="field"><label>Mahlzeit</label><select id="customMeal">'+meals.map(m=>'<option>'+m+'</option>').join("")+'</select></div><div class="field"><label>Kalorien</label><input id="customKcal" type="number" value="400"></div><div class="field"><label>Protein (g)</label><input id="customP" type="number" value="30"></div><div class="field"><label>Kohlenhydrate (g)</label><input id="customC" type="number" value="40"></div><div class="field"><label>Fett (g)</label><input id="customF" type="number" value="10"></div><div class="field"><label>Zutaten (kommagetrennt)</label><input id="customIngredients" placeholder="Skyr, Beeren, Haferflocken"></div></div><div class="actions"><button class="btn" id="saveCustom">Rezept speichern</button></div>';$("modal").classList.add("open");$("saveCustom").onclick=()=>{const name=$("customName").value.trim();if(!name){alert("Bitte Rezeptnamen eingeben.");return}const r={id:"custom-"+Date.now(),name,meal:$("customMeal").value,emoji:"🥗",time:15,kcal:num($("customKcal").value),p:num($("customP").value),c:num($("customC").value),f:num($("customF").value),ingredients:$("customIngredients").value.split(",").map(x=>[x.trim(),1,"Portion"]).filter(x=>x[0]),steps:["Zutaten vorbereiten und nach persönlichem Rezept zubereiten."],custom:true};recipes.push(r);save();$("modal").classList.remove("open");renderRecipes();alert("Eigenes Rezept lokal gespeichert.")}};
+$("generateAI").onclick=()=>{const ingredients=$("aiIngredients").value.trim()||"proteinreiche Grundzutaten nach Wahl",meal=$("aiMeal").value,kcal=num($("aiKcal").value),protein=num($("aiProtein").value),time=$("aiTime").value;const prompt="Erstelle ein proteinreiches Rezept für "+meal+". Verfügbare Zutaten: "+ingredients+". Ziel pro Portion: maximal ca. "+kcal+" kcal, mindestens "+protein+" g Protein. Zubereitungszeit maximal "+time+" Minuten. Gib Grammangaben, Portionen, Schritte und geschätzte Nährwerte an. Erfinde keine exakten Nährwerte; kennzeichne Schätzungen und weise auf Prüfung anhand einer Nährwertdatenbank hin.";const demo={id:"ai-demo",name:"Proteinreiche Pfannen-Bowl (Demo)",meal,emoji:"✨",time:Number(time),kcal:Math.min(kcal,Math.max(250,kcal-20)),p:protein,c:Math.max(20,Math.round((kcal-protein*4-60*9)/4)),f:10,ingredients:ingredients.split(",").map(x=>[x.trim(),100,"g"]).filter(x=>x[0]),steps:["Zutaten vorbereiten.","Proteinquelle vollständig garen, falls erforderlich.","Mit den übrigen Zutaten kombinieren und abschmecken."]};$("aiResult").innerHTML='<div class="card"><h3>Lokale Demo-Idee · '+esc(meal)+'</h3><div class="tags"><span class="tag">Ziel: '+kcal+' kcal</span><span class="tag">Protein ab '+protein+' g</span><span class="tag">'+time+' Min.</span></div><p>'+esc(demo.name)+': '+esc(ingredients)+'. Die Mengen und Nährwerte sind noch nicht validiert.</p><button class="btn secondary" id="copyPrompt">KI-Anfrage kopieren</button></div>';$("copyPrompt").onclick=async()=>{try{await navigator.clipboard.writeText(prompt);alert("KI-Anfrage kopiert. Du kannst sie an einen KI-Dienst senden.")}catch(e){promptCopyFallback(prompt)}}};
+function promptCopyFallback(text){const t=document.createElement("textarea");t.value=text;document.body.appendChild(t);t.select();document.execCommand("copy");t.remove();alert("KI-Anfrage kopiert.")}
+$("makeList").onclick=()=>{const p=planFor(selectedDay),sum={};meals.map(m=>recipeById(p.slots[m])).filter(Boolean).forEach(r=>r.ingredients.forEach(x=>{const key=x[0]+"|"+x[2];sum[key]=(sum[key]||0)+num(x[1])}));const entries=Object.entries(sum);$("shoppingList").innerHTML=entries.length?'<ul class="ingredients">'+entries.map(([k,v])=>'<li><label><input type="checkbox"> '+esc(k.split("|")[0])+' — '+v+' '+esc(k.split("|")[1])+'</label></li>').join("")+'</ul>':'<div class="empty">Plane zuerst Rezepte für diesen Tag.</div>';$("listModal").classList.add("open");$("copyList").onclick=async()=>{const text=entries.map(([k,v])=>k.split("|")[0]+" — "+v+" "+k.split("|")[1]).join("\n");try{await navigator.clipboard.writeText(text);alert("Einkaufsliste kopiert.")}catch(e){promptCopyFallback(text)}}};
+$("closeModal").onclick=()=>$("modal").classList.remove("open");$("closeList").onclick=()=>$("listModal").classList.remove("open");["modal","listModal"].forEach(id=>$(id).onclick=e=>{if(e.target.id===id)$(id).classList.remove("open")});
+$("weekStart").value=weekStart;
+renderPlanner();
+})();
+</script>
+</body>
+</html>

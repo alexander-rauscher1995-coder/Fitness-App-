@@ -1,4 +1,4 @@
-const CACHE_NAME="fitness-tracker-pro-v9";
+const CACHE_NAME="fitness-tracker-pro-v10";
 const APP_SHELL=["./","./index.html","./cloud.js","./manifest.webmanifest","./icon.svg"];
 self.addEventListener("install",event=>{event.waitUntil(caches.open(CACHE_NAME).then(cache=>cache.addAll(APP_SHELL)));self.skipWaiting()});
 self.addEventListener("activate",event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE_NAME).map(key=>caches.delete(key)))));self.clients.claim()});

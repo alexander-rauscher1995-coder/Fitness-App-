@@ -26,24 +26,46 @@
 <div class="field"><label>Übung</label><select id="tExercise"><option>Schrägbankdrücken</option><option>RDL</option><option>Beinpresse</option><option>Latzug</option><option>Rudern</option><option>Seitheben</option><option>Bizeps-Curls</option><option>Trizepsdrücken</option><option>Andere</option></select></div>
 <div class="field"><label>Eigene Übung</label><input id="tOther" placeholder="Optional"></div><div class="field"><label>Trainingsgewicht (kg, optional)</label><input id="tWeight" type="number" min="0" step=".5"></div><div class="field"><label>Sätze</label><input id="tSets" type="number" min="1" max="20" value="3"></div><div class="field"><label>Wiederholungen</label><input id="tReps" type="number" min="1" max="100" value="10"></div><div class="field"><label>Anstrengung (1–10)</label><input id="tEffort" type="number" min="1" max="10" placeholder="Optional"></div>
 </div><div class="actions"><button class="btn" id="saveTraining">Training speichern</button></div></div><div class="card s6"><h3>Trainingsverlauf</h3><div id="trainingHistory" class="tablewrap"></div></div></div></section>
-<section class="page" id="weekly"><div class="sectionhead"><div><div class="eyebrow">DEIN WOCHENRÜCKBLICK</div><h2>Wochen-Check-in</h2><div class="small">Einmal pro Woche bewusst zurückblicken und den nächsten Schritt planen.</div></div><span class="pill">Wöchentlich</span></div><div class="grid">
-<div class="card s12"><h3>Diese Woche in Zahlen</h3><div class="grid"><div class="card s4"><div class="eyebrow">Tages-Check-ins</div><div class="stat" id="sumDaily">0</div></div><div class="card s4"><div class="eyebrow">Trainingseinheiten</div><div class="stat" id="sumTraining">0</div></div><div class="card s4"><div class="eyebrow">Schlafschnitt</div><div class="stat" id="sumSleep">—</div></div></div></div>
-<div class="card s6"><h3>Wochenreflexion</h3><div class="form">
-<div class="field"><label>Woche ab (Montag)</label><input id="wDate" type="date"></div><div class="field"><label>Wie war die Woche?</label><select id="wFeeling"><option value="">Auswählen</option><option>Sehr gut</option><option>Gut</option><option>Durchwachsen</option><option>Anstrengend</option></select></div>
-<div class="field"><label>Erholung</label><select id="wRecovery"><option value="">Auswählen</option><option>Sehr gut</option><option>Gut</option><option>Ausreichend</option><option>Mehr Pausen nötig</option></select></div>
-<div class="field"><label>Energie</label><select id="wEnergy"><option value="">Auswählen</option><option>Sehr niedrig</option><option>Eher niedrig</option><option>Mittel</option><option>Gut</option><option>Sehr gut</option></select></div>
-<div class="field"><label>Schlafqualität</label><select id="wSleep"><option value="">Auswählen</option><option>Erholsam</option><option>Meist okay</option><option>Unruhig</option><option>Unterschiedlich</option></select></div>
-<div class="field"><label>Bewegung & Training</label><select id="wMovement"><option value="">Auswählen</option><option>Hat gut gepasst</option><option>Weniger als geplant</option><option>Mehr Erholung gebraucht</option><option>Viel Alltagsbewegung</option></select></div>
-<div class="field"><label>Beweglichkeit</label><select id="wMobility"><option value="">Auswählen</option><option>Fühlte sich gut an</option><option>Meist angenehm</option><option>Etwas steif</option><option>Mehr Mobilitätspausen hilfreich</option></select></div>
-<div class="field"><label>Trainingseinheiten (automatisch)</label><input id="wTrainingCount" readonly></div><div class="field"><label>Tages-Check-ins (automatisch)</label><input id="wDailyCount" readonly></div>
-<div class="field span2"><label>Trainingsgefühl / was hat sich verbessert?</label><textarea id="wPerformance" placeholder="z. B. Technik, Koordination oder Ausdauer fühlten sich sicherer an …"></textarea></div>
-<div class="field span2"><label>Wochenhighlight</label><textarea id="wHighlight" placeholder="Was war diese Woche besonders schön oder gelungen?"></textarea></div>
-<div class="field span2"><label>Mein Wochenziel für die nächste Woche</label><input id="wGoal" placeholder="z. B. Trainingszeiten gut verteilen"></div>
-<div class="field span2"><label>Was möchte ich beibehalten?</label><input id="wKeep" placeholder="Ein hilfreiches Ritual oder eine gute Gewohnheit"></div>
-<div class="field span2"><label>Was passe ich an?</label><textarea id="wNext" placeholder="Ein kleiner, machbarer nächster Schritt"></textarea></div>
-<div class="field span2"><label>Erinnerungsfoto (Aktivität, Natur oder ein schöner Wochenmoment)</label><input id="wPhoto" type="file" accept="image/jpeg,image/png,image/webp"><div class="small" id="wPhotoStatus">Optional. Bitte kein Körpervergleichsfoto verwenden.</div><img id="wPhotoPreview" class="photo hidden" alt="Vorschau Erinnerungsfoto"></div>
-</div><div class="actions"><button class="btn" id="saveWeek">Wochen-Check-in speichern</button></div></div>
-<div class="card s6"><h3>Deine bisherigen Wochen</h3><div id="weeklyHistory"></div></div>
+<section class="page" id="weekly">
+<div class="sectionhead"><div><div class="eyebrow">WÖCHENTLICHER COACHING-CHECK-IN</div><h2>Dein Wochen-Check-in</h2><div class="small">Nimm dir ein paar Minuten für deinen Rückblick – Schritt für Schritt.</div></div><span class="pill">1× pro Woche</span></div>
+<div class="grid">
+<div class="card s12" style="background:linear-gradient(110deg,#173b29,#14231b)">
+<div class="eyebrow">DEIN WOCHENÜBERBLICK</div><div class="grid" style="margin-top:12px">
+<div class="card s4"><div class="eyebrow">Check-ins</div><div class="stat" id="sumDaily">0</div><div class="small">Tages-Einträge</div></div>
+<div class="card s4"><div class="eyebrow">Training</div><div class="stat" id="sumTraining">0</div><div class="small">Dokumentierte Einheiten</div></div>
+<div class="card s4"><div class="eyebrow">Schlafschnitt</div><div class="stat" id="sumSleep">—</div><div class="small">Stunden pro Nacht</div></div></div>
+</div>
+<div class="card s7">
+<div class="row"><div><div class="eyebrow">SCHRITT 1 VON 4</div><h3 style="font-size:18px;margin:3px 0">Wochenrückblick</h3><div class="small">Wie hast du die letzten sieben Tage erlebt?</div></div><span class="pill">Rückblick</span></div>
+<div class="form">
+<div class="field"><label>Woche ab (Montag)</label><input id="wDate" type="date"></div>
+<div class="field"><label>Wie war deine Woche insgesamt?</label><select id="wFeeling"><option value="">Bitte auswählen</option><option>Sehr gut</option><option>Gut</option><option>Durchwachsen</option><option>Anstrengend</option></select></div>
+<div class="field span2"><label>Was war dein persönliches Wochenhighlight?</label><textarea id="wHighlight" placeholder="Ein Erfolg, ein schöner Moment oder etwas, worauf du stolz bist …"></textarea></div>
+</div>
+<div class="row" style="margin-top:18px"><div><div class="eyebrow">SCHRITT 2 VON 4</div><h3 style="font-size:18px;margin:3px 0">Erholung & Wohlbefinden</h3><div class="small">Wie gut konntest du dich regenerieren?</div></div><span class="pill">Balance</span></div>
+<div class="form">
+<div class="field"><label>Wie war deine Erholung?</label><select id="wRecovery"><option value="">Bitte auswählen</option><option>Sehr gut</option><option>Gut</option><option>Ausreichend</option><option>Mehr Pausen nötig</option></select></div>
+<div class="field"><label>Wie war deine Energie?</label><select id="wEnergy"><option value="">Bitte auswählen</option><option>Sehr niedrig</option><option>Eher niedrig</option><option>Mittel</option><option>Gut</option><option>Sehr gut</option></select></div>
+<div class="field"><label>Wie war deine Schlafqualität?</label><select id="wSleep"><option value="">Bitte auswählen</option><option>Erholsam</option><option>Meist okay</option><option>Unruhig</option><option>Unterschiedlich</option></select></div>
+<div class="field"><label>Wie fühlte sich deine Beweglichkeit an?</label><select id="wMobility"><option value="">Bitte auswählen</option><option>Fühlte sich gut an</option><option>Meist angenehm</option><option>Etwas steif</option><option>Mehr Mobilitätspausen hilfreich</option></select></div>
+</div>
+<div class="row" style="margin-top:18px"><div><div class="eyebrow">SCHRITT 3 VON 4</div><h3 style="font-size:18px;margin:3px 0">Training & Aktivität</h3><div class="small">Was hat gut funktioniert – und was hast du gelernt?</div></div><span class="pill">Performance</span></div>
+<div class="form">
+<div class="field"><label>Bewegung & Training</label><select id="wMovement"><option value="">Bitte auswählen</option><option>Hat gut gepasst</option><option>Weniger als geplant</option><option>Mehr Erholung gebraucht</option><option>Viel Alltagsbewegung</option></select></div>
+<div class="field"><label>Trainingseinheiten (automatisch)</label><input id="wTrainingCount" readonly></div>
+<div class="field"><label>Tages-Check-ins (automatisch)</label><input id="wDailyCount" readonly></div>
+<div class="field span2"><label>Wie hat sich deine Trainingsleistung entwickelt?</label><textarea id="wPerformance" placeholder="Technik, Koordination, Ausdauer, Kraftgefühl oder eine Übung, die besser lief …"></textarea></div>
+</div>
+<div class="row" style="margin-top:18px"><div><div class="eyebrow">SCHRITT 4 VON 4</div><h3 style="font-size:18px;margin:3px 0">Dein Fokus für nächste Woche</h3><div class="small">Lege einen realistischen nächsten Schritt fest.</div></div><span class="pill">Ausblick</span></div>
+<div class="form">
+<div class="field span2"><label>Was möchtest du beibehalten?</label><input id="wKeep" placeholder="Eine gute Gewohnheit oder ein hilfreiches Ritual"></div>
+<div class="field span2"><label>Dein Wochenziel</label><input id="wGoal" placeholder="Ein konkretes, machbares Ziel für die nächste Woche"></div>
+<div class="field span2"><label>Was möchtest du anpassen?</label><textarea id="wNext" placeholder="Was könnte dir helfen, dich nächste Woche wohler und ausgeglichener zu fühlen?"></textarea></div>
+<div class="field span2"><label>Erinnerungsfoto – Aktivität, Natur oder schöner Wochenmoment</label><input id="wPhoto" type="file" accept="image/jpeg,image/png,image/webp"><div class="small" id="wPhotoStatus">Optionales Erinnerungsfoto für deinen Wochenrückblick.</div><img id="wPhotoPreview" class="photo hidden" alt="Vorschau Erinnerungsfoto"></div>
+</div>
+<div class="actions" style="position:sticky;bottom:8px;background:#101b15ed;padding:12px;border:1px solid var(--line);border-radius:15px;backdrop-filter:blur(12px);z-index:3"><button class="btn" id="saveWeek" style="width:100%">✓ Wochen-Check-in speichern</button></div>
+</div>
+<div class="card s5"><div class="eyebrow">DEIN VERLAUF</div><h3 style="font-size:18px;margin:3px 0 12px">Bisherige Wochen</h3><div id="weeklyHistory"></div></div>
 </div></section>
 <section class="page" id="progress"><div class="sectionhead"><div><div class="eyebrow">ENTWICKLUNG SEHEN</div><h2>Deine Analyse</h2><div class="small">Training, Schlaf und Wohlbefinden im zeitlichen Verlauf.</div></div></div><div class="grid">
 <div class="card s4"><div class="eyebrow">Trainingseinheiten</div><div class="stat" id="totalWorkouts">0</div></div><div class="card s4"><div class="eyebrow">Tages-Check-ins</div><div class="stat" id="totalDaily">0</div></div><div class="card s4"><div class="eyebrow">Schlafschnitt</div><div class="stat" id="progressSleep">—</div></div>

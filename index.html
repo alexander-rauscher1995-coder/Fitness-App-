@@ -1,58 +1,62 @@
 <!doctype html>
-<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#101a15"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Fitness OS"><link rel="manifest" href="./manifest.webmanifest"><link rel="apple-touch-icon" href="./icon.svg"><title>FITNESS OS – Check-in</title>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101a15">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Check-in">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="apple-touch-icon" href="./icon.svg">
+<title>Mein Check-in</title>
 <style>
-:root{color-scheme:dark;--bg:#0b120e;--panel:#142019;--line:#2b4032;--text:#eff7f0;--muted:#a1b2a5;--green:#55e39a}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 70% -15%,#28563a 0,transparent 42%),var(--bg);color:var(--text);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.app{max-width:900px;margin:auto;padding:22px 15px 80px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}.brand{font-weight:900;letter-spacing:.09em;font-size:21px}.brand span{color:var(--green)}.muted,.hint{color:var(--muted)}.hint{font-size:12px}.nav{display:flex;gap:8px;overflow:auto;margin-bottom:18px}.nav button,.btn{border:1px solid var(--line);border-radius:12px;padding:10px 14px;background:#17251c;color:var(--text);font-weight:750;white-space:nowrap}.nav button.active,.btn.primary{background:var(--green);color:#092014;border-color:var(--green)}.panel{display:none}.panel.active{display:block}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.card{background:linear-gradient(145deg,#18271e,#111b15);border:1px solid var(--line);border-radius:18px;padding:17px;min-width:0}.wide{grid-column:1/-1}.card h2{font-size:18px;margin:0 0 5px}.field{margin:11px 0}.field label{display:block;font-size:12px;color:var(--muted);font-weight:700;margin-bottom:5px}.field input,.field select,.field textarea{width:100%;padding:11px;background:#0b1510;color:var(--text);border:1px solid #354b3b;border-radius:11px;font:inherit}.field textarea{min-height:85px}.form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.row{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid var(--line)}.row:last-child{border:0}.badge{font-size:11px;color:var(--green);background:#173725;border-radius:20px;padding:5px 9px}.empty{color:var(--muted);padding:12px 0}.photo-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:12px}.photo{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#0b1510}.photo img{width:100%;aspect-ratio:1;object-fit:cover;display:block}.photo div{padding:8px;font-size:12px}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#244531;border:1px solid #4b9666;padding:11px 16px;border-radius:12px;display:none;z-index:5}.toast.show{display:block}@media(max-width:600px){.app{padding:15px 12px 70px}.grid,.form{grid-template-columns:1fr}.photo-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.top{align-items:flex-start}}
-</style></head><body><main class="app">
-<header class="top"><div><div class="brand">FITNESS <span>OS</span></div><div class="hint">Dein persönlicher Check-in</div></div><span class="badge">CHECK-IN</span></header>
-<nav class="nav"><button class="active" data-tab="home">Übersicht</button><button data-tab="daily">Täglich</button><button data-tab="weekly">Wöchentlich</button><button data-tab="history">Verlauf & Fotos</button></nav>
-<section id="home" class="panel active"><div class="grid">
-<div class="card"><div class="hint">Check-ins diese Woche</div><div id="homeDays" style="font-size:30px;font-weight:850">0</div></div>
-<div class="card"><div class="hint">Wochenrückblicke</div><div id="homeWeeks" style="font-size:30px;font-weight:850">0</div></div>
-<div class="card wide"><h2>Letzter Tages-Check-in</h2><div id="lastDaily" class="empty">Noch keine Einträge.</div></div>
-<div class="card wide"><h2>Letzter Wochenrückblick</h2><div id="lastWeekly" class="empty">Noch kein Wochenrückblick.</div></div>
-<div class="card wide"><p class="muted">Ein einfacher Ort, um festzuhalten, wie es dir geht und welche schönen Momente deine Woche geprägt haben. Keine Bewertungen und kein Leistungsdruck.</p><div class="actions"><button class="btn primary" data-go="daily">Tages-Check-in</button><button class="btn" data-go="weekly">Wochen-Check-in</button></div></div>
+:root{color-scheme:dark;--bg:#0b120e;--card:#142019;--line:#2b4032;--text:#eff7f0;--muted:#a1b2a5;--green:#55e39a}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 70% -15%,#28563a 0,transparent 42%),var(--bg);color:var(--text);font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+main{max-width:560px;margin:auto;padding:26px 16px 60px}.brand{font-size:13px;letter-spacing:.15em;color:var(--green);font-weight:800;margin-bottom:8px}h1{font-size:27px;margin:0 0 6px}.sub{color:var(--muted);font-size:14px;margin:0 0 24px}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}.tabs button,.save{border:1px solid var(--line);border-radius:13px;padding:13px;background:#17251c;color:var(--text);font-weight:750;font-size:15px}.tabs button.active,.save{background:var(--green);color:#092014;border-color:var(--green)}
+.card{background:linear-gradient(145deg,#18271e,#111b15);border:1px solid var(--line);border-radius:18px;padding:18px}.date{font-size:13px;color:var(--muted);margin-bottom:14px}label{display:block;color:var(--muted);font-size:13px;font-weight:700;margin:0 0 7px}textarea{width:100%;min-height:115px;resize:vertical;padding:13px;background:#0b1510;color:var(--text);border:1px solid #354b3b;border-radius:12px;font:inherit}input[type=file]{width:100%;color:var(--muted);font-size:13px;margin-top:8px}.save{width:100%;margin-top:15px;cursor:pointer}.panel{display:none}.panel.active{display:block}.status{font-size:13px;color:var(--green);min-height:22px;margin-top:10px}.preview{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.preview img{width:76px;height:76px;object-fit:cover;border-radius:10px;border:1px solid var(--line)}.last{margin-top:17px;padding-top:14px;border-top:1px solid var(--line);color:var(--muted);font-size:13px;white-space:pre-wrap;overflow-wrap:anywhere}
+</style>
+</head>
+<body><main>
+<div class="brand">MEIN CHECK-IN</div>
+<h1>Kurz festhalten.</h1>
+<p class="sub">Zwei kleine Check-ins. Mehr brauchst du nicht.</p>
+<div class="tabs"><button class="active" data-tab="daily">Täglich</button><button data-tab="weekly">Wöchentlich</button></div>
+<section id="daily" class="panel active"><div class="card">
+<div class="date" id="today"></div><label for="dailyNote">Wie war dein Tag?</label>
+<textarea id="dailyNote" placeholder="Ein paar kurze Gedanken …"></textarea>
+<button class="save" id="saveDaily">Speichern</button><div class="status" id="dailyStatus"></div><div class="last" id="dailyLast"></div>
 </div></section>
-<section id="daily" class="panel"><div class="card"><h2>Täglicher Check-in</h2><p class="hint">Kurz festhalten, wie dein Tag war.</p><div class="form">
-<div class="field"><label>Datum</label><input id="dDate" type="date"></div>
-<div class="field"><label>Schlaf (Stunden)</label><input id="dSleep" type="number" min="0" max="24" step=".5" placeholder="z. B. 8"></div>
-<div class="field"><label>Stimmung</label><select id="dMood"><option value="">Auswählen</option><option>Sehr gut</option><option>Gut</option><option>Neutral</option><option>Anstrengend</option><option>Heute brauche ich Ruhe</option></select></div>
-<div class="field"><label>Energiegefühl</label><select id="dEnergy"><option value="">Auswählen</option><option>Viel Energie</option><option>Ganz okay</option><option>Wenig Energie</option></select></div>
-<div class="field"><label>Was hat dir heute gutgetan?</label><input id="dGood" placeholder="Optional"></div>
-<div class="field"><label>Was brauchst du morgen?</label><input id="dNeed" placeholder="Optional"></div>
-<div class="field wide"><label>Notiz</label><textarea id="dNote" placeholder="Deine Gedanken zum Tag …"></textarea></div>
-</div><div class="actions"><button class="btn primary" id="saveDaily">Check-in speichern</button></div></div></section>
-<section id="weekly" class="panel"><div class="card"><h2>Wöchentlicher Check-in</h2><p class="hint">Dein persönlicher Wochenrückblick mit optionalen Fotos.</p>
-<div class="form">
-<div class="field"><label>Woche ab (Montag)</label><input id="wDate" type="date"></div>
-<div class="field"><label>Wie war deine Woche?</label><select id="wMood"><option>Sehr gut</option><option>Gut</option><option>Durchwachsen</option><option>Anstrengend</option></select></div>
-<div class="field"><label>Dein Wochen-Highlight</label><textarea id="wWin" placeholder="Was war schön?"></textarea></div>
-<div class="field"><label>Was möchtest du beibehalten?</label><textarea id="wKeep" placeholder="Was hat dir gutgetan?"></textarea></div>
-<div class="field"><label>Was möchtest du nächste Woche beachten?</label><textarea id="wFocus" placeholder="Ein freundlicher Gedanke oder Vorsatz"></textarea></div>
-<div class="field"><label>Zusätzliche Notiz</label><textarea id="wNote" placeholder="Optional"></textarea></div>
-<div class="field wide"><label>Wochenfotos auswählen</label><input id="wPhotos" type="file" accept="image/*" multiple><div class="hint">Fotos bleiben auf diesem Gerät gespeichert. Bitte nur Bilder auswählen, die du privat behalten möchtest.</div></div>
-</div><div class="actions"><button class="btn primary" id="saveWeek">Wochen-Check-in speichern</button></div></div></section>
-<section id="history" class="panel"><div class="grid"><div class="card wide"><h2>Tägliche Einträge</h2><div id="dailyHistory" class="empty">Noch keine Einträge.</div></div><div class="card wide"><h2>Wochenrückblicke & Fotos</h2><div id="weeklyHistory" class="empty">Noch keine Wochenrückblicke.</div></div><div class="card wide"><h2>Datensicherung</h2><p class="hint">Textdaten exportieren oder importieren. Fotos werden separat auf diesem Gerät gespeichert und sind nicht im JSON-Backup enthalten.</p><div class="actions"><button class="btn" id="export">Backup herunterladen</button><label class="btn" for="import">Backup importieren</label><input id="import" type="file" accept="application/json" hidden></div></div></div></section>
-</main><div id="toast" class="toast" role="status"></div>
+<section id="weekly" class="panel"><div class="card">
+<div class="date" id="weekDate"></div><label for="weeklyNote">Wie war deine Woche?</label>
+<textarea id="weeklyNote" placeholder="Was war schön? Was möchtest du festhalten?"></textarea>
+<label for="weeklyPhotos" style="margin-top:16px">Optional ein Foto hinzufügen</label>
+<input id="weeklyPhotos" type="file" accept="image/*" multiple>
+<div class="preview" id="photoPreview"></div>
+<button class="save" id="saveWeekly">Speichern</button><div class="status" id="weeklyStatus"></div><div class="last" id="weeklyLast"></div>
+</div></section>
+</main>
 <script>
 (()=>{'use strict';
-const KEY='fitness-os-checkin-v3',empty={daily:[],weekly:[]};let db;try{db=JSON.parse(localStorage.getItem(KEY))||empty}catch(e){db=empty}for(const k of Object.keys(empty))if(!Array.isArray(db[k]))db[k]=[];
-const $=id=>document.getElementById(id),today=()=>new Date().toLocaleDateString('sv-SE'),monday=s=>{const d=new Date(s+'T12:00:00');d.setDate(d.getDate()-(d.getDay()+6)%7);return d.toLocaleDateString('sv-SE')},label=s=>new Date(s+'T12:00:00').toLocaleDateString('de-DE');
-const request=indexedDB.open('fitness-os-private-photos',1);let photoDB=null;request.onupgradeneeded=()=>request.result.createObjectStore('photos',{keyPath:'id',autoIncrement:true});request.onsuccess=()=>{photoDB=request.result;render()};request.onerror=()=>toast('Fotospeicher konnte nicht geöffnet werden.');
-function save(){try{localStorage.setItem(KEY,JSON.stringify(db));return true}catch(e){toast('Speicher voll. Bitte Backup erstellen.');return false}}
-function toast(s){const t=$('toast');t.textContent=s;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2300)}
-function tab(id){document.querySelectorAll('.panel').forEach(x=>x.classList.toggle('active',x.id===id));document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x.dataset.tab===id));render();window.scrollTo(0,0)}
-document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>tab(b.dataset.tab));document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>tab(b.dataset.go));
-$('dDate').value=today();$('wDate').value=monday(today());
-$('saveDaily').onclick=()=>{const date=$('dDate').value;if(!date)return toast('Bitte Datum auswählen.');const o={date,sleep:$('dSleep').value===''?null:Number($('dSleep').value),mood:$('dMood').value,energy:$('dEnergy').value,good:$('dGood').value.trim(),need:$('dNeed').value.trim(),note:$('dNote').value.trim()};const i=db.daily.findIndex(x=>x.date===date);if(i>=0)db.daily[i]=o;else db.daily.push(o);if(save()){render();toast('Tages-Check-in gespeichert.')}};
-$('saveWeek').onclick=async()=>{const date=$('wDate').value;if(!date)return toast('Bitte Woche auswählen.');const o={date,mood:$('wMood').value,win:$('wWin').value.trim(),keep:$('wKeep').value.trim(),focus:$('wFocus').value.trim(),note:$('wNote').value.trim(),photoIds:[]};if(photoDB){const files=Array.from($('wPhotos').files||[]);for(const file of files){if(!file.type.startsWith('image/'))continue;const id=await new Promise((resolve,reject)=>{const tx=photoDB.transaction('photos','readwrite'),q=tx.objectStore('photos').add({date,week:date,name:file.name,blob:file});q.onsuccess=()=>resolve(q.result);q.onerror=()=>reject(q.error)});o.photoIds.push(id)}}const i=db.weekly.findIndex(x=>x.date===date);if(i>=0){o.photoIds=[...(db.weekly[i].photoIds||[]),...o.photoIds];db.weekly[i]=o}else db.weekly.push(o);if(save()){$('wPhotos').value='';render();toast('Wochen-Check-in gespeichert.')}};
-function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-async function photoHtml(ids){if(!photoDB||!ids||!ids.length)return '';const items=await Promise.all(ids.map(id=>new Promise(resolve=>{const q=photoDB.transaction('photos').objectStore('photos').get(id);q.onsuccess=()=>resolve(q.result);q.onerror=()=>resolve(null)})));return '<div class="photo-grid">'+items.filter(Boolean).map(p=>'<div class="photo"><img src="'+URL.createObjectURL(p.blob)+'" alt="Gespeichertes Wochenfoto"><div>'+esc(p.name)+'</div></div>').join('')+'</div>'}
-async function render(){const now=today(),start=monday(now),days=db.daily.filter(x=>x.date>=start&&x.date<=now);$('homeDays').textContent=days.length;$('homeWeeks').textContent=db.weekly.length;const d=db.daily.slice().sort((a,b)=>b.date.localeCompare(a.date))[0],w=db.weekly.slice().sort((a,b)=>b.date.localeCompare(a.date))[0];$('lastDaily').innerHTML=d?'<b>'+label(d.date)+'</b><div class="row"><span>Stimmung</span><b>'+esc(d.mood||'–')+'</b></div><div class="row"><span>Schlaf</span><b>'+(d.sleep===null?'–':esc(d.sleep)+' Std.')+'</b></div><div class="row"><span>Energie</span><b>'+esc(d.energy||'–')+'</b></div>':'Noch keine Einträge.';$('lastWeekly').innerHTML=w?'<b>Woche ab '+label(w.date)+'</b><p>'+esc(w.win||'Noch kein Highlight eingetragen.')+'</p><p class="hint">'+esc(w.mood||'')+'</p>':'Noch kein Wochenrückblick.';
-$('dailyHistory').innerHTML=db.daily.length?db.daily.slice().sort((a,b)=>b.date.localeCompare(a.date)).map(x=>'<div class="row"><span><b>'+label(x.date)+'</b><br><span class="hint">'+esc(x.mood||'')+' · '+esc(x.energy||'')+'</span></span><span>'+ (x.sleep===null?'–':esc(x.sleep)+' Std.')+'</span></div>'+ (x.note?'<p class="hint">'+esc(x.note)+'</p>':'')).join(''):'Noch keine Einträge.';
-let html='';for(const x of db.weekly.slice().sort((a,b)=>b.date.localeCompare(a.date))){html+='<div style="padding:12px 0;border-bottom:1px solid var(--line)"><b>Woche ab '+label(x.date)+'</b><p class="hint">'+esc(x.mood||'')+'</p><p>'+esc(x.win||'')+'</p><p>'+esc(x.keep||'')+'</p><p>'+esc(x.focus||'')+'</p>'+await photoHtml(x.photoIds||[])+'</div>'}$('weeklyHistory').innerHTML=html||'Noch keine Wochenrückblicke.'}
-$('export').onclick=()=>{const blob=new Blob([JSON.stringify(db,null,2)],{type:'application/json'}),a=document.createElement('a'),u=URL.createObjectURL(blob);a.href=u;a.download='fitness-os-checkin-backup.json';a.click();URL.revokeObjectURL(u)};
-$('import').onchange=async e=>{try{const v=JSON.parse(await e.target.files[0].text());if(!Array.isArray(v.daily)||!Array.isArray(v.weekly))throw Error();db=v;if(save()){render();toast('Backup importiert.')}}catch(err){toast('Backup-Datei ungültig.')}e.target.value=''};
-render();
-if('serviceWorker' in navigator && location.protocol.startsWith('http')){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}
+const $=id=>document.getElementById(id), today=new Date().toLocaleDateString('sv-SE');
+const monday=()=>{const d=new Date();d.setHours(12,0,0,0);d.setDate(d.getDate()-(d.getDay()+6)%7);return d.toLocaleDateString('sv-SE')};
+const fmt=s=>new Date(s+'T12:00:00').toLocaleDateString('de-DE');
+let data={daily:{},weekly:{}};
+try{data=Object.assign(data,JSON.parse(localStorage.getItem('simple-checkin-v1')||'{}'))}catch(e){}
+data.daily=data.daily||{};data.weekly=data.weekly||{};
+const dbReq=indexedDB.open('simple-checkin-photos',1);let photoDB=null;
+dbReq.onupgradeneeded=()=>dbReq.result.createObjectStore('photos',{keyPath:'id',autoIncrement:true});
+dbReq.onsuccess=()=>{photoDB=dbReq.result;showLast()};
+$('today').textContent=fmt(today);$('weekDate').textContent='Woche ab '+fmt(monday());
+function persist(){try{localStorage.setItem('simple-checkin-v1',JSON.stringify(data));return true}catch(e){return false}}
+function showLast(){
+ const d=data.daily[today];$('dailyLast').textContent=d?'Dein heutiger Eintrag ist gespeichert.':'';
+ const w=data.weekly[monday()];$('weeklyLast').textContent=w?'Dein Wochen-Check-in ist gespeichert.':'';
+}
+document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('[data-tab]').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.panel').forEach(x=>x.classList.toggle('active',x.id===b.dataset.tab))}));
+$('saveDaily').onclick=()=>{data.daily[today]=$('dailyNote').value.trim();if(persist()){$('dailyStatus').textContent='Gespeichert ✓';showLast()}else $('dailyStatus').textContent='Speicherplatz voll.'};
+$('weeklyPhotos').onchange=()=>{const box=$('photoPreview');box.innerHTML='';Array.from($('weeklyPhotos').files||[]).forEach(f=>{if(!f.type.startsWith('image/'))return;const img=document.createElement('img');img.src=URL.createObjectURL(f);box.appendChild(img)})};
+$('saveWeekly').onclick=async()=>{const key=monday(),old=data.weekly[key]||{};const entry={note:$('weeklyNote').value.trim(),photoIds:old.photoIds||[]};if(photoDB){for(const file of Array.from($('weeklyPhotos').files||[])){if(!file.type.startsWith('image/'))continue;const id=await new Promise((resolve,reject)=>{const q=photoDB.transaction('photos','readwrite').objectStore('photos').add({week:key,name:file.name,blob:file});q.onsuccess=()=>resolve(q.result);q.onerror=()=>reject(q.error)});entry.photoIds.push(id)}}data.weekly[key]=entry;if(persist()){$('weeklyStatus').textContent='Gespeichert ✓';$('weeklyPhotos').value='';$('photoPreview').innerHTML='';showLast()}else $('weeklyStatus').textContent='Speicherplatz voll.'};
+if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
 })();
 </script></body></html>

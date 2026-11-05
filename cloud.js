@@ -1,9 +1,10 @@
 import { createClient } from "https://esm.sh/@neondatabase/neon-js@latest";
 
-const DATABASE_URL = "https://ep-weathered-sunset-b2a14fxa.c-6.eu-central-1.aws.neon.tech/neondb";
+const AUTH_URL = "https://ep-weathered-sunset-b2a14fxa.neonauth.c-6.eu-central-1.aws.neon.tech/neondb/auth";
+const DATA_API_URL = "https://ep-weathered-sunset-b2a14fxa.apirest.c-6.eu-central-1.aws.neon.tech/neondb/rest/v1";
 const STORAGE_KEY = "fitnessTrackerProSafeV1";
 const DEVICE_KEY = "fitnessTrackerProDeviceV1";
-const authClient = createClient(DATABASE_URL);
+const authClient = createClient({ auth: { url: AUTH_URL }, dataApi: { url: DATA_API_URL } });
 let activeUser = null;
 let syncTimer = null;
 let busy = false;

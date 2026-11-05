@@ -1,13 +1,13 @@
 {
-  "name": "ALEX FITNESS",
-  "short_name": "ALEX FITNESS",
-  "description": "Fettverlust, Körperfortschritt und Training",
+  "name": "Fitness Tracker Pro",
+  "short_name": "Fitness Pro",
+  "description": "Dein persönlicher Fitness-, Körper- und Fortschritts-Tracker",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#f3f6f4",
-  "theme_color": "#0f1713",
+  "background_color": "#0b1110",
+  "theme_color": "#0b1110",
   "lang": "de",
   "icons": [
     {

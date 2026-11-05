@@ -1,14 +1,12 @@
 {
-  "name": "Fitness Tracker Pro",
-  "short_name": "Fitness Pro",
-  "description": "Dein persönlicher Fitness-, Körper- und Fortschritts-Tracker",
+  "name": "FITNESS OS – Check-in",
+  "short_name": "Fitness OS",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "orientation": "portrait",
-  "background_color": "#0b1110",
-  "theme_color": "#0b1110",
-  "lang": "de",
+  "background_color": "#0b120e",
+  "theme_color": "#101a15",
+  "description": "Persönlicher täglicher und wöchentlicher Check-in",
   "icons": [
     {
       "src": "./icon.svg",

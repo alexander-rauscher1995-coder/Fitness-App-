@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#102019">
+<title>Fitness Tracker · Simple Pro</title>
+<style>
+:root{--bg:#f3f7f4;--card:#fff;--ink:#14231b;--muted:#6d7d73;--line:#e0e9e3;--green:#188653;--soft:#e8f5ed;--shadow:0 8px 26px #1020190d}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input,select{font:inherit}.wrap{max-width:1000px;margin:auto;padding:18px 14px 100px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.top h1{font-size:24px;margin:0}.sub{font-size:12px;color:var(--muted);margin-top:4px}.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:14px;position:sticky;top:0;background:#f3f7f4ed;padding:7px 0;z-index:5;backdrop-filter:blur(12px)}.tabs button,.btn{border:0;border-radius:12px;padding:11px 8px;font-weight:800;cursor:pointer}.tabs button{background:#e6eee8;color:#405248;font-size:12px}.tabs button.active,.btn{background:var(--green);color:white}.btn.alt{background:#e8efea;color:var(--ink)}.panel{display:none}.panel.active{display:block}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:12px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:var(--shadow)}.s3{grid-column:span 3}.s4{grid-column:span 4}.s6{grid-column:span 6}.s8{grid-column:span 8}.s12{grid-column:span 12}.label{font-size:10px;font-weight:900;letter-spacing:.1em;color:var(--muted)}.value{font-size:28px;font-weight:900;margin:6px 0}.muted{color:var(--muted);font-size:12px}h2{font-size:18px;margin:0 0 6px}h3{font-size:15px;margin:0 0 10px}.form{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}.field label{display:block;font-size:11px;color:var(--muted);font-weight:800}.field input,.field select{width:100%;padding:11px;margin-top:5px;border:1px solid #d5e1d9;border-radius:11px;background:#fbfdfb;color:var(--ink)}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.note{padding:12px;background:var(--soft);border:1px solid #d5eadc;border-radius:13px;font-size:12px;line-height:1.5}.chart{width:100%;height:220px;display:block}.table{overflow:auto}table{width:100%;border-collapse:collapse}td,th{padding:9px 6px;border-bottom:1px solid var(--line);font-size:12px;text-align:left;white-space:nowrap}th{color:var(--muted);font-size:10px}.empty{padding:22px;text-align:center;color:var(--muted);font-size:12px}.smallInput{max-width:120px}.footer{font-size:11px;color:var(--muted);margin-top:14px;line-height:1.5}
+@media(max-width:700px){.wrap{padding:14px 10px 90px}.s3,.s4,.s6,.s8{grid-column:span 12}.form{grid-template-columns:1fr}.top h1{font-size:21px}.tabs{grid-template-columns:repeat(4,1fr)}.tabs button{font-size:11px;padding:10px 3px}.card{padding:14px}.value{font-size:26px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top"><div><h1>Fitness Tracker</h1><div class="sub">Simple Pro · Training, Check-ins & Erholung</div></div><button class="btn alt" id="backup">Backup</button></header>
+<nav class="tabs">
+<button class="active" data-tab="home">Übersicht</button><button data-tab="body">Check-in</button><button data-tab="training">Training</button><button data-tab="history">Verlauf</button>
+</nav>
+
+<section class="panel active" id="home">
+<div class="grid">
+<div class="card s3"><div class="label">LETZTER CHECK-IN</div><div class="value" id="homeDate">—</div><div class="muted">Datum</div></div>
+<div class="card s3"><div class="label">TRAININGSEINHEITEN</div><div class="value" id="homeSessions">0</div><div class="muted">gespeichert</div></div>
+<div class="card s3"><div class="label">LETZTE SCHLAFDAUER</div><div class="value" id="homeSleep">—</div><div class="muted">Stunden</div></div>
+<div class="card s3"><div class="label">CHECK-INS</div><div class="value" id="homeChecks">0</div><div class="muted">gespeichert</div></div>
+<div class="card s8"><h3>Trainingsverlauf</h3><canvas id="trainingChart" class="chart"></canvas></div>
+<div class="card s4"><h3>Letzte Notiz</h3><div class="note" id="lastNote">Noch keine Einträge. Starte mit einem Check-in oder Training.</div></div>
+<div class="card s12"><div class="note"><b>So nutzt du den Tracker:</b> Trage Training und Erholung ein. Körpermessungen sind optional und dienen nur der neutralen Dokumentation. Einzelne Werte sagen wenig aus – achte auch darauf, wie du dich fühlst und wie sich deine Leistung entwickelt.</div></div>
+</div>
+</section>
+
+<section class="panel" id="body">
+<div class="grid">
+<div class="card s12"><h2>Check-in erfassen</h2><div class="muted">Optional – gleiche Messbedingungen helfen beim Vergleichen.</div>
+<div class="form">
+<div class="field"><label>Datum</label><input type="date" id="bDate"></div>
+<div class="field"><label>Schlaf (Stunden)</label><input type="number" min="0" max="24" step=".5" id="bSleep" placeholder="z. B. 8"></div>
+<div class="field"><label>Gewicht (kg, optional)</label><input type="number" min="1" max="300" step=".1" id="bWeight" placeholder="optional"></div>
+<div class="field"><label>Taille (cm, optional)</label><input type="number" min="1" max="300" step=".1" id="bWaist" placeholder="optional"></div>
+<div class="field"><label>Bauch (cm, optional)</label><input type="number" min="1" max="300" step=".1" id="bBelly" placeholder="optional"></div>
+<div class="field"><label>Brust (cm, optional)</label><input type="number" min="1" max="300" step=".1" id="bChest" placeholder="optional"></div>
+<div class="field"><label>Oberarm (cm, optional)</label><input type="number" min="1" max="300" step=".1" id="bArm" placeholder="optional"></div>
+<div class="field"><label>Hüfte (cm, optional)</label><input type="number" min="1" max="300" step=".1" id="bHip" placeholder="optional"></div>
+<div class="field"><label>Oberschenkel (cm, optional)</label><input type="number" min="1" max="300" step=".1" id="bThigh" placeholder="optional"></div>
+<div class="field"><label>Wie fühlst du dich?</label><select id="bFeeling"><option value="">Bitte auswählen</option><option>Sehr gut</option><option>Gut</option><option>Okay</option><option>Eher müde</option></select></div>
+<div class="field" style="grid-column:1/-1"><label>Notiz (optional)</label><input id="bNote" maxlength="180" placeholder="z. B. gut erholt, viel unterwegs …"></div>
+</div><div class="actions"><button class="btn" id="saveCheck">Check-in speichern</button></div></div>
+<div class="card s12"><h3>Letzte Check-ins</h3><div id="checkTable" class="table"></div></div>
+</div>
+</section>
+
+<section class="panel" id="training">
+<div class="grid">
+<div class="card s12"><h2>Training dokumentieren</h2><div class="muted">Leistung und Regelmäßigkeit festhalten – ohne unnötige Zusatzwerte.</div>
+<div class="form">
+<div class="field"><label>Datum</label><input type="date" id="tDate"></div>
+<div class="field"><label>Einheit</label><select id="tType"><option>Krafttraining</option><option>Laufen</option><option>Radfahren</option><option>Teamsport</option><option>Mobilität</option><option>Sonstiges</option></select></div>
+<div class="field"><label>Dauer (Minuten)</label><input type="number" min="1" max="600" id="tDuration" placeholder="z. B. 45"></div>
+<div class="field"><label>Wie hat es sich angefühlt?</label><select id="tEffort"><option>Locker</option><option>Moderat</option><option>Anstrengend</option></select></div>
+<div class="field" style="grid-column:1/-1"><label>Notiz (optional)</label><input id="tNote" maxlength="180" placeholder="z. B. Übung, Strecke oder persönliche Bestleistung"></div>
+</div><div class="actions"><button class="btn" id="saveTraining">Training speichern</button></div></div>
+<div class="card s12"><h3>Trainingshistorie</h3><div id="trainingTable" class="table"></div></div>
+</div>
+</section>
+
+<section class="panel" id="history">
+<div class="grid">
+<div class="card s12"><h2>Fortschrittsanalyse</h2><div class="muted">Neutrale Verläufe deiner Einträge. Veränderungen werden nicht als gut oder schlecht bewertet.</div></div>
+<div class="card s6"><h3>Gewichtsverlauf (optional)</h3><canvas id="weightChart" class="chart"></canvas></div>
+<div class="card s6"><h3>Taille (optional)</h3><canvas id="waistChart" class="chart"></canvas></div>
+<div class="card s12"><h3>Messwertvergleich</h3><div id="measureTable" class="table"></div></div>
+<div class="card s12"><div class="actions"><button class="btn alt" id="exportCsv">Daten als CSV exportieren</button><button class="btn alt" id="clearData">Alle Daten löschen</button></div><div class="footer">Deine Einträge werden lokal in diesem Browser auf diesem Gerät gespeichert. Mit „Backup“ kannst du eine Sicherung als JSON-Datei herunterladen. Bei Gerätewechsel musst du das Backup übertragen; eine automatische Synchronisierung zwischen Excel und App gibt es nicht.</div></div>
+</div>
+</section>
+<div class="footer">Hinweis: Der Tracker ist ein Dokumentationswerkzeug und ersetzt keine medizinische oder sportfachliche Beratung. Bei Unsicherheit zu Körpermessungen oder Trainingsbelastung sprich mit einer qualifizierten erwachsenen Vertrauensperson oder Fachperson.</div>
+</div>
+<script>
+(()=>{"use strict";
+const KEY="simpleFitnessTrackerV1";const $=id=>document.getElementById(id);const today=()=>new Date().toLocaleDateString("sv-SE");const base={checks:[],sessions:[]};let db;
+try{db=JSON.parse(localStorage.getItem(KEY)||"null")||base}catch(e){db=base}
+db.checks=Array.isArray(db.checks)?db.checks:[];db.sessions=Array.isArray(db.sessions)?db.sessions:[];
+const save=()=>localStorage.setItem(KEY,JSON.stringify(db));const fmt=d=>new Date(d+"T12:00:00").toLocaleDateString("de-DE");const sorted=a=>a.slice().sort((x,y)=>x.date.localeCompare(y.date));
+["bDate","tDate"].forEach(id=>$(id).value=today());
+function tab(name){document.querySelectorAll(".tabs button").forEach(b=>b.classList.toggle("active",b.dataset.tab===name));document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("active",p.id===name));render()}
+document.querySelectorAll("[data-tab]").forEach(b=>b.addEventListener("click",()=>tab(b.dataset.tab)));
+function chart(id,arr,key,unit){const cv=$(id);if(!cv)return;const w=Math.max(280,cv.clientWidth),h=220,r=window.devicePixelRatio||1;cv.width=w*r;cv.height=h*r;const c=cv.getContext("2d");c.setTransform(r,0,0,r,0,0);c.clearRect(0,0,w,h);const a=arr.filter(x=>Number.isFinite(Number(x[key]))&&x[key]!==""&&x[key]!=null);if(a.length<2){c.fillStyle="#6d7d73";c.font="13px sans-serif";c.fillText("Für einen Verlauf mindestens 2 Werte eintragen.",10,26);return}const vals=a.map(x=>Number(x[key])),min=Math.min(...vals),max=Math.max(...vals),range=Math.max(1,max-min),left=32,right=12,top=16,bottom=30,pw=w-left-right,ph=h-top-bottom;c.strokeStyle="#e0e9e3";for(let i=0;i<4;i++){let y=top+ph*i/3;c.beginPath();c.moveTo(left,y);c.lineTo(w-right,y);c.stroke()}c.strokeStyle="#188653";c.lineWidth=2.8;c.beginPath();vals.forEach((v,i)=>{let x=left+pw*i/(vals.length-1),y=top+ph-(v-min+range*.04)/(range*1.08)*ph;i?c.lineTo(x,y):c.moveTo(x,y)});c.stroke();c.fillStyle="#14231b";c.font="11px sans-serif";c.fillText(vals[0].toFixed(1)+" "+unit,left,h-8);c.fillText(vals.at(-1).toFixed(1)+" "+unit,Math.max(left,w-85),h-8)}
+function render(){const c=sorted(db.checks),s=sorted(db.sessions),last=c.at(-1);$("homeDate").textContent=last?fmt(last.date):"—";$("homeSessions").textContent=s.length;$("homeSleep").textContent=last&&last.sleep?last.sleep+" h":"—";$("homeChecks").textContent=c.length;$("lastNote").textContent=last?(last.note||last.feeling||"Check-in gespeichert."):"Noch keine Einträge. Starte mit einem Check-in oder Training.";chart("trainingChart",s.map((x,i)=>({date:x.date,count:i+1})),"count","Einheiten");chart("weightChart",c,"weight","kg");chart("waistChart",c,"waist","cm");renderChecks(c);renderSessions(s);renderMeasures(c)}
+function renderChecks(c){$("checkTable").innerHTML=c.length?'<table><tr><th>Datum</th><th>Schlaf</th><th>Gewicht</th><th>Taille</th><th>Gefühl</th></tr>'+c.slice().reverse().map(x=>'<tr><td>'+fmt(x.date)+'</td><td>'+(x.sleep||"—")+'</td><td>'+(x.weight?x.weight+" kg":"—")+'</td><td>'+(x.waist?x.waist+" cm":"—")+'</td><td>'+(x.feeling||"—")+'</td></tr>').join("")+'</table>':'<div class="empty">Noch keine Check-ins gespeichert.</div>'}
+function renderSessions(s){$("trainingTable").innerHTML=s.length?'<table><tr><th>Datum</th><th>Einheit</th><th>Dauer</th><th>Gefühl</th><th>Notiz</th></tr>'+s.slice().reverse().map(x=>'<tr><td>'+fmt(x.date)+'</td><td>'+x.type+'</td><td>'+(x.duration||"—")+' min</td><td>'+x.effort+'</td><td>'+(x.note||"—")+'</td></tr>').join("")+'</table>':'<div class="empty">Noch keine Trainingseinheiten.</div>'}
+function renderMeasures(c){const keys=[["weight","Gewicht","kg"],["waist","Taille","cm"],["belly","Bauch","cm"],["chest","Brust","cm"],["arm","Oberarm","cm"],["hip","Hüfte","cm"],["thigh","Oberschenkel","cm"]];$("measureTable").innerHTML=c.length?'<table><tr><th>Messwert</th><th>Erster Eintrag</th><th>Letzter Eintrag</th><th>Veränderung</th></tr>'+keys.map(([k,n,u])=>{const a=c.filter(x=>x[k]!==""&&x[k]!=null&&Number.isFinite(Number(x[k])));if(!a.length)return "";const first=Number(a[0][k]),last=Number(a.at(-1)[k]),diff=last-first;return '<tr><td>'+n+'</td><td>'+first.toFixed(1)+' '+u+'</td><td>'+last.toFixed(1)+' '+u+'</td><td>'+(diff>0?"+":"")+diff.toFixed(1)+' '+u+'</td></tr>'}).join("")+'</table>':'<div class="empty">Noch keine Daten.</div>'}
+$("saveCheck").onclick=()=>{const date=$("bDate").value;if(!date){alert("Bitte ein Datum auswählen.");return}const x={date,sleep:$("bSleep").value,feeling:$("bFeeling").value,note:$("bNote").value};["weight","waist","belly","chest","arm","hip","thigh"].forEach(k=>{const id="b"+k[0].toUpperCase()+k.slice(1);x[k]=$(id).value});if(!x.sleep&&!x.feeling&&!x.note&&!Object.values(x).some(v=>v!==""&&v!==date)){alert("Bitte mindestens einen Wert eintragen.");return}const i=db.checks.findIndex(v=>v.date===date);if(i>=0)db.checks[i]=x;else db.checks.push(x);save();render();alert("Check-in gespeichert.");tab("home")};
+$("saveTraining").onclick=()=>{const x={date:$("tDate").value,type:$("tType").value,duration:$("tDuration").value,effort:$("tEffort").value,note:$("tNote").value};if(!x.date){alert("Bitte ein Datum auswählen.");return}if(!x.duration){alert("Bitte die Dauer eintragen.");return}db.sessions.push(x);save();render();alert("Training gespeichert.");$("tDuration").value="";$("tNote").value="";tab("home")};
+$("backup").onclick=()=>{const blob=new Blob([JSON.stringify(db,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="fitness-tracker-backup.json";a.click();URL.revokeObjectURL(a.href)};
+$("exportCsv").onclick=()=>{const rows=[["Datum","Schlaf","Gewicht kg","Taille cm","Bauch cm","Brust cm","Oberarm cm","Hüfte cm","Oberschenkel cm","Gefühl","Notiz"],...sorted(db.checks).map(x=>[x.date,x.sleep,x.weight,x.waist,x.belly,x.chest,x.arm,x.hip,x.thigh,x.feeling,x.note])];const csv=rows.map(r=>r.map(v=>'"'+String(v??"").replaceAll('"','""')+'"').join(";")).join("\n");const a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["\ufeff"+csv],{type:"text/csv;charset=utf-8"}));a.download="fitness-checkins.csv";a.click();URL.revokeObjectURL(a.href)};
+$("clearData").onclick=()=>{if(confirm("Wirklich alle lokal gespeicherten Tracker-Daten löschen?")){db={checks:[],sessions:[]};save();render()}};
+window.addEventListener("resize",()=>render());render();
+})();
+</script>
+</body></html>

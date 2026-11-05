@@ -1,289 +1,113 @@
 <!doctype html>
 <html lang="de">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0f1713">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="ALEX FITNESS">
-<link rel="manifest" href="./manifest.webmanifest">
-<link rel="icon" href="./icon.svg">
-<link rel="apple-touch-icon" href="./icon.svg">
-<title>ALEX FITNESS · Fettverlust & Training</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b1110"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Fitness Pro">
+<link rel="manifest" href="./manifest.webmanifest"><link rel="icon" href="./icon.svg"><link rel="apple-touch-icon" href="./icon.svg">
+<title>Fitness Tracker Pro</title>
 <style>
-:root{--bg:#f4f7f5;--card:#fff;--ink:#132019;--muted:#718078;--line:#e1e9e4;--green:#1f9d61;--green2:#16784a;--soft:#e9f6ef;--red:#c63d3d;--shadow:0 10px 30px rgba(20,32,25,.07)}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-button,input,select{font:inherit}.app{min-height:100vh}.desktop{display:grid;grid-template-columns:225px 1fr;min-height:100vh}.side{background:#0f1713;color:#fff;padding:22px 14px;position:sticky;top:0;height:100vh}.brand{padding:8px 10px 25px}.brand b{font-size:20px}.brand span{display:block;color:#aebbb4;font-size:11px;margin-top:4px}.nav{display:grid;gap:6px}.nav button{border:0;background:transparent;color:#b9c5bf;padding:12px;text-align:left;border-radius:12px;font-weight:800;cursor:pointer}.nav button.active,.nav button:hover{background:#1c2a23;color:#fff}.main{max-width:1120px;width:100%;margin:auto;padding:22px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}.top h1{font-size:27px;margin:0}.date{font-size:12px;color:var(--muted);margin-top:3px}.page{display:none}.page.active{display:block}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:13px}.card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:17px;box-shadow:var(--shadow)}.s3{grid-column:span 3}.s4{grid-column:span 4}.s6{grid-column:span 6}.s8{grid-column:span 8}.s12{grid-column:span 12}.eyebrow{font-size:10px;letter-spacing:.08em;font-weight:900;color:var(--muted)}.big{font-size:30px;font-weight:900;margin:5px 0}.muted{color:var(--muted)}.small{font-size:12px}.good{color:var(--green2)}.bad{color:var(--red)}h2,h3{margin:0 0 9px}.form{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.field label{display:block;font-size:11px;font-weight:800;color:var(--muted)}.field input,.field select{width:100%;margin-top:5px;border:1px solid #d4dfd8;border-radius:12px;padding:11px;background:#fff;outline:0}.field input:focus{border-color:var(--green);box-shadow:0 0 0 3px #1f9d6118}.btn{border:0;border-radius:12px;padding:11px 14px;background:var(--green);color:#fff;font-weight:850;cursor:pointer}.btn.secondary{background:#edf2ef;color:var(--ink)}.btn.danger{background:#fff0f0;color:var(--red)}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.notice{background:var(--soft);border:1px solid #d5ecdf;border-radius:14px;padding:12px}.progress{height:10px;background:#e7eee9;border-radius:99px;overflow:hidden}.progress i{display:block;height:100%;background:var(--green);border-radius:99px}.table{overflow:auto}table{width:100%;border-collapse:collapse}th,td{padding:9px 6px;border-bottom:1px solid #edf1ee;text-align:left;font-size:12px;white-space:nowrap}th{font-size:10px;color:var(--muted);text-transform:uppercase}.chart{width:100%;height:240px;display:block}.empty{text-align:center;color:var(--muted);padding:28px 8px}.mobile-nav{display:none}
-@media(max-width:850px){.desktop{display:block}.side{display:none}.main{padding:12px 10px 94px}.grid{gap:10px}.s3,.s4,.s6,.s8{grid-column:span 12}.top h1{font-size:23px}.form{grid-template-columns:1fr}.mobile-nav{position:fixed;display:grid;grid-template-columns:repeat(6,1fr);bottom:8px;left:8px;right:8px;z-index:30;background:#fffffff2;backdrop-filter:blur(16px);border:1px solid var(--line);border-radius:18px;padding:5px;box-shadow:0 10px 30px #0002}.mobile-nav button{border:0;background:transparent;color:var(--muted);border-radius:12px;padding:8px 1px;font-size:10px;font-weight:850}.mobile-nav button.active{background:var(--soft);color:var(--green2)}}
-</style>
-<style id="premium-ui">
-:root{--bg:#f2f6f3;--card:#ffffff;--ink:#102019;--muted:#718078;--line:#dfe8e2;--green:#20a568;--green2:#137848;--soft:#e8f7ef;--shadow:0 8px 28px rgba(16,32,25,.06)}
-body{background:linear-gradient(180deg,#f6f9f7 0%,#eef4f0 100%)}
-.side{background:linear-gradient(180deg,#0b1510,#14221a);padding:24px 14px}
-.brand{padding:8px 10px 30px}.brand b{letter-spacing:-.03em}.nav button{transition:.2s}.nav button.active{background:linear-gradient(135deg,#1d9b60,#16784a);box-shadow:0 8px 18px rgba(31,157,97,.22)}
-.main{padding:26px}.top{margin-bottom:22px}.top h1{font-size:29px;letter-spacing:-.035em}
-.card{border:1px solid rgba(223,232,226,.9);border-radius:22px;padding:19px;box-shadow:0 8px 28px rgba(16,32,25,.055);transition:transform .18s,box-shadow .18s}
-.card:hover{transform:translateY(-1px);box-shadow:0 12px 34px rgba(16,32,25,.08)}
-.eyebrow{font-size:10px;letter-spacing:.12em}.big{font-size:32px;letter-spacing:-.04em}
-.btn{box-shadow:0 6px 16px rgba(31,157,97,.16);transition:.18s}.btn:hover{transform:translateY(-1px)}.btn.secondary{box-shadow:none}
-.notice{border-radius:16px}.progress{height:11px;background:#e4ece7}.progress i{background:linear-gradient(90deg,#20a568,#63c98f)}
-.chart{height:250px}
-.table table tr:last-child td{border-bottom:0}.table th{letter-spacing:.09em}
-.field input,.field select{background:#fbfdfc;border-color:#d9e4dd}.field label{letter-spacing:.01em}
-.mobile-nav{border-radius:20px;box-shadow:0 12px 34px rgba(16,32,25,.14)}
-@media(max-width:850px){.main{padding:14px 11px 98px}.top{margin-bottom:14px}.top h1{font-size:25px}.card{border-radius:19px;padding:16px}.big{font-size:29px}.grid{gap:11px}}
+:root{color-scheme:dark;--bg:#0b1110;--panel:#121b19;--panel2:#182320;--line:#263631;--ink:#edf5f0;--muted:#8da199;--green:#35d08a;--green2:#1a9b62;--red:#ff7777;--yellow:#e8c56a;--radius:18px}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 70% -15%,#17362b 0,transparent 45%),var(--bg);color:var(--ink);font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input,select{font:inherit}button{cursor:pointer}.app{min-height:100vh}.layout{display:grid;grid-template-columns:230px minmax(0,1fr);min-height:100vh}.sidebar{position:sticky;top:0;height:100vh;padding:24px 16px;background:#0e1714;border-right:1px solid var(--line)}.brand{padding:5px 10px 28px}.brand b{font-size:20px;letter-spacing:.08em}.brand span{display:block;color:var(--muted);font-size:11px;margin-top:4px;letter-spacing:.12em}.nav{display:grid;gap:7px}.nav button{border:0;border-radius:12px;background:transparent;color:#9fb0a8;text-align:left;padding:12px;font-weight:700}.nav button.active,.nav button:hover{background:#1a3026;color:var(--green)}.main{width:100%;max-width:1400px;margin:auto;padding:26px 30px 50px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:24px}.top h1{font-size:28px;margin:0;letter-spacing:-.04em}.sub{font-size:12px;color:var(--muted);margin-top:3px}.page{display:none}.page.active{display:block}.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:14px}.card{background:linear-gradient(145deg,#15201d,#111a17);border:1px solid var(--line);border-radius:var(--radius);padding:18px;min-width:0;box-shadow:0 12px 34px #0002}.s3{grid-column:span 3}.s4{grid-column:span 4}.s5{grid-column:span 5}.s6{grid-column:span 6}.s7{grid-column:span 7}.s8{grid-column:span 8}.s12{grid-column:span 12}.eyebrow{color:var(--muted);font-size:10px;font-weight:800;letter-spacing:.13em;text-transform:uppercase}.big{font-size:30px;font-weight:850;letter-spacing:-.04em;margin:6px 0}.muted,.small{color:var(--muted)}.small{font-size:12px}.good{color:var(--green)}.bad{color:var(--red)}h2{font-size:19px;margin:0 0 6px}h3{font-size:15px;margin:0 0 12px}.btn{border:0;border-radius:12px;padding:11px 15px;background:var(--green);color:#06150e;font-weight:850}.btn.secondary{background:#24332e;color:var(--ink);border:1px solid #33463f}.btn.danger{background:#392222;color:var(--red)}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}.form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:14px}.field label{display:block;color:var(--muted);font-size:11px;font-weight:750;margin-bottom:5px}.field input,.field select{width:100%;min-width:0;background:#0d1512;border:1px solid #30413a;color:var(--ink);border-radius:11px;padding:11px;outline:none}.field input:focus,.field select:focus{border-color:var(--green);box-shadow:0 0 0 3px #35d08a20}.span2{grid-column:1/-1}.notice{padding:13px;border-radius:13px;background:#142b21;border:1px solid #28533e}.progress{height:9px;background:#263630;border-radius:20px;overflow:hidden}.progress i{display:block;height:100%;background:linear-gradient(90deg,#1b9e66,#52e69c);border-radius:20px}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;min-width:500px}th,td{font-size:12px;padding:10px 8px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}th{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}.chart{width:100%;height:230px;display:block}.empty{padding:24px;text-align:center;color:var(--muted);font-size:13px}.pill{display:inline-flex;padding:4px 9px;border-radius:30px;background:#1d382b;color:var(--green);font-size:11px;font-weight:800}.tabs-mobile{display:none}.metric{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line);gap:10px}.metric:last-child{border:0}.photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px}.photo-grid img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:12px;border:1px solid var(--line)}.photo-item{position:relative}.photo-item button{position:absolute;right:5px;top:5px;border:0;border-radius:8px;background:#000b;color:white;padding:5px 8px}
+@media(max-width:900px){.layout{display:block}.sidebar{display:none}.main{padding:16px 12px 100px}.s3,.s4,.s5,.s6,.s7,.s8{grid-column:span 12}.top h1{font-size:24px}.card{padding:15px}.tabs-mobile{position:fixed;z-index:20;display:grid;grid-template-columns:repeat(5,1fr);left:8px;right:8px;bottom:8px;padding:6px;background:#121c19ed;backdrop-filter:blur(16px);border:1px solid #30423b;border-radius:17px;box-shadow:0 10px 40px #0008}.tabs-mobile button{border:0;background:transparent;color:var(--muted);padding:8px 1px;font-size:10px;font-weight:800;border-radius:10px}.tabs-mobile button.active{background:#1c382b;color:var(--green)}.form{grid-template-columns:1fr}.span2{grid-column:auto}.big{font-size:28px}}
 </style></head>
-<body>
-<div class="app desktop">
-<aside class="side">
-<div class="brand"><b>ALEX FITNESS</b><span>Fettverlust · Körper · Training</span></div>
-<nav class="nav">
-<button class="active" data-page="home">⌂ Übersicht</button>
-<button data-page="body">📏 Körper</button>
-<button data-page="training">🏋 Training</button>
-<button data-page="progress">📈 Fortschritt</button>
-<button data-page="calories">⚡ Kalorien</button>
-<button onclick="window.location.href='./nutrition.html'">🥗 Ernährung</button>
-</nav>
-</aside>
-<main class="main">
-<header class="top"><div><h1 id="title">Übersicht</h1><div class="date" id="date"></div></div><button class="btn secondary" id="quick">＋ Gewicht</button></header>
-
-<section id="home" class="page active">
-<div class="grid">
-<div class="card s4"><div class="eyebrow">AKTUELLES GEWICHT</div><div class="big" id="hWeight">—</div><div class="small" id="hWeightChange">—</div></div>
-<div class="card s4"><div class="eyebrow">7-TAGE-TREND</div><div class="big" id="hAvg">—</div><div class="small">gleitender Mittelwert</div></div>
-<div class="card s4"><div class="eyebrow">LETZTE TAILLE</div><div class="big" id="hWaist">—</div><div class="small" id="hWaistChange">—</div></div>
-
-<div class="card s8"><h3>🎯 Fettverlust-Fokus</h3><p class="muted small">Entscheidend ist der Trend aus Gewicht und Körperumfang – nicht ein einzelner Tageswert.</p><div class="notice"><b id="focusText">Noch keine Daten.</b><br><span class="small">Gewicht regelmäßig messen und Körper-Check-in wöchentlich vergleichen.</span></div></div>
-<div class="card s4"><h3>Heute</h3><div class="small muted">Training</div><div class="big" id="todayTraining">0</div><div class="small muted">Einheiten heute</div><div class="actions"><button class="btn" data-page="training">Training öffnen</button></div></div>
-
-<div class="card s8"><h3>📉 Gewichtstrend</h3><canvas id="chartHome" class="chart"></canvas></div>
-<div class="card s4"><h3>Check-in</h3><div class="small muted">Letzte Messung</div><div class="big" id="lastCheck">—</div><div class="small" id="lastCheckDate">—</div><div class="actions"><button class="btn secondary" data-page="body">Körper messen</button></div></div>
-</div>
-</section>
-
-<section id="body" class="page">
-<div class="grid">
-<div class="card s12"><h2>📏 Körper-Check-in</h2><div class="muted small">Wöchentlich unter möglichst gleichen Bedingungen messen.</div>
-<div class="form" style="margin-top:12px">
-<div class="field"><label>Datum</label><input id="bDate" type="date"></div><div></div>
-<div class="field"><label>Gewicht (kg)</label><input id="bWeight" type="number" step=".1"></div>
-<div class="field"><label>Taille (cm)</label><input id="bWaist" type="number" step=".1"></div>
-<div class="field"><label>Bauch (cm)</label><input id="bBelly" type="number" step=".1"></div>
-<div class="field"><label>Brust (cm)</label><input id="bChest" type="number" step=".1"></div>
-<div class="field"><label>Oberarm (cm)</label><input id="bArm" type="number" step=".1"></div>
-<div class="field"><label>Hüfte (cm)</label><input id="bHip" type="number" step=".1"></div>
-<div class="field"><label>Oberschenkel (cm)</label><input id="bThigh" type="number" step=".1"></div>
-</div><div class="actions"><button class="btn" id="saveBody">✓ Check-in speichern</button></div></div>
-
-<div class="card s4"><div class="eyebrow">GEWICHT</div><div class="big" id="bodyWeight">—</div><div class="small" id="bodyWeightDelta">—</div></div>
-<div class="card s4"><div class="eyebrow">TAILLE</div><div class="big" id="bodyWaist">—</div><div class="small" id="bodyWaistDelta">—</div></div>
-<div class="card s4"><div class="eyebrow">CHECK-INS</div><div class="big" id="bodyCount">0</div><div class="small">gespeichert</div></div>
-<div class="card s12"><h3>Verlauf</h3><div class="table" id="bodyTable"></div></div>
-</div>
-</section>
-
-<section id="training" class="page">
-<div class="grid">
-<div class="card s12"><h2>🏋 Training</h2><div class="muted small">Krafttraining dokumentieren und Leistungsentwicklung erhalten.</div>
-<div class="form" style="margin-top:12px">
-<div class="field"><label>Datum</label><input id="tDate" type="date"></div><div class="field"><label>Einheit</label><input id="tName" placeholder="z. B. Ganzkörper A"></div>
-<div class="field"><label>Übung</label><select id="tExercise"></select></div><div class="field"><label>Gewicht (kg)</label><input id="tWeight" type="number" step=".5"></div>
-<div class="field"><label>Sätze</label><select id="tSetCount"><option>1</option><option selected>3</option><option>4</option><option>5</option></select></div>
-<div class="s12" style="grid-column:1/-1"><div id="setRows"></div></div>
-</div><div class="actions"><button class="btn" id="saveTraining">✓ Training speichern</button></div></div>
-<div class="card s4"><div class="eyebrow">EINHEITEN</div><div class="big" id="sessions">0</div></div>
-<div class="card s4"><div class="eyebrow">LETZTES TRAINING</div><div class="big" id="lastTraining">—</div></div>
-<div class="card s4"><div class="eyebrow">KRAFTWERTE</div><div class="big" id="strengthCount">0</div><div class="small muted">Arbeitssätze gespeichert</div></div>
-<div class="card s12"><h3>💪 Kraftentwicklung</h3><div class="form"><div class="field"><label>Übung</label><select id="strengthExercise"></select></div><div class="field"><label>Letzter Arbeitssatz</label><div class="big" id="lastStrength">—</div></div><div class="field"><label>Bester Arbeitssatz</label><div class="big" id="bestStrength">—</div></div><div class="field"><label>Veränderung seit Start</label><div class="big" id="strengthDelta">—</div></div></div><div id="strengthHistory" class="table" style="margin-top:12px"></div><h3 style="margin-top:18px">Kraftverlauf</h3><div class="small muted">Entwicklung des verwendeten Gewichts pro Arbeitssatz</div><canvas id="strengthChart" class="chart" aria-label="Grafik zum Kraftverlauf"></canvas></div>
-<div class="card s12"><h3>Trainingsverlauf</h3><div class="table" id="trainingTable"></div></div>
-</div>
-</section>
-
-<section id="progress" class="page">
-<div class="grid">
-<div class="card s4"><div class="eyebrow">GEWICHT</div><div class="big" id="pWeight">—</div><div class="small" id="pWeightDelta">—</div></div>
-<div class="card s4"><div class="eyebrow">TAILLE</div><div class="big" id="pWaist">—</div><div class="small" id="pWaistDelta">—</div></div>
-<div class="card s4"><div class="eyebrow">TRAINING</div><div class="big" id="pSessions">0</div><div class="small">Einheiten gespeichert</div></div>
-<div class="card s8"><h3>📈 Körpergewicht</h3><canvas id="chartProgress" class="chart"></canvas></div>
-<div class="card s4"><h3>📏 Trend +1</h3><div class="small muted">Umfang seit Start</div><div id="measureSummary" style="margin-top:10px"></div></div>
-<div class="card s12"><h3>📊 Umfangsentwicklung</h3><div class="small muted">Start → aktuell · Veränderung in cm</div><div id="measureTable" class="table" style="margin-top:10px"></div></div>
-<div class="card s4"><h3>🎯 Zielrichtung</h3><div class="notice"><b>Fett reduzieren</b><br><span class="small">Gewichtstrend ↓ + Taille ↓ bei möglichst stabiler Kraft.</span></div><div style="margin-top:12px"><div class="small muted">Kraftentwicklung</div><div class="progress"><i id="strengthBar" style="width:0%"></i></div></div></div>
-<div class="card s12"><h3>📏 Trend +1 · Körperumfang</h3><div class="actions"><select id="measureSelect" aria-label="Körpermaß"><option value="waist">Taille</option><option value="belly">Bauch</option><option value="chest">Brust</option><option value="arm">Oberarm</option><option value="hip">Hüfte</option><option value="thigh">Oberschenkel</option></select><select id="measurePeriod" aria-label="Zeitraum"><option value="4">4 Wochen</option><option value="8">8 Wochen</option><option value="12">12 Wochen</option><option value="0">Gesamt</option></select></div><div id="measureSummary" class="small muted" style="margin:12px 0"></div><canvas id="measureChart" class="chart"></canvas></div><div class="card s12"><h3>Vergleich Start → aktuell</h3><div id="compare"></div></div>
-</div>
-</section>
-
-<section id="calories" class="page">
-<div class="grid">
-<div class="card s12"><h2>⚡ Kalorien & Makros</h2><div class="muted small">Dein persönlicher Energie- und Makro-Check – mit nachvollziehbarer Formel, Zielorientierung und klaren Ergebnissen.</div><div class="grid" style="margin-top:14px"><div class="card s4"><div class="eyebrow">1 · BASISDATEN</div><div class="small muted">Körperdaten und Alltag</div></div><div class="card s4"><div class="eyebrow">2 · ENERGIEBEDARF</div><div class="small muted">Grund- und Gesamtumsatz</div></div><div class="card s4"><div class="eyebrow">3 · MAKROS</div><div class="small muted">Protein, Kohlenhydrate, Fett</div></div></div></div>
-<div class="card s6"><h3>Deine Angaben</h3><div class="form" style="margin-top:12px">
-<div class="field"><label>Alter (Jahre)</label><input id="calAge" type="number" min="18" max="100" value="31"></div>
-<div class="field"><label>Geschlecht für die Formel</label><select id="calSex"><option value="male">Männlich</option><option value="female">Weiblich</option></select></div>
-<div class="field"><label>Gewicht (kg)</label><input id="calWeight" type="number" min="35" max="300" step=".1" value="80"></div>
-<div class="field"><label>Größe (cm)</label><input id="calHeight" type="number" min="130" max="230" value="180"></div>
-<div class="field"><label>Alltagsaktivität (PAL)</label><select id="calPal"><option value="1.2">1,2 · Überwiegend sitzend</option><option value="1.4">1,4 · Leicht aktiv</option><option value="1.6" selected>1,6 · Alltag plus Training</option><option value="1.8">1,8 · Sehr aktiver Alltag</option><option value="2">2,0 · Außergewöhnlich aktiv</option></select><div class="small muted">Wähle den gesamten Alltag inklusive Bewegung und Training. Schätzwerte können abweichen.</div></div>
-<div class="field"><label>Ziel</label><select id="calGoal"><option value="maintain">Gewicht halten</option><option value="gain">Muskelaufbau (moderater Überschuss)</option><option value="lose">Fettverlust – Orientierung</option></select></div>
-<div class="field"><label>Tagestyp</label><select id="calDay"><option value="normal">Normaler Tag</option><option value="training">Trainingstag (+150 kcal)</option><option value="rest">Pausentag (−150 kcal)</option></select><div class="small muted">Optionaler Unterschied zur Tagesorientierung. Passe ihn an deinen tatsächlichen Wochenplan an.</div></div>
-<div class="field"><label>Protein-Ziel (g pro kg Körpergewicht)</label><select id="calProtein"><option value="1.2">1,2 g/kg</option><option value="1.6">1,6 g/kg</option><option value="2" selected>2,0 g/kg</option><option value="2.2">2,2 g/kg</option></select></div>
-<div class="field"><label>Fettanteil</label><select id="calFat"><option value="20">20 %</option><option value="25" selected>25 %</option><option value="30">30 %</option><option value="35">35 %</option></select></div>
-</div><div class="actions"><button class="btn" id="calCalculate">Berechnen</button><button class="btn secondary" id="calReset">Zurücksetzen</button></div></div>
-<div class="card s6"><h3>Deine Ergebnisse</h3><div class="eyebrow" style="margin-top:12px">GRUNDUMSATZ (BMR)</div><div class="big" id="calBmr">—</div><div class="small muted">Geschätzter Energiebedarf in Ruhe</div><div class="eyebrow" style="margin-top:18px">GESAMTUMSATZ (TDEE)</div><div class="big" id="calTdee">—</div><div class="small muted">Geschätzter täglicher Energieverbrauch</div><div class="notice" style="margin-top:16px"><div class="eyebrow">KALORIEN-ORIENTIERUNG</div><div class="big" id="calTarget">—</div><div class="small" id="calTargetNote">Angaben ausfüllen und berechnen.</div></div><h3 style="margin-top:18px">Makronährstoffe</h3><div class="grid" style="margin-top:8px"><div class="card s4"><div class="eyebrow">PROTEIN</div><div class="big" id="calP">—</div></div><div class="card s4"><div class="eyebrow">KOHLENHYDRATE</div><div class="big" id="calC">—</div></div><div class="card s4"><div class="eyebrow">FETT</div><div class="big" id="calF">—</div></div></div><div class="small muted" id="calMacroNote" style="margin-top:10px">Makro-Verteilung erscheint nach der Berechnung.</div><div class="actions"><button class="btn secondary" id="calCopy">Ergebnisse kopieren</button></div></div>
-<div class="card s12"><h3>So liest du die Ergebnisse</h3><div class="notice"><b>Wichtig:</b> Der Rechner ist für erwachsene Nutzer ausgelegt. Wenn du unter 18 bist, berechne bitte kein Abnehmdefizit mit diesem Tool und besprich Ernährungsziele mit einer qualifizierten Fachperson. Der tatsächliche Bedarf hängt unter anderem von Alltag, Wachstum, Training und Gesundheit ab.</div><p class="small muted">Formel: Mifflin–St.-Jeor für den Grundumsatz, multipliziert mit dem gewählten Aktivitätsfaktor. Makros sind eine grobe Verteilung; die Werte werden gerundet.</p></div>
-</div>
-</section>
-</main>
-</div>
-<nav class="mobile-nav">
-<button class="active" data-page="home">⌂<br>Übersicht</button>
-<button data-page="body">📏<br>Körper</button>
-<button data-page="training">🏋<br>Training</button>
-<button data-page="progress">📈<br>Fortschritt</button>
-<button data-page="calories">⚡<br>Kalorien</button>
-<button onclick="window.location.href='./nutrition.html'">🥗<br>Ernährung</button>
-</nav>
-
+<body><div class="app layout">
+<aside class="sidebar"><div class="brand"><b>FITNESS <span style="color:var(--green);display:inline">PRO</span></b><span>TRACK · ANALYSE · PROGRESS</span></div><nav class="nav" id="sideNav">
+<button class="active" data-page="home">◫ Übersicht</button><button data-page="daily">＋ Tagesgewicht</button><button data-page="weekly">▤ Wochen-Check-in</button><button data-page="calories">⚡ Kalorien & Makros</button><button data-page="progress">↗ Fortschritt</button><button data-page="settings">⚙ Einstellungen</button></nav></aside>
+<main class="main"><header class="top"><div><h1 id="pageTitle">Übersicht</h1><div class="sub" id="todayLabel"></div></div><button class="btn secondary" data-page="daily">＋ Gewicht eintragen</button></header>
+<section class="page active" id="home"><div class="grid">
+<div class="card s3"><div class="eyebrow">Letztes Gewicht</div><div class="big" id="homeWeight">—</div><div class="small" id="homeWeightDate">Noch kein Eintrag</div></div>
+<div class="card s3"><div class="eyebrow">7-Tage-Trend</div><div class="big" id="homeTrend">—</div><div class="small">Durchschnitt der letzten 7 Tage</div></div>
+<div class="card s3"><div class="eyebrow">Letzte Taille</div><div class="big" id="homeWaist">—</div><div class="small" id="homeWaistDate">Wöchentlicher Check-in</div></div>
+<div class="card s3"><div class="eyebrow">Check-ins</div><div class="big" id="homeChecks">0</div><div class="small">gespeicherte Wochen</div></div>
+<div class="card s8"><h3>Gewichtsverlauf</h3><canvas id="homeChart" class="chart"></canvas></div>
+<div class="card s4"><h3>Dein Ziel</h3><div class="eyebrow" id="goalLabel">Ziel auswählen</div><div class="big" id="goalWeight">—</div><div class="small" id="goalRemaining">Lege dein Ziel in den Einstellungen fest.</div><div class="progress" style="margin:14px 0"><i id="goalProgress" style="width:0%"></i></div><button class="btn secondary" data-page="settings">Ziel bearbeiten</button></div>
+<div class="card s6"><h3>Kalorien heute</h3><div class="metric"><span class="muted">Trainingstag</span><b>2.200 kcal</b></div><div class="metric"><span class="muted">Ruhetag</span><b>2.000 kcal</b></div><div class="metric"><span class="muted">Protein</span><b>200 g</b></div><div class="small" style="margin-top:9px">Deine gespeicherten Ausgangswerte – jederzeit änderbar.</div></div>
+<div class="card s6"><h3>Letzter Wochenvergleich</h3><div id="homeCompare" class="empty">Noch keine zwei Check-ins vorhanden.</div><button class="btn secondary" data-page="weekly">Wochen-Check-in öffnen</button></div>
+</div></section>
+<section class="page" id="daily"><div class="grid">
+<div class="card s5"><h2>Tagesgewicht eintragen</h2><p class="small">Wiege dich möglichst unter ähnlichen Bedingungen. Der Trend glättet normale Tagesschwankungen.</p><div class="form"><div class="field"><label>Datum</label><input id="dailyDate" type="date"></div><div class="field"><label>Gewicht (kg)</label><input id="dailyWeight" type="number" step=".1" min="30" max="300" placeholder="z. B. 78,0"></div></div><div class="actions"><button class="btn" id="saveDaily">Gewicht speichern</button></div></div>
+<div class="card s7"><h3>Trendgewicht · 7-Tage-Mittelwert</h3><div class="big" id="dailyTrend">—</div><div class="small">Berechnet aus allen Einträgen der letzten 7 Kalendertage.</div><canvas id="dailyChart" class="chart"></canvas></div>
+<div class="card s12"><h3>Tägliche Einträge</h3><div class="table-wrap" id="dailyTable"></div></div>
+</div></section>
+<section class="page" id="weekly"><div class="grid">
+<div class="card s7"><h2>Wöchentlicher Körper-Check-in</h2><p class="small">Einmal pro Woche. Trage nur die Werte ein, die du gemessen hast. Fehlende Umfänge bleiben leer.</p>
+<div class="form"><div class="field"><label>Datum</label><input id="weekDate" type="date"></div><div class="field"><label>Gewicht (kg, optional)</label><input id="weekWeight" type="number" step=".1"></div>
+<div class="field"><label>Taille (cm)</label><input id="mWaist" type="number" step=".1"></div><div class="field"><label>Bauch (cm)</label><input id="mBelly" type="number" step=".1"></div>
+<div class="field"><label>Brust (cm)</label><input id="mChest" type="number" step=".1"></div><div class="field"><label>Hüfte (cm)</label><input id="mHip" type="number" step=".1"></div>
+<div class="field"><label>Gesäß (cm)</label><input id="mGlutes" type="number" step=".1"></div><div class="field"><label>Oberarm links (cm)</label><input id="mArmL" type="number" step=".1"></div>
+<div class="field"><label>Oberarm rechts (cm)</label><input id="mArmR" type="number" step=".1"></div><div class="field"><label>Oberschenkel links (cm)</label><input id="mThighL" type="number" step=".1"></div>
+<div class="field"><label>Oberschenkel rechts (cm)</label><input id="mThighR" type="number" step=".1"></div><div class="field"><label>Wade links (cm)</label><input id="mCalfL" type="number" step=".1"></div>
+<div class="field"><label>Wade rechts (cm)</label><input id="mCalfR" type="number" step=".1"></div>
+<div class="field span2"><label>Fortschrittsfotos (optional)</label><input id="weekPhotos" type="file" accept="image/*" multiple><div class="small">Fotos werden auf diesem Gerät gespeichert. Wähle möglichst gleiche Licht- und Aufnahmebedingungen.</div></div></div>
+<div class="actions"><button class="btn" id="saveWeek">Wochen-Check-in speichern</button></div></div>
+<div class="card s5"><h3>Dein letzter Check-in</h3><div id="lastWeek" class="empty">Noch kein Wochen-Check-in.</div><div style="margin-top:15px"><h3>Wochenvergleich</h3><div id="weekCompare" class="empty">Sobald zwei Check-ins vorhanden sind, erscheint hier dein Vergleich.</div></div></div>
+<div class="card s12"><h3>Gespeicherte Check-ins</h3><div class="table-wrap" id="weeklyTable"></div></div>
+<div class="card s12"><h3>Fortschrittsfotos</h3><div id="photoGallery" class="photo-grid"><div class="empty">Noch keine Fotos gespeichert.</div></div></div>
+</div></section>
+<section class="page" id="calories"><div class="grid">
+<div class="card s6"><h2>Kalorienziele</h2><p class="small">Trainingstage und Ruhetage getrennt einstellen.</p><div class="form">
+<div class="field"><label>Trainingstag (kcal)</label><input id="calTrain" type="number" step="50"></div><div class="field"><label>Ruhetag (kcal)</label><input id="calRest" type="number" step="50"></div>
+<div class="field"><label>Protein (g)</label><input id="macroProtein" type="number" step="5"></div><div class="field"><label>Fett (g)</label><input id="macroFat" type="number" step="5"></div>
+<div class="field"><label>Kohlenhydrate Training (g)</label><input id="carbTrain" type="number" step="5"></div><div class="field"><label>Kohlenhydrate Ruhe (g)</label><input id="carbRest" type="number" step="5"></div></div><div class="actions"><button class="btn" id="saveCalories">Kalorien & Makros speichern</button></div></div>
+<div class="card s6"><h3>Makro-Übersicht</h3><div id="macroSummary"></div><div class="notice small" style="margin-top:14px">Die Werte sind deine persönlichen Planvorgaben und keine automatische Messung deines tatsächlichen Energieverbrauchs.</div></div>
+</div></section>
+<section class="page" id="progress"><div class="grid">
+<div class="card s4"><div class="eyebrow">Gewichtsänderung</div><div class="big" id="progressWeight">—</div><div class="small">seit deinem ersten Eintrag</div></div>
+<div class="card s4"><div class="eyebrow">Trendgewicht</div><div class="big" id="progressTrend">—</div><div class="small">7-Tage-Mittelwert</div></div>
+<div class="card s4"><div class="eyebrow">Wochen-Check-ins</div><div class="big" id="progressCount">0</div><div class="small">gespeicherte Messungen</div></div>
+<div class="card s12"><h3>Gewicht · Verlauf</h3><canvas id="progressChart" class="chart"></canvas></div>
+<div class="card s12"><h3>Umfangsentwicklung · Start zu aktuell</h3><div id="measureProgress" class="empty">Noch keine vergleichbaren Umfänge.</div></div>
+</div></section>
+<section class="page" id="settings"><div class="grid">
+<div class="card s6"><h2>Ziel einstellen</h2><div class="form">
+<div class="field"><label>Zielrichtung</label><select id="goalType"><option value="lose">Abnehmen</option><option value="gain">Zunehmen</option><option value="maintain">Gewicht halten</option></select></div>
+<div class="field"><label>Zielgewicht (kg)</label><input id="goalTarget" type="number" step=".1"></div>
+</div><div class="actions"><button class="btn" id="saveGoal">Ziel speichern</button></div><p class="small">Abnehmen wird grün, Zunehmen rot dargestellt. Das Ziel kannst du jederzeit ändern.</p></div>
+<div class="card s6"><h2>Daten & Datenschutz</h2><p class="small">Deine Einträge werden derzeit lokal in diesem Browser gespeichert.</p><div class="actions"><button class="btn secondary" id="exportData">Daten-Backup exportieren</button><label class="btn secondary" for="importData">Backup importieren</label><input id="importData" type="file" accept="application/json" hidden></div><div class="notice small" style="margin-top:14px">Wichtig: Lokale Daten werden noch nicht automatisch zwischen iPhone und PC synchronisiert. Dafür wird im nächsten Schritt ein Cloud-Speicher mit sicherem Login eingerichtet.</div></div>
+</div></section>
+</main></div>
+<nav class="tabs-mobile" id="mobileNav"><button class="active" data-page="home">⌂<br>Home</button><button data-page="daily">＋<br>Tag</button><button data-page="weekly">▤<br>Woche</button><button data-page="progress">↗<br>Analyse</button><button data-page="settings">⚙<br>Mehr</button></nav>
 <script>
-(()=>{"use strict";
-const KEY="alexFitnessFocusV2"; const OLD_KEY="alexFitnessPro";
+(()=>{
+const KEY="alexFitnessFocusV2",OLD="alexFitnessPro";
 const base={weights:[],checks:[],workouts:[],strength:{}};
-let d;try{d=JSON.parse(localStorage.getItem(KEY)||"null")||JSON.parse(localStorage.getItem(OLD_KEY)||"null")||base}catch(e){d=base}
-d.weights=Array.isArray(d.weights)?d.weights:[];d.checks=Array.isArray(d.checks)?d.checks:[];d.workouts=Array.isArray(d.workouts)?d.workouts:[];d.strength=d.strength&&typeof d.strength==="object"?d.strength:{};
-const $=x=>document.getElementById(x),today=()=>new Date().toLocaleDateString("sv-SE"),save=()=>localStorage.setItem(KEY,JSON.stringify(d));
-const ex=["Schrägbankdrücken","RDL","Beinpresse","Latzug","Rudern","Seitheben","Bizeps-Curls","Trizepsdrücken"];
-const fmt=x=>new Date(x+"T12:00:00").toLocaleDateString("de-DE");
-const sw=()=>d.weights.slice().sort((a,b)=>a.date.localeCompare(b.date));
-const sc=()=>d.checks.slice().sort((a,b)=>a.date.localeCompare(b.date));
-const delta=(a,b,u)=>{if(a==null||b==null)return "—";const x=Number(b)-Number(a);return (x>0?"+":x<0?"−":"±")+Math.abs(x).toFixed(1)+" "+u};
-$("date").textContent=new Date().toLocaleDateString("de-DE",{weekday:"long",day:"2-digit",month:"long",year:"numeric"});
-["bDate","tDate"].forEach(x=>$(x).value=today());
-
-function page(n){document.querySelectorAll("[data-page]").forEach(b=>b.classList.toggle("active",b.dataset.page===n));document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",p.id===n));const t={home:"Übersicht",body:"Körper",training:"Training",progress:"Fortschritt",calories:"Kalorien & Makros"};$("title").textContent=t[n];window.scrollTo(0,0);render()}
-document.querySelectorAll("[data-page]").forEach(b=>b.onclick=()=>page(b.dataset.page));
-$("quick").onclick=()=>page("body");
-
-function render(){
-const w=sw(),c=sc(),l=w.at(-1),f=w[0],lc=c.at(-1),fc=c[0],avg=w.slice(-7);
-$("hWeight").textContent=l?Number(l.weight).toFixed(1)+" kg":"—";
-$("hWeightChange").textContent=w.length>1?delta(w[w.length-2].weight,l.weight,"kg")+" zum letzten Wert":"Ersten Wert eintragen";
-$("hAvg").textContent=avg.length?(avg.reduce((s,x)=>s+Number(x.weight),0)/avg.length).toFixed(1)+" kg":"—";
-$("hWaist").textContent=lc?Number(lc.waist).toFixed(1)+" cm":"—";
-$("hWaistChange").textContent=c.length>1?delta(c[c.length-2].waist,lc.waist,"cm")+" zum letzten Check":"Noch kein Vergleich";
-$("lastCheck").textContent=lc?Number(lc.waist).toFixed(1)+" cm":"—";$("lastCheckDate").textContent=lc?fmt(lc.date):"Noch kein Check-in";
-$("todayTraining").textContent=d.workouts.filter(x=>x.date===today()).length;
-if(l&&lc)$("focusText").textContent=(Number(l.weight)<Number(f?.weight||l.weight)&&Number(lc.waist)<=Number(fc?.waist||lc.waist))?"Trend passt zum Fettverlust-Fokus.":"Weiter Daten sammeln und den Wochen-Trend beobachten.";
-else $("focusText").textContent="Gewicht und Körperumfang erfassen, um den Fettverlust-Trend sichtbar zu machen.";
-$("bodyWeight").textContent=l?Number(l.weight).toFixed(1)+" kg":"—";$("bodyWaist").textContent=lc?Number(lc.waist).toFixed(1)+" cm":"—";$("bodyCount").textContent=c.length;
-$("bodyWeightDelta").textContent=f&&l?delta(f.weight,l.weight,"kg")+" seit Start":"—";$("bodyWaistDelta").textContent=fc&&lc?delta(fc.waist,lc.waist,"cm")+" seit Start":"—";
-renderBody();renderTraining();renderProgress();renderMeasurements();renderStrength();draw("chartHome",w);draw("chartProgress",w)
-}
-function renderBody(){
-const c=sc().reverse();$("bodyTable").innerHTML=c.length?"<table><tr><th>Datum</th><th>Gewicht</th><th>Taille</th><th>Bauch</th><th>Brust</th><th>Arm</th><th>Hüfte</th><th>Oberschenkel</th></tr>"+c.map(x=>"<tr><td>"+fmt(x.date)+"</td><td>"+x.weight+" kg</td><td>"+x.waist+" cm</td><td>"+x.belly+" cm</td><td>"+x.chest+" cm</td><td>"+x.arm+" cm</td><td>"+x.hip+" cm</td><td>"+x.thigh+" cm</td></tr>").join("")+"</table>":"<div class='empty'>Noch keine Körperdaten.</div>"
-}
-function renderTraining(){
-$("tExercise").innerHTML=ex.map(x=>"<option>"+x+"</option>").join("");
-const t=d.workouts.slice().sort((a,b)=>b.date.localeCompare(a.date)),days=new Set(t.map(x=>x.date+"|"+x.name));
-$("sessions").textContent=days.size;$("lastTraining").textContent=t[0]?fmt(t[0].date):"—";$("strengthCount").textContent=t.filter(x=>x.setType!=="warmup").length;
-$("trainingTable").innerHTML=t.length?"<table><tr><th>Datum</th><th>Einheit</th><th>Übung</th><th>Gewicht</th><th>Wdh.</th><th>Satz</th><th>Typ</th><th></th></tr>"+t.map((x,i)=>"<tr><td>"+fmt(x.date)+"</td><td>"+x.name+"</td><td>"+x.exercise+"</td><td>"+x.weight+" kg</td><td>"+x.reps+"</td><td>"+(x.setNo||1)+"</td><td>"+(x.setType==="warmup"?"Warm-up":"Arbeit")+"</td><td><button class='btn danger del' data-id='"+x._id+"' style='padding:5px 8px'>Löschen</button></td></tr>").join("")+"</table>":"<div class='empty'>Noch kein Training gespeichert.</div>";
-document.querySelectorAll(".del").forEach(b=>b.onclick=()=>{if(confirm("Training löschen?")){const i=d.workouts.findIndex(x=>String(x._id)===String(b.dataset.id));if(i>=0){d.workouts.splice(i,1);save();render()}}})
-}
-function renderMeasure(){const key=$("measureSelect").value,period=+$("measurePeriod").value,all=sc().filter(x=>Number.isFinite(+x[key])&&+x[key]>0),limit=period?new Date(Date.now()-period*7*86400000).toLocaleDateString("sv-SE"):"",c=all.filter(x=>!limit||x.date>=limit),summary=$("measureSummary");summary.textContent=c.length?"Aktuell: "+(+c.at(-1)[key]).toFixed(1)+" cm · letzte Messung: "+(c.length>1?delta(c.at(-2)[key],c.at(-1)[key],"cm"):"—")+" · seit Start: "+(all.length>1?delta(all[0][key],all.at(-1)[key],"cm"):"—"):"Für diesen Zeitraum sind noch keine Messungen vorhanden.";drawMeasure(c,key)}
-function drawMeasure(a,key){const cv=$("measureChart"),W=Math.max(300,cv.getBoundingClientRect().width),H=240,R=devicePixelRatio||1;cv.width=W*R;cv.height=H*R;const c=cv.getContext("2d");c.setTransform(R,0,0,R,0,0);c.clearRect(0,0,W,H);if(a.length<2){c.fillStyle="#718078";c.font="13px sans-serif";c.fillText("Mindestens 2 Messungen für den Trend.",12,30);return}const v=a.map(x=>+x[key]),min=Math.min(...v),range=Math.max(.5,Math.max(...v)-min),p=35;for(let i=0;i<4;i++){let y=18+(H-52)*i/3;c.strokeStyle="#e1e9e4";c.beginPath();c.moveTo(p,y);c.lineTo(W-p,y);c.stroke()}c.strokeStyle="#1f9d61";c.lineWidth=3;c.beginPath();v.forEach((n,i)=>{const x=p+(W-2*p)*i/(v.length-1),y=18+(H-52)-(n-min+range*.05)/(range*1.1)*(H-52);i?c.lineTo(x,y):c.moveTo(x,y)});c.stroke();c.fillStyle="#132019";c.font="12px sans-serif";c.fillText(v[0].toFixed(1)+" cm",p,H-8);c.fillText(v.at(-1).toFixed(1)+" cm",Math.max(p,W-90),H-8)}
-function renderMeasurements(){
-const c=sc(),f=c[0],l=c.at(-1),fields=[["waist","Taille"],["belly","Bauch"],["chest","Brust"],["arm","Oberarm"],["hip","Hüfte"],["thigh","Oberschenkel"]];
-if(!f||!l){$("measureSummary").innerHTML="<div class='empty'>Noch keine Vergleichsdaten.</div>";$("measureTable").innerHTML="";return}
-const rows=fields.map(([k,n])=>({name:n,start:Number(f[k]),current:Number(l[k]),change:Number(l[k])-Number(f[k])}));
-$("measureSummary").innerHTML=rows.map(x=>"<div style='display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line)'><span><b>"+x.name+"</b></span><span class='"+(x.change<=0?"good":"bad")+"'>"+(x.change>0?"+":"")+x.change.toFixed(1)+" cm</span></div>").join("");
-$("measureTable").innerHTML="<table><tr><th>Umfang</th><th>Start</th><th>Aktuell</th><th>Veränderung</th></tr>"+rows.map(x=>"<tr><td><b>"+x.name+"</b></td><td>"+x.start.toFixed(1)+" cm</td><td>"+x.current.toFixed(1)+" cm</td><td class='"+(x.change<=0?"good":"bad")+"'><b>"+(x.change>0?"+":"")+x.change.toFixed(1)+" cm</b></td></tr>").join("")+"</table>"
-}
-function renderStrength(){
-const sel=$("strengthExercise"), names=[...new Set(d.workouts.map(x=>x.exercise))];
-sel.innerHTML=(names.length?names:ex).map(x=>"<option>"+x+"</option>").join("");
-const update=()=>{
-const name=sel.value, rows=d.workouts.filter(x=>x.exercise===name&&x.setType!=="warmup").sort((a,b)=>a.date.localeCompare(b.date));
-if(!rows.length){$("bestStrength").textContent="—";$("lastStrength").textContent="—";$("strengthDelta").textContent="—";$("strengthHistory").innerHTML="<div class='empty'>Noch keine Arbeitssätze für diese Übung.</div>";drawStrength([]);return}
-const first=rows[0],last=rows.at(-1); const best=rows.reduce((a,b)=>(Number(b.weight)>Number(a.weight)||Number(b.weight)===Number(a.weight)&&Number(b.reps)>Number(a.reps)?b:a));
-$("lastStrength").textContent=Number(last.weight).toFixed(1)+" kg × "+last.reps+" Wdh.";
-$("bestStrength").textContent=Number(best.weight).toFixed(1)+" kg × "+best.reps+" Wdh.";
-const diff=Number(last.weight)-Number(first.weight); $("strengthDelta").textContent=(diff>0?"+":"")+diff.toFixed(1)+" kg";
-$("strengthHistory").innerHTML="<table><tr><th>Datum</th><th>Satz</th><th>Gewicht</th><th>Wdh.</th><th>Typ</th></tr>"+rows.slice().reverse().map(x=>"<tr><td>"+fmt(x.date)+"</td><td>"+(x.setNo||1)+"</td><td>"+x.weight+" kg</td><td>"+x.reps+"</td><td>Arbeit</td></tr>").join("")+"</table>";
-drawStrength(rows);
-};
-sel.onchange=update;update()
-}
-function drawStrength(rows){
-const cv=$("strengthChart");if(!cv)return;
-const W=Math.max(280,cv.getBoundingClientRect().width),H=220,R=window.devicePixelRatio||1;
-cv.width=W*R;cv.height=H*R;const c=cv.getContext("2d");c.setTransform(R,0,0,R,0,0);c.clearRect(0,0,W,H);
-if(rows.length<2){c.fillStyle="#718078";c.font="13px sans-serif";c.fillText("Mindestens 2 Arbeitssätze für einen Verlauf speichern.",12,28);return}
-const vals=rows.map(x=>Number(x.weight)).filter(Number.isFinite);if(vals.length<2)return;
-const min=Math.min(...vals),max=Math.max(...vals),range=Math.max(1,max-min),left=34,right=16,top=18,bottom=34,plotH=H-top-bottom,plotW=W-left-right;
-for(let i=0;i<4;i++){const y=top+plotH*i/3;c.strokeStyle="#e1e9e4";c.beginPath();c.moveTo(left,y);c.lineTo(W-right,y);c.stroke();const label=(max-(max-min)*i/3).toFixed(1);c.fillStyle="#718078";c.font="10px sans-serif";c.fillText(label,left-28,y+3)}
-c.strokeStyle="#1f9d61";c.lineWidth=2.5;c.beginPath();vals.forEach((v,i)=>{const x=left+plotW*i/(vals.length-1),y=top+plotH-(v-min+range*.02)/(range*1.04)*plotH;i?c.lineTo(x,y):c.moveTo(x,y)});c.stroke();
-vals.forEach((v,i)=>{const x=left+plotW*i/(vals.length-1),y=top+plotH-(v-min+range*.02)/(range*1.04)*plotH;c.fillStyle="#1f9d61";c.beginPath();c.arc(x,y,3,0,Math.PI*2);c.fill()});
-c.fillStyle="#132019";c.font="11px sans-serif";c.fillText(vals[0].toFixed(1)+" kg",left,H-8);c.fillText(vals.at(-1).toFixed(1)+" kg",Math.max(left,W-65),H-8)
-}
-function renderProgress(){
-const w=sw(),c=sc(),l=w.at(-1),f=w[0],lc=c.at(-1),fc=c[0];$("pWeight").textContent=l?Number(l.weight).toFixed(1)+" kg":"—";$("pWeightDelta").textContent=f&&l?delta(f.weight,l.weight,"kg")+" seit Start":"—";$("pWaist").textContent=lc?Number(lc.waist).toFixed(1)+" cm":"—";$("pWaistDelta").textContent=fc&&lc?delta(fc.waist,lc.waist,"cm")+" seit Start":"—";$("pSessions").textContent=new Set(d.workouts.map(x=>x.date+"|"+x.name)).size;renderMeasure();
-const strength=Object.values(d.strength).flatMap(x=>Array.isArray(x)?x:[]);$("strengthBar").style.width=Math.min(100,strength.length?Math.max(12,Math.min(100,strength.length*8)):0)+"%";
-$("compare").innerHTML=f&&l?"<div class='notice'><b>Gewicht:</b> "+Number(f.weight).toFixed(1)+" kg → "+Number(l.weight).toFixed(1)+" kg &nbsp; <span class='"+(Number(l.weight)<=Number(f.weight)?"good":"bad")+"'>"+delta(f.weight,l.weight,"kg")+"</span></div>"+(fc&&lc?"<div class='notice' style='margin-top:8px'><b>Taille:</b> "+Number(fc.waist).toFixed(1)+" cm → "+Number(lc.waist).toFixed(1)+" cm &nbsp; <span class='"+(Number(lc.waist)<=Number(fc.waist)?"good":"bad")+"'>"+delta(fc.waist,lc.waist,"cm")+"</span></div>":""):"<div class='empty'>Mindestens zwei Werte machen den Fortschritt sichtbar.</div>"
-}
-function draw(id,w){
-const cv=$(id);if(!cv)return;const W=Math.max(300,cv.getBoundingClientRect().width),H=240,R=devicePixelRatio||1;cv.width=W*R;cv.height=H*R;const c=cv.getContext("2d");c.setTransform(R,0,0,R,0,0);c.clearRect(0,0,W,H);if(w.length<2){c.fillStyle="#718078";c.font="14px sans-serif";c.fillText("Mindestens 2 Gewichtswerte erforderlich.",16,30);return}
-const vals=w.map(x=>+x.weight),min=Math.min(...vals),max=Math.max(...vals),range=Math.max(.5,max-min),p=28;c.strokeStyle="#e1e9e4";for(let i=0;i<4;i++){let y=18+(H-52)*i/3;c.beginPath();c.moveTo(p,y);c.lineTo(W-p,y);c.stroke()}c.strokeStyle="#1f9d61";c.lineWidth=3;c.beginPath();w.forEach((x,i)=>{let X=p+(W-2*p)*i/(w.length-1),Y=18+(H-52)-(x.weight-min+range*.05)/(range*1.1)*(H-52);i?c.lineTo(X,Y):c.moveTo(X,Y)});c.stroke();c.fillStyle="#132019";c.font="12px sans-serif";c.fillText(vals[0].toFixed(1)+" kg",p,H-9);c.fillText(vals.at(-1).toFixed(1)+" kg",Math.max(p,W-82),H-9)
-}
-$("saveBody").onclick=()=>{
-const ids=["bWeight","bWaist","bBelly","bChest","bArm","bHip","bThigh"],keys=["weight","waist","belly","chest","arm","hip","thigh"],date=$("bDate").value,o={date};if(!date){alert("Datum eingeben.");return}for(let i=0;i<ids.length;i++){const v=Number($(ids[i]).value);if(!v||v<=0){alert("Bitte alle Körperwerte ausfüllen.");return}o[keys[i]]=v}
-const wi=d.weights.findIndex(x=>x.date===date);if(wi>=0)d.weights[wi].weight=o.weight;else d.weights.push({date,weight:o.weight});
-const ci=d.checks.findIndex(x=>x.date===date);if(ci>=0)d.checks[ci]=o;else d.checks.push(o);save();alert("Check-in gespeichert.");render()
-};
-function buildSetRows(){
-const n=Number($("tSetCount").value)||3;
-$("setRows").innerHTML=Array.from({length:n},(_,i)=>`<div class="card" style="margin-top:8px;padding:11px;background:#fbfdfc"><div style="display:grid;grid-template-columns:70px 1fr 1fr;gap:8px;align-items:end"><div><div class="eyebrow">SATZ</div><b>${i+1}</b></div><div class="field"><label>Gewicht (kg)</label><input class="setWeight" type="number" step=".5"></div><div class="field"><label>Wiederholungen</label><input class="setReps" type="number"></div></div><div class="field" style="margin-top:8px"><label>Typ</label><select class="setType"><option value="work">${i===0?"Arbeitssatz":"Arbeitssatz"}</option><option value="warmup">Warm-up</option></select></div></div>`).join("");
-}
-$("tSetCount").onchange=buildSetRows;
-buildSetRows();
-$("saveTraining").onclick=()=>{
-const date=$("tDate").value,name=$("tName").value.trim(),exercise=$("tExercise").value;
-const ws=[...document.querySelectorAll(".setWeight")],rs=[...document.querySelectorAll(".setReps")],ts=[...document.querySelectorAll(".setType")];
-if(!date||!name||!exercise){alert("Bitte Datum, Einheit und Übung ausfüllen.");return}
-if(!ws.length||ws.some(x=>x.value===""||!Number.isFinite(Number(x.value))||Number(x.value)<0)||rs.some(x=>x.value===""||!Number.isFinite(Number(x.value))||Number(x.value)<=0)){alert("Bitte für jeden Satz ein gültiges Gewicht und positive Wiederholungszahl eingeben.");return}
-const stamp=Date.now();
-ws.forEach((x,i)=>{
-const o={_id:stamp+"-"+i,date,name,exercise,weight:Number(x.value),reps:Number(rs[i].value),sets:1,setNo:i+1,setType:ts[i].value};
-d.workouts.push(o);
-if(!d.strength[o.exercise])d.strength[o.exercise]=[];
-d.strength[o.exercise].push({date:o.date,weight:o.weight,reps:o.reps,setNo:o.setNo,setType:o.setType});
-});
-save();alert("Training mit "+ws.length+" Sätzen gespeichert.");$("tName").value="";buildSetRows();render()
-};
-
-function calculateCalories(){
-const age=Number($("calAge").value),weight=Number($("calWeight").value),height=Number($("calHeight").value),pal=Number($("calPal").value),sex=$("calSex").value,goal=$("calGoal").value,pr=Number($("calProtein").value),fatPct=Number($("calFat").value);
-const valid=Number.isFinite(age)&&Number.isFinite(weight)&&Number.isFinite(height)&&Number.isFinite(pal)&&Number.isFinite(pr)&&Number.isFinite(fatPct)&&age>=18&&age<=100&&weight>=35&&weight<=300&&height>=130&&height<=230;
-if(!valid){$("calTarget").textContent="—";$("calTargetNote").textContent="Bitte gültige Werte eingeben. Dieser Rechner ist für Erwachsene ab 18 Jahren ausgelegt.";["calBmr","calTdee","calP","calC","calF"].forEach(id=>$(id).textContent="—");if($("calMacroNote"))$("calMacroNote").textContent="Bitte prüfe deine Angaben.";return}
-const bmr=10*weight+6.25*height-5*age+(sex==="male"?5:-161),tdee=bmr*pal;
-const goalAdjustment=goal==="gain"?200:goal==="lose"?-300:0;
-const dayAdjustment=$("calDay").value==="training"?150:$("calDay").value==="rest"?-150:0;
-const target=Math.max(0,Math.round((tdee+goalAdjustment+dayAdjustment)/50)*50);
-const p=Math.round(weight*pr),f=Math.round(target*fatPct/100/9),c=Math.max(0,Math.round((target-p*4-f*9)/4));
-$("calBmr").textContent=Math.round(bmr).toLocaleString("de-DE")+" kcal";
-$("calTdee").textContent=Math.round(tdee).toLocaleString("de-DE")+" kcal";
-$("calTarget").textContent=target.toLocaleString("de-DE")+" kcal";
-const goalText=goal==="gain"?"Mit moderatem Überschuss von rund 200 kcal.":goal==="lose"?"Grobe Orientierung mit etwa 300 kcal unter dem geschätzten Erhaltungsbedarf; tatsächlichen Verlauf beobachten.":"Geschätzte Erhaltungskalorien als Ausgangspunkt.";
-const dayText=$("calDay").value==="training"?" Trainingstag-Anpassung: +150 kcal.":$("calDay").value==="rest"?" Pausentag-Anpassung: −150 kcal.":"";
-$("calTargetNote").textContent=goalText+dayText;
-$("calP").textContent=p+" g";$("calC").textContent=c+" g";$("calF").textContent=f+" g";
-const macroKcal=p*4+c*4+f*9,proteinKcal=p*4,fatKcal=f*9,carbKcal=c*4;
-$("calMacroNote").textContent="Makros gesamt: ca. "+macroKcal.toLocaleString("de-DE")+" kcal · Protein "+Math.round(proteinKcal/Math.max(1,macroKcal)*100)+" % · Kohlenhydrate "+Math.round(carbKcal/Math.max(1,macroKcal)*100)+" % · Fett "+Math.round(fatKcal/Math.max(1,macroKcal)*100)+" %. Durch Rundung sind kleine Abweichungen normal.";
-}
-["calCalculate","calReset"].forEach(id=>$(id).addEventListener("click",()=>{if(id==="calReset"){ $("calAge").value="31";$("calSex").value="male";$("calWeight").value="80";$("calHeight").value="180";$("calPal").value="1.6";$("calGoal").value="maintain";$("calDay").value="normal";$("calProtein").value="2";$("calFat").value="25";}calculateCalories()}));
-["calAge","calSex","calWeight","calHeight","calPal","calGoal","calDay","calProtein","calFat"].forEach(id=>$(id).addEventListener("input",calculateCalories));
-$("calCopy").addEventListener("click",()=>{const txt="ALEX FITNESS · KALORIEN & MAKROS\nGrundumsatz: "+$("calBmr").textContent+"\nGesamtumsatz: "+$("calTdee").textContent+"\nOrientierung: "+$("calTarget").textContent+"\nProtein: "+$("calP").textContent+"\nKohlenhydrate: "+$("calC").textContent+"\nFett: "+$("calF").textContent;if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(()=>alert("Ergebnisse kopiert.")).catch(()=>alert(txt));else alert(txt)});
-
-["measureSelect","measurePeriod"].forEach(id=>$(id).onchange=renderMeasure);render();calculateCalories();window.onresize=()=>{draw("chartHome",sw());draw("chartProgress",sw());renderMeasure()}
+let d;try{d=JSON.parse(localStorage.getItem(KEY)||"null")||JSON.parse(localStorage.getItem(OLD)||"null")||base}catch(e){d=base}
+d.weights=Array.isArray(d.weights)?d.weights:[];d.checks=Array.isArray(d.checks)?d.checks:[];d.workouts=Array.isArray(d.workouts)?d.workouts:[];d.settings=d.settings||{goalType:"lose",goalTarget:70,calTrain:2200,calRest:2000,protein:200,fat:60,carbTrain:240,carbRest:190};
+const $=id=>document.getElementById(id),today=()=>new Date().toLocaleDateString("sv-SE"),fmt=x=>new Date(x+"T12:00:00").toLocaleDateString("de-DE"),num=x=>Number(x).toFixed(1),save=()=>localStorage.setItem(KEY,JSON.stringify(d));
+const fields=[["waist","Taille"],["belly","Bauch"],["chest","Brust"],["hip","Hüfte"],["glutes","Gesäß"],["armL","Oberarm L"],["armR","Oberarm R"],["thighL","Oberschenkel L"],["thighR","Oberschenkel R"],["calfL","Wade L"],["calfR","Wade R"]];
+const sorted=()=>d.weights.slice().sort((a,b)=>a.date.localeCompare(b.date)),checks=()=>d.checks.slice().sort((a,b)=>a.date.localeCompare(b.date));
+$("todayLabel").textContent=new Date().toLocaleDateString("de-DE",{weekday:"long",day:"2-digit",month:"long",year:"numeric"});
+$("dailyDate").value=today();$("weekDate").value=today();
+function page(name){document.querySelectorAll(".page").forEach(x=>x.classList.toggle("active",x.id===name));document.querySelectorAll("[data-page]").forEach(x=>x.classList.toggle("active",x.dataset.page===name));const titles={home:"Übersicht",daily:"Tagesgewicht",weekly:"Wochen-Check-in",calories:"Kalorien & Makros",progress:"Fortschritt",settings:"Einstellungen"};$("pageTitle").textContent=titles[name]||"Fitness Pro";window.scrollTo(0,0);render()}
+document.querySelectorAll("[data-page]").forEach(b=>b.addEventListener("click",()=>page(b.dataset.page)));
+function trend(){const a=sorted().filter(x=>x.date>=new Date(Date.now()-6*86400000).toLocaleDateString("sv-SE"));return a.length?a.reduce((s,x)=>s+Number(x.weight),0)/a.length:null}
+function delta(a,b){if(a==null||b==null)return "—";const v=Number(b)-Number(a);return (v>0?"+":v<0?"−":"±")+Math.abs(v).toFixed(1)}
+function chart(id,arr,key="weight"){const cv=$(id);if(!cv)return;const W=Math.max(280,cv.clientWidth||300),H=230,R=devicePixelRatio||1;cv.width=W*R;cv.height=H*R;const c=cv.getContext("2d");c.setTransform(R,0,0,R,0,0);c.clearRect(0,0,W,H);if(arr.length<2){c.fillStyle="#8da199";c.font="13px sans-serif";c.fillText("Mindestens zwei Einträge für den Verlauf.",12,28);return}const vals=arr.map(x=>Number(x[key])),min=Math.min(...vals),max=Math.max(...vals),range=Math.max(.5,max-min),l=34,r=15,t=18,b=30,pw=W-l-r,ph=H-t-b;c.strokeStyle="#293a34";for(let i=0;i<4;i++){let y=t+ph*i/3;c.beginPath();c.moveTo(l,y);c.lineTo(W-r,y);c.stroke()}c.strokeStyle="#35d08a";c.lineWidth=3;c.beginPath();vals.forEach((v,i)=>{let x=l+pw*i/(vals.length-1),y=t+ph-(v-min+range*.05)/(range*1.1)*ph;i?c.lineTo(x,y):c.moveTo(x,y)});c.stroke();c.fillStyle="#9aada4";c.font="11px sans-serif";c.fillText(num(vals[0]),l,H-8);c.fillText(num(vals.at(-1)),Math.max(l,W-55),H-8)}
+function render(){const w=sorted(),c=checks(),last=w.at(-1),first=w[0],lc=c.at(-1),fc=c[0],t=trend();
+$("homeWeight").textContent=last?num(last.weight)+" kg":"—";$("homeWeightDate").textContent=last?fmt(last.date):"Noch kein Eintrag";$("homeTrend").textContent=t==null?"—":num(t)+" kg";$("homeWaist").textContent=lc?.waist?num(lc.waist)+" cm":"—";$("homeWaistDate").textContent=lc?fmt(lc.date):"Wöchentlicher Check-in";$("homeChecks").textContent=c.length;
+const s=d.settings,goal=s.goalType==="lose"?"Abnehmen":s.goalType==="gain"?"Zunehmen":"Halten";$("goalLabel").textContent=goal;$("goalLabel").className="eyebrow "+(s.goalType==="gain"?"bad":"good");$("goalWeight").textContent=Number(s.goalTarget||0).toFixed(1)+" kg";let current=last?Number(last.weight):null;$("goalRemaining").textContent=current==null?"Trage dein Gewicht ein.":(s.goalType==="lose"?Math.max(0,current-s.goalTarget).toFixed(1)+" kg bis zum Ziel":s.goalType==="gain"?Math.max(0,s.goalTarget-current).toFixed(1)+" kg bis zum Ziel":Math.abs(current-s.goalTarget).toFixed(1)+" kg bis zum Ziel");let pct=first&&last&&Number(first.weight)!==Number(s.goalTarget)?Math.max(0,Math.min(100,Math.abs((Number(first.weight)-current)/(Number(first.weight)-Number(s.goalTarget))*100))):0;$("goalProgress").style.width=pct+"%";$("goalProgress").style.background=s.goalType==="gain"?"var(--red)":"var(--green)";
+$("homeCompare").innerHTML=c.length>1?fields.filter(([k])=>c.at(-2)[k]!=null&&lc[k]!=null).slice(0,4).map(([k,n])=>'<div class="metric"><span>'+n+'</span><b>'+delta(c.at(-2)[k],lc[k])+' cm</b></div>').join("")||"Keine vergleichbaren Werte":"Noch keine zwei Check-ins vorhanden.";
+$("dailyTrend").textContent=t==null?"—":num(t)+" kg";$("dailyTable").innerHTML=w.length?'<table><tr><th>Datum</th><th>Gewicht</th><th></th></tr>'+w.slice().reverse().map(x=>'<tr><td>'+fmt(x.date)+'</td><td>'+num(x.weight)+' kg</td><td><button class="btn danger delete-weight" data-date="'+x.date+'" style="padding:5px 8px">Löschen</button></td></tr>').join("")+'</table>':'<div class="empty">Noch keine Gewichtseinträge.</div>';
+document.querySelectorAll(".delete-weight").forEach(b=>b.onclick=()=>{if(confirm("Eintrag löschen?")){d.weights=d.weights.filter(x=>x.date!==b.dataset.date);save();render()}});
+$("lastWeek").innerHTML=lc?'<div class="big">'+fmt(lc.date)+'</div>'+fields.filter(([k])=>lc[k]!=null&&lc[k]!=="").map(([k,n])=>'<div class="metric"><span class="muted">'+n+'</span><b>'+num(lc[k])+' cm</b></div>').join(""):'Noch kein Wochen-Check-in.';
+$("weekCompare").innerHTML=c.length>1?fields.filter(([k])=>c.at(-2)[k]!=null&&lc[k]!=null).map(([k,n])=>'<div class="metric"><span>'+n+'</span><b>'+delta(c.at(-2)[k],lc[k])+' cm</b></div>').join(""):'Sobald zwei Check-ins vorhanden sind, erscheint hier dein Vergleich.';
+$("weeklyTable").innerHTML=c.length?'<table><tr><th>Datum</th><th>Gewicht</th>'+fields.map(x=>'<th>'+x[1]+'</th>').join("")+'</tr>'+c.slice().reverse().map(x=>'<tr><td>'+fmt(x.date)+'</td><td>'+(x.weight?num(x.weight):"—")+'</td>'+fields.map(([k])=>'<td>'+(x[k]!=null?num(x[k]):"—")+'</td>').join("")+'</tr>').join("")+'</table>':'<div class="empty">Noch keine Check-ins gespeichert.</div>';
+$("progressWeight").textContent=first&&last?delta(first.weight,last.weight)+" kg":"—";$("progressTrend").textContent=t==null?"—":num(t)+" kg";$("progressCount").textContent=c.length;
+$("measureProgress").innerHTML=c.length>1?fields.filter(([k])=>fc[k]!=null&&lc[k]!=null).map(([k,n])=>'<div class="metric"><span>'+n+'</span><span>'+num(fc[k])+' → '+num(lc[k])+' cm</span><b class="'+(Number(lc[k])<=Number(fc[k])?"good":"bad")+'">'+delta(fc[k],lc[k])+' cm</b></div>').join(""):'Noch keine vergleichbaren Umfänge.';
+renderMacros();chart("homeChart",w);chart("dailyChart",w);chart("progressChart",w)}
+$("saveDaily").onclick=()=>{const date=$("dailyDate").value,weight=Number($("dailyWeight").value);if(!date||!weight||weight<30||weight>300){alert("Bitte Datum und gültiges Gewicht eintragen.");return}const i=d.weights.findIndex(x=>x.date===date);if(i>=0)d.weights[i].weight=weight;else d.weights.push({date,weight});save();$("dailyWeight").value="";render()};
+$("saveWeek").onclick=async()=>{const date=$("weekDate").value;if(!date){alert("Bitte ein Datum auswählen.");return}const o={date};const w=Number($("weekWeight").value);if(w>0)o.weight=w;fields.forEach(([k])=>{const v=$( "m"+k[0].toUpperCase()+k.slice(1));if(v&&v.value!=="")o[k]=Number(v.value)});const idx=d.checks.findIndex(x=>x.date===date);if(idx>=0)d.checks[idx]=o;else d.checks.push(o);if(o.weight){const wi=d.weights.findIndex(x=>x.date===date);if(wi>=0)d.weights[wi].weight=o.weight;else d.weights.push({date,weight:o.weight})}save();const files=[...$("weekPhotos").files];if(files.length){try{await savePhotos(date,files)}catch(e){alert("Check-in gespeichert, Fotos konnten nicht gespeichert werden.")}}$("weekPhotos").value="";alert("Wochen-Check-in gespeichert.");render();loadPhotos()};
+function renderMacros(){const s=d.settings;$("calTrain").value=s.calTrain;$("calRest").value=s.calRest;$("macroProtein").value=s.protein;$("macroFat").value=s.fat;$("carbTrain").value=s.carbTrain;$("carbRest").value=s.carbRest;$("macroSummary").innerHTML=[["Training",s.calTrain,s.carbTrain],["Ruhetag",s.calRest,s.carbRest]].map(([n,k,c])=>'<div class="metric"><b>'+n+'</b><span>'+k+' kcal</span></div><div class="small muted">Protein '+s.protein+' g · Kohlenhydrate '+c+' g · Fett '+s.fat+' g</div>').join("")}
+$("saveCalories").onclick=()=>{const ids=["calTrain","calRest","macroProtein","macroFat","carbTrain","carbRest"],keys=["calTrain","calRest","protein","fat","carbTrain","carbRest"];for(let i=0;i<ids.length;i++){const v=Number($(ids[i]).value);if(!v||v<0){alert("Bitte gültige Makro- und Kalorienwerte eintragen.");return}d.settings[keys[i]]=v}save();render();alert("Kalorien und Makros gespeichert.")};
+$("goalType").value=d.settings.goalType;$("goalTarget").value=d.settings.goalTarget;
+$("saveGoal").onclick=()=>{const v=Number($("goalTarget").value);if(!v||v<30||v>300){alert("Bitte ein gültiges Zielgewicht eintragen.");return}d.settings.goalType=$("goalType").value;d.settings.goalTarget=v;save();render();alert("Ziel gespeichert.")};
+$("exportData").onclick=()=>{const blob=new Blob([JSON.stringify(d,null,2)],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="fitness-tracker-pro-backup.json";a.click();URL.revokeObjectURL(a.href)};
+$("importData").onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const x=JSON.parse(await f.text());if(!Array.isArray(x.weights)||!Array.isArray(x.checks))throw Error();d=x;d.settings=d.settings||base.settings;save();render();alert("Backup importiert.")}catch(err){alert("Datei ist kein gültiges Fitness-Tracker-Backup.")}e.target.value=""};
+// IndexedDB keeps image files separate from the text data.
+let dbPromise;function photoDB(){if(dbPromise)return dbPromise;dbPromise=new Promise((resolve,reject)=>{const req=indexedDB.open("fitness-pro-photos",1);req.onupgradeneeded=()=>req.result.createObjectStore("photos",{keyPath:"id",autoIncrement:true});req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error)});return dbPromise}
+async function savePhotos(date,files){const db=await photoDB();for(const file of files){const tx=db.transaction("photos","readwrite");tx.objectStore("photos").add({date,blob:file,name:file.name});await new Promise((res,rej)=>{tx.oncomplete=res;tx.onerror=()=>rej(tx.error)})}}
+async function loadPhotos(){const host=$("photoGallery");try{const db=await photoDB(),tx=db.transaction("photos","readonly"),req=tx.objectStore("photos").getAll();req.onsuccess=()=>{const rows=req.result||[];host.innerHTML=rows.length?rows.map(x=>'<div class="photo-item"><img src="'+URL.createObjectURL(x.blob)+'" alt="Fortschrittsfoto vom '+fmt(x.date)+'"><button data-id="'+x.id+'">×</button><div class="small">'+fmt(x.date)+'</div></div>').join(""):'<div class="empty">Noch keine Fotos gespeichert.</div>';host.querySelectorAll("button").forEach(b=>b.onclick=async()=>{const tx2=db.transaction("photos","readwrite");tx2.objectStore("photos").delete(Number(b.dataset.id));tx2.oncomplete=loadPhotos})}}catch(e){host.textContent="Fotogalerie auf diesem Gerät nicht verfügbar."}}
+render();loadPhotos();window.addEventListener("resize",()=>{chart("homeChart",sorted());chart("dailyChart",sorted());chart("progressChart",sorted())});
+if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));
 })();
-</script>
-</body>
-</html>
+</script></body></html>
